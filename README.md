@@ -91,9 +91,13 @@ make sizes     # show artifact sizes
 
 ## Provenance
 
-The SCSS is extracted verbatim from `pure-admin-core`'s `src/scss` (`variables/`,
-`_base-css-variables.scss`, `_purecss-grid*.scss`, `utilities.scss`). Compiled values are identical
-to core's `dist/css/main.css`. Keep the two in sync when the foundation changes.
+The SCSS is extracted from `pure-admin-core`'s `src/scss` (`variables/`, `_base-css-variables.scss`,
+`_purecss-grid*.scss`, `utilities.scss`, `_fonts.scss`). Compiled `--base-*` values are identical to
+core's `dist/css/main.css`. Keep the two in sync when the foundation changes.
+
+One intentional difference: `utilities.scss` here `@use`s `_fonts.scss` so the generic
+`.font-family-*` classes ship with the other utilities, whereas core keeps `_fonts.scss` standalone
+(pulled in per-component). `_rtl-helpers.scss` and the component layer stay in core.
 
 ## License
 

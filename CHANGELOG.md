@@ -13,7 +13,9 @@ Initial extraction of the CSS foundation out of `@keenmate/pure-admin-core`.
   derived typography/spacing/colors/layout/system/components modules) and
   `_base-css-variables.scss` (the mixin emitting `--base-*` and derived `--pa-*` custom properties).
 - **PureCSS grid** — `_purecss-grid.scss` + `_purecss-grid-responsive.scss` (`.pure-g` / `.pure-u-*`).
-- **Utilities** — `utilities.scss` (spacing / flex / display / width-height classes).
+- **Utilities** — `utilities.scss` (spacing / flex / display / width-height classes) plus the generic
+  `.font-family-system/-sans/-serif/-mono` classes from `_fonts.scss` (core keeps `_fonts.scss`
+  standalone; here it `@use`s into utilities so all foundation utilities ship together).
 - **Build entries & artifacts** — `pure-css.scss` (full bundle), `base.scss` (variables only),
   `grid.scss` (grid only), and the existing `utilities.scss`, compiled to
   `dist/css/{pure-css,base,grid,utilities}.css`. `dist/` is committed for toolchain-free vendoring.

@@ -4,6 +4,11 @@
 
 @use './variables' as *;
 
+// Generic font-family utility classes (.font-family-system/-sans/-serif/-mono).
+// pure-css addition: in pure-admin-core these live in a standalone _fonts.scss
+// pulled in per-component; here they belong with the other utilities.
+@use 'fonts';
+
 // Spacing scale
 $spacers: (
   0: 0,
