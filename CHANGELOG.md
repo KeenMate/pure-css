@@ -7,6 +7,19 @@ All notable changes to `@keenmate/pure-css` are documented here. Format based on
 
 Initial extraction of the CSS foundation out of `@keenmate/pure-admin-core`.
 
+### Fixed
+
+- **Border/rounded utilities now resolve (were inert).** `.border` / `.border-{top,right,bottom,left}`
+  and `.rounded` / `.rounded-{lg,top,…}` referenced bare `--border-color` / `--border-radius`
+  variables the framework never emits — so they fell back to a `currentColor` border and no radius
+  (a latent bug inherited from pure-admin-core). Repointed them at the emitted `--pa-border-color` /
+  `--pa-border-radius(-lg)` (themed from `--base-*`). Now `base.css` + `utilities.css` are
+  **self-sufficient** — the border/radius utilities work standalone, no host shim.
+- **`--pa-border-color` is now a live reference** — emitted as `var(--base-border-color, <literal>)`
+  instead of a baked literal (it's a pure pass-through, no derivation lost). So it — and the `.border`
+  utilities that read it — follow a **runtime** `--base-border-color` override (a theme or dark-mode
+  class toggling it at `:root`/`.pa-mode-dark`), not just build-time themes.
+
 ### Added
 
 - **`--base-*` theming contract** — `src/scss/variables/*` (the `$base-*` source of truth plus the

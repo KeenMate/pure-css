@@ -297,8 +297,11 @@
   --pa-link-color-hover: color-mix(in srgb, var(--pa-link-color), currentColor 50%);
   --pa-link-color-visited: var(--pa-link-color);
 
-  // Border
-  --pa-border-color: #{$border-color};
+  // Border. A pure pass-through of the base border colour — emit it as a live reference to
+  // --base-border-color (not a baked literal) so it follows a RUNTIME --base-* override (a
+  // theme toggling --base-border-color at :root/.pa-mode-dark), while the build-time value
+  // stays the fallback. Keeps utilities/components that read --pa-border-color theme-responsive.
+  --pa-border-color: var(--base-border-color, #{$border-color});
 
   // =========================================================================
   // ROLE COLORS — single source of truth for the four semantic roles.
