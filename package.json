@@ -1,6 +1,6 @@
 {
   "name": "@keenmate/pure-css",
-  "version": "0.1.0",
+  "version": "1.0.0-rc01",
   "description": "The KeenMate CSS foundation — --base-* theming contract, PureCSS grid and utility classes. Extracted from pure-admin-core so docs sites, standalone pages and every web/svelte component share one theming layer.",
   "style": "dist/css/pure-css.css",
   "exports": {
@@ -51,6 +51,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KeenMate/pure-css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KeenMate/pure-css/issues"
   },
   "homepage": "https://github.com/KeenMate/pure-css#readme",
   "publishConfig": {
