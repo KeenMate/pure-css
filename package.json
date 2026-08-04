@@ -1,0 +1,59 @@
+{
+  "name": "@keenmate/pure-css",
+  "version": "0.1.0",
+  "description": "The KeenMate CSS foundation — --base-* theming contract, PureCSS grid and utility classes. Extracted from pure-admin-core so docs sites, standalone pages and every web/svelte component share one theming layer.",
+  "style": "dist/css/pure-css.css",
+  "exports": {
+    ".": "./dist/css/pure-css.css",
+    "./css": "./dist/css/pure-css.css",
+    "./css/*": "./dist/css/*",
+    "./base": "./dist/css/base.css",
+    "./grid": "./dist/css/grid.css",
+    "./utilities": "./dist/css/utilities.css",
+    "./scss": "./src/scss/pure-css.scss",
+    "./scss/*": "./src/scss/*"
+  },
+  "files": [
+    "dist/",
+    "src/scss/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build:bundle": "sass src/scss/pure-css.scss dist/css/pure-css.css --no-source-map --silence-deprecation=import",
+    "build:base": "sass src/scss/base.scss dist/css/base.css --no-source-map --silence-deprecation=import",
+    "build:grid": "sass src/scss/grid.scss dist/css/grid.css --no-source-map --silence-deprecation=import",
+    "build:utilities": "sass src/scss/utilities.scss dist/css/utilities.css --no-source-map --silence-deprecation=import",
+    "build": "npm run build:bundle && npm run build:base && npm run build:grid && npm run build:utilities",
+    "watch": "sass --watch src/scss/pure-css.scss:dist/css/pure-css.css --silence-deprecation=import",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "css",
+    "scss",
+    "purecss",
+    "grid",
+    "utilities",
+    "css-variables",
+    "theming",
+    "keenmate",
+    "pure-admin"
+  ],
+  "author": "KeenMate",
+  "license": "MIT",
+  "peerDependencies": {
+    "sass": "^1.0.0"
+  },
+  "devDependencies": {
+    "sass": "^1.70.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KeenMate/pure-css.git"
+  },
+  "homepage": "https://github.com/KeenMate/pure-css#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}

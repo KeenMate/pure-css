@@ -1,0 +1,7 @@
+// @keenmate/pure-css — grid only
+// PureCSS grid (.pure-g / .pure-u-*) + the responsive breakpoint units.
+// No variables, no utilities — link alongside base.css when you want layout
+// without the full bundle.
+
+@use 'purecss-grid';
+@use 'purecss-grid-responsive';

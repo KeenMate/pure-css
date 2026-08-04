@@ -1,0 +1,29 @@
+// @keenmate/pure-css — full foundation bundle
+// ============================================================================
+// The KeenMate CSS foundation, extracted from @keenmate/pure-admin-core so it
+// can be consumed on its own (docs sites, standalone pages, non-admin portals)
+// and so pure-admin-core, themes and any web/svelte component share ONE
+// theming contract: the `--base-*` (and derived `--pa-*`) custom properties.
+//
+// This bundle emits:
+//   1. `:root` defaults for every --base-*/--pa-* variable (light values)
+//   2. the PureCSS grid (.pure-g / .pure-u-*)
+//   3. the utility classes (.m-*, .d-flex, .w-*, …)
+//
+// A *theme* is just an override of the `$base-*` SCSS variables (or the
+// `--base-*` custom properties) — everything else re-derives. See README.
+// ============================================================================
+
+@use 'base-css-variables' as bcv;
+@use 'purecss-grid';
+@use 'purecss-grid-responsive';
+@use 'utilities';
+
+// CSS variable defaults at :root. Themes ship their own values by overriding
+// $base-* before importing base-css-variables; this only affects the unthemed
+// bundle and the FOUC window before a theme stylesheet resolves.
+:root {
+  @include bcv.output-base-css-variables;
+  @include bcv.output-pa-css-variables;
+  @include bcv.output-pa-alert-variables-light;
+}
