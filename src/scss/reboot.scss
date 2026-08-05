@@ -1,0 +1,134 @@
+// @keenmate/pure-css — reset & base element styling ("reboot")
+// ============================================================================
+// The foundation's reset layer. Establishes the 10px rem base that EVERY
+// pure-css rem value assumes (see variables/_typography.scss — `$font-size-base:
+// 1.6rem` is 16px only when the root is 10px), a border-box reset, and neutral
+// base styling for standard HTML elements (headings, paragraphs, links, lists,
+// blockquotes, rules, the body font/colour). Analogous to Bootstrap's Reboot.
+//
+// This lives in pure-css — not in a consuming app — because the 10px base is
+// part of the foundation's sizing contract: without it, a standalone consumer
+// inherits the browser's 16px root and every rem renders 1.6x too large. Link
+// it (or the full `pure-css.css` bundle) and the scale just works.
+//
+// App-specific base rules (the admin dashboard's decorative body background,
+// sidebar overflow handling) intentionally stay in pure-admin-core; a generic
+// foundation shouldn't impose them on every consumer.
+// ============================================================================
+
+@use 'variables/index' as *;
+
+// 10px rem base for intuitive sizing (1rem = 10px)
+// This makes calculations simple: 1.5rem = 15px, 3.5rem = 35px
+html {
+  font-size: 10px;
+}
+
+// Reset and base styles
+* {
+  box-sizing: border-box;
+}
+
+// Standard HTML element spacing (using framework variables)
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  margin: $heading-margin-top 0 $heading-margin-bottom 0;
+  padding: 0;
+}
+
+// Paragraphs
+p {
+  margin: $paragraph-margin-top 0 $paragraph-margin-bottom 0;
+  padding: 0;
+}
+
+// Links — global default. Wrapped in :where() so specificity is 0,
+// letting component scopes (alerts, navbar, sidebar) override with even a
+// single class without fighting the pseudo-class specificity raise that
+// `a:hover` / `a:visited` would otherwise add (0,1,1 vs a class's 0,1,0).
+:where(a) {
+  color: var(--pa-link-color);
+  text-decoration: underline;
+}
+
+:where(a:hover) {
+  color: var(--pa-link-color-hover);
+}
+
+:where(a:visited) {
+  color: var(--pa-link-color-visited);
+}
+
+// Lists - styled lists (default browser styling)
+ul, ol {
+  margin: $list-margin-top 0 $list-margin-bottom 0;
+  padding: 0;
+  padding-inline-start: $list-padding-left; // RTL: flips to right
+
+  li {
+    margin-bottom: $list-item-margin-bottom;
+  }
+}
+
+// Lists - unstyled (for navigation, etc.)
+ul.unstyled, ol.unstyled {
+  list-style: none;
+  padding-inline-start: 0; // RTL: flips to right
+
+  li {
+    margin-bottom: 0;
+  }
+}
+
+// Definition lists
+dl {
+  margin: $list-margin-top 0 $list-margin-bottom 0;
+  padding: 0;
+}
+
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+// Blockquote
+blockquote {
+  margin: $blockquote-margin-top 0 $blockquote-margin-bottom 0;
+  padding-inline-start: $blockquote-padding-left; // RTL: flips to right
+}
+
+// Pre/Code blocks
+pre {
+  overflow-x: auto;
+}
+
+// Horizontal rule
+hr {
+  margin: $hr-margin-top 0 $hr-margin-bottom 0;
+}
+
+// Figure
+figure {
+  margin: $figure-margin-top 0 $figure-margin-bottom 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--base-font-family);
+  font-size: 1.6rem; // 16px default text (with 10px rem base)
+  color: var(--pa-text-color-1);
+  background-color: var(--pa-main-bg);
+  line-height: $line-height-base;
+}
+
+// Ensure form elements and labels inherit theme font and size instead of browser defaults
+button,
+input,
+select,
+textarea,
+label {
+  font-family: inherit;
+  font-size: inherit;
+}

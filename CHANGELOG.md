@@ -3,6 +3,34 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.0-rc02] — 2026-08-05
+
+### Added
+
+- **Reboot layer (`reboot.scss`) — the reset the foundation always assumed.** Emits
+  `html { font-size: 10px }` (the 10px rem base every pure-css rem value is authored
+  against — `$font-size-base: 1.6rem` is 16px *only* at a 10px root), a `box-sizing:
+  border-box` reset, neutral base styling for standard elements (headings, paragraphs,
+  links, lists, blockquotes, `hr`, `figure`), the `body` font/colour/background, and the
+  `button/input/select/textarea/label { font: inherit }` reset. Relocated from
+  pure-admin-core's `core-components/_base.scss` so it sits with the rem-scale variables
+  that depend on it. Analogous to Bootstrap's Reboot.
+- **New `reboot.css` build artifact** + `./reboot` export, and `reboot` is now part of the
+  `pure-css.css` bundle (emitted before grid/utilities).
+- **Themed scrollbars (`scrollbars.scss`).** The global `*::-webkit-scrollbar` + Firefox
+  `scrollbar-width`/`scrollbar-color` styling (thin scrollbars coloured from the `--pa-*`
+  cascade), relocated from pure-admin-core's `core-components/_scrollbars.scss`. Global browser
+  chrome belongs with the foundation's consistent-appearance promise, so a standalone pure-css
+  page gets the same themed scrollbars as a full pure-admin app instead of native ones. Part of
+  the `pure-css.css` bundle, plus a standalone `scrollbars.css` artifact + `./scrollbars` export.
+
+### Fixed
+
+- **Standalone consumers no longer render 1.6× too large.** Before, the 10px base lived
+  only in pure-admin-core, so a page linking `pure-css.css` (or `base.css`) on its own
+  inherited the browser's 16px root and every rem was 1.6× oversized. The bundle now ships
+  the 10px base itself, so the sizing scale is correct out of the box.
+
 ## [1.0.0-rc01] — 2026-08-04
 
 Initial extraction of the CSS foundation out of `@keenmate/pure-admin-core`.

@@ -4,6 +4,20 @@ The KeenMate CSS **foundation** — the `--base-*` theming contract, the flexbox
 utility classes — extracted from [`@keenmate/pure-admin-core`](https://github.com/KeenMate/pure-admin)
 so it can be consumed on its own.
 
+## What's New in 1.0.0-rc02
+
+- **Reboot layer — the 10px base is now built in.** pure-css ships
+  `html { font-size: 10px }` (plus a `box-sizing` reset and neutral base element
+  styling) via the new `reboot.scss`, included in the `pure-css.css` bundle and
+  available standalone as `reboot.css` / the `./reboot` export. Every pure-css
+  rem value assumes a 10px root, so previously a standalone consumer rendered
+  everything 1.6× too large until they added the base themselves — now it just
+  works out of the box.
+- **Themed scrollbars, foundation-wide.** The global thin-scrollbar styling
+  (`scrollbars.scss`, coloured from the `--pa-*` cascade) moved out of
+  pure-admin-core, so a standalone pure-css page gets the same scrollbars as a
+  full admin app. In the bundle, or cherry-pick `scrollbars.css` / `./scrollbars`.
+
 ## What's New in 1.0.0-rc01
 
 - **The KeenMate CSS foundation, now standalone.** The `--base-*` theming
@@ -14,8 +28,9 @@ so it can be consumed on its own.
   truth; `pure-admin-core`, its `--pa-*` component variables, and every KeenMate
   web/Svelte component derive from it via fallback chains — so one block of
   `--base-*` overrides re-themes all of them at once.
-- **Four link targets.** `pure-css.css` (everything) or cherry-pick `base.css`
-  (variables only), `grid.css`, `utilities.css`.
+- **Link targets.** `pure-css.css` (everything) or cherry-pick `base.css`
+  (variables only), `reboot.css` (reset + 10px base), `scrollbars.css`,
+  `grid.css`, `utilities.css`.
 - **The native `.pa-row` / `.pa-col` grid** — flexbox columns in 5% percentage
   increments plus intuitive fractions (`.pa-col-1-3`, `.pa-col-2-3`, …), with
   container-query responsive variants (`.pa-col-md-*`) and RTL-aware gutters.

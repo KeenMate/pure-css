@@ -1,0 +1,48 @@
+// @keenmate/pure-css — global scrollbar styling
+// ============================================================================
+// Themed, consistent scrollbars across browsers (WebKit `::-webkit-scrollbar`
+// pseudo-elements + the Firefox `scrollbar-width` / `scrollbar-color`
+// properties). Global `*` chrome — part of the foundation's "consistent
+// appearance" promise, so a standalone pure-css page gets the same thin themed
+// scrollbars as a full pure-admin app rather than native browser ones.
+//
+// Colours come from the emitted `--pa-*` cascade, so scrollbars re-theme at
+// runtime with everything else.
+// ============================================================================
+
+@use 'variables/index' as *;
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: $scrollbar-width;
+  height: $scrollbar-width;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--pa-main-bg);
+  border-radius: var(--pa-border-radius-sm);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--pa-border-color);
+  border-radius: var(--pa-border-radius-sm);
+  border: $border-width-base solid var(--pa-main-bg);
+
+  &:hover {
+    background: var(--pa-accent);
+  }
+
+  &:active {
+    background: var(--pa-accent-hover);
+  }
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--pa-main-bg);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--pa-border-color) var(--pa-main-bg);
+}
