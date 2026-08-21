@@ -3,6 +3,32 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.0-rc03] — 2026-08-21 [PUBLISHED]
+
+### Changed
+
+- **BREAKING — renamed the top-bar region tokens from `header` to `navbar`.** The
+  foundation's top-region tokens named the bar as a *component block* rather than a
+  layout region, which read as misleading once pure-admin's navbar component dropped its
+  legacy `pa-header__*` block naming. Renamed:
+  - SCSS variables: `$header-height` → `$navbar-height`, `$header-bg` → `$navbar-bg`,
+    `$header-border-color` → `$navbar-border-color`, `$header-text` → `$navbar-text`,
+    `$header-text-secondary` → `$navbar-text-secondary`,
+    `$header-profile-name-color` → `$navbar-profile-name-color`,
+    `$z-index-header` → `$z-index-navbar`.
+  - CSS variables: `--pa-header-bg` → `--pa-navbar-bg`,
+    `--pa-header-border-color` → `--pa-navbar-border-color`,
+    `--pa-header-text` → `--pa-navbar-text`,
+    `--pa-header-text-secondary` → `--pa-navbar-text-secondary`,
+    `--pa-header-profile-name-color` → `--pa-navbar-profile-name-color`.
+  - `$footer-height` still mirrors the bar height (now `$navbar-height`); component-header
+    tokens (`$card-header-*`, `$table-header-*`) are unaffected.
+
+### Removed
+
+- **Dead `$header-brand-padding-left` variable.** Superseded by the navbar's flex `gap`;
+  no live rule consumed it (only a stale comment referenced it).
+
 ## [1.0.0-rc02] — 2026-08-05 [PUBLISHED]
 
 ### Added

@@ -4,6 +4,11 @@ The KeenMate CSS **foundation** — the `--base-*` theming contract, the flexbox
 utility classes — extracted from [`@keenmate/pure-admin-core`](https://github.com/KeenMate/pure-admin)
 so it can be consumed on its own.
 
+## What's New in 1.0.0-rc03
+
+- **Theming contract — top-bar region tokens renamed from `header` to `navbar` (BREAKING).** The foundation's top-region tokens named the bar as a *component block* (`header`) rather than the layout region it actually is, which read as misleading once pure-admin's navbar component dropped its legacy `pa-header__*` block naming. Every top-bar token is renamed on both sides of the cascade: the `$header-*` SCSS source variables (`$header-height` → `$navbar-height`, `$header-bg` → `$navbar-bg`, `$header-border-color`, `$header-text`, `$header-text-secondary`, `$header-profile-name-color`, and `$z-index-header` → `$z-index-navbar`) and the emitted `--pa-header-*` custom properties (`--pa-navbar-bg`, `--pa-navbar-border-color`, `--pa-navbar-text`, `--pa-navbar-text-secondary`, `--pa-navbar-profile-name-color`). Consumers reading the old names must update — `$footer-height` still mirrors the bar height (now `$navbar-height`), and the component-header tokens (`$card-header-*`, `$table-header-*`) are deliberately untouched since those *are* component blocks.
+- **Removed the dead `$header-brand-padding-left` variable.** It was superseded by the navbar's flex `gap`; no live rule consumed it — only a stale comment still referenced it — so it's gone from the source of truth.
+
 ## What's New in 1.0.0-rc02
 
 - **Reboot layer — the 10px base is now built in.** pure-css ships
@@ -17,31 +22,6 @@ so it can be consumed on its own.
   (`scrollbars.scss`, coloured from the `--pa-*` cascade) moved out of
   pure-admin-core, so a standalone pure-css page gets the same scrollbars as a
   full admin app. In the bundle, or cherry-pick `scrollbars.css` / `./scrollbars`.
-
-## What's New in 1.0.0-rc01
-
-- **The KeenMate CSS foundation, now standalone.** The `--base-*` theming
-  contract, the PureCSS grid, and the utility classes — extracted from
-  `@keenmate/pure-admin-core` so a docs site, marketing page, or component host
-  can use the foundation without the 40+ admin components.
-- **One theming layer everyone shares.** `--base-*` is the single source of
-  truth; `pure-admin-core`, its `--pa-*` component variables, and every KeenMate
-  web/Svelte component derive from it via fallback chains — so one block of
-  `--base-*` overrides re-themes all of them at once.
-- **Link targets.** `pure-css.css` (everything) or cherry-pick `base.css`
-  (variables only), `reboot.css` (reset + 10px base), `scrollbars.css`,
-  `grid.css`, `utilities.css`.
-- **The native `.pa-row` / `.pa-col` grid** — flexbox columns in 5% percentage
-  increments plus intuitive fractions (`.pa-col-1-3`, `.pa-col-2-3`, …), with
-  container-query responsive variants (`.pa-col-md-*`) and RTL-aware gutters.
-  (This replaces the legacy PureCSS `.pure-g` / `.pure-u-*` grid, which
-  pure-admin had already stopped using.)
-- **New `.gap-*` / `.gap-x-*` / `.gap-y-*` utilities** on the same spacing scale
-  as the margin/padding helpers — the one spacing family core lacked.
-- **Self-sufficient border/rounded utilities.** `.border` / `.rounded` consume
-  the emitted `--pa-border-*` variables, so `base.css` + `utilities.css` render
-  correct borders and radii standalone — no host stylesheet required.
-- **`dist/` is committed** — vendor the built CSS with no Sass toolchain.
 
 ## Why
 
