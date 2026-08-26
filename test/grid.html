@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test — grid</title>
+    <link rel="stylesheet" href="/dist/css/pure-css.css">
+    <link rel="stylesheet" href="/test/test-fixtures.css">
+</head>
+<body>
+    <h1>grid</h1>
+
+    <div class="fixture">
+        <div class="fixture-label">fixed fractions (in a 600px wrapper)</div>
+        <div style="width: 600px;">
+            <div class="pc-row">
+                <div id="col-half" class="pc-col-1-2"><div class="probe">1-2</div></div>
+            </div>
+            <div class="pc-row">
+                <div id="col-third" class="pc-col-1-3"><div class="probe">1-3</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixture">
+        <div class="fixture-label">responsive via container query — resize #cq in the spec</div>
+        <!-- .pc-cq establishes the query container. The column is 100% until the
+             container hits 768px, then it becomes 50% (.pc-col-md-1-2). -->
+        <div id="cq" class="pc-cq" style="width: 400px;">
+            <div class="pc-row">
+                <div id="col-resp" class="pc-col-100 pc-col-md-1-2"><div class="probe">responsive</div></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

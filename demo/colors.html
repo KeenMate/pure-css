@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Colors — pure-css</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="/dist/css/pure-css.css">
+    <link rel="stylesheet" href="/demo/assets/demo.css">
+    <script src="/demo/assets/demo.js" defer></script>
+    <style>
+        .alert-tile { border-radius: 10px; padding: 1.2rem 1.6rem; font-size: 1.5rem; }
+        .role-note { font-family: var(--d-mono); font-size: 11px; }
+    </style>
+</head>
+<body class="demo">
+    <header class="demo-topbar">
+        <div class="demo-shell demo-topbar-inner">
+            <a class="demo-brand" href="/demo/index.html">pure<b>·</b>css <span class="demo-brand-tag">foundation</span></a>
+            <nav data-demo-nav></nav>
+        </div>
+    </header>
+
+    <section class="demo-hero">
+        <div class="demo-shell">
+            <p class="demo-eyebrow reveal">Color system</p>
+            <h1 class="reveal" data-reveal-delay="60">Roles, not <em>hexes</em>.</h1>
+            <p class="demo-lead reveal" data-reveal-delay="140">
+                Accent, four semantic roles, and nine themeable palette slots — every colour a
+                token, so meaning survives a re-theme.
+            </p>
+        </div>
+    </section>
+
+    <main class="demo-main demo-shell">
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>01</b> — accent</p>
+            <h2>The accent ramp.</h2>
+            <div class="demo-stage" data-stage-label="--pc-accent">
+                <div class="demo-swatches">
+                    <div class="demo-swatch"><div class="demo-swatch-chip" style="background:var(--pc-accent)"></div><div class="demo-swatch-meta"><b>--pc-accent</b>#007bff</div></div>
+                    <div class="demo-swatch"><div class="demo-swatch-chip" style="background:var(--base-accent-color-hover)"></div><div class="demo-swatch-meta"><b>--base-accent-color-hover</b>hover</div></div>
+                    <div class="demo-swatch"><div class="demo-swatch-chip" style="background:var(--pc-accent-light)"></div><div class="demo-swatch-meta"><b>--pc-accent-light</b>5% tint</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>02</b> — semantic roles</p>
+            <h2>Success · Danger · Warning · Info.</h2>
+            <div class="demo-stage" data-stage-label="--pc-{role}">
+                <div class="demo-swatches">
+                    <div class="demo-swatch"><div class="demo-swatch-chip" style="background:var(--pc-success)"></div><div class="demo-swatch-meta"><b>--pc-success</b>#22c55e</div></div>
+                    <div class="demo-swatch"><div class="demo-swatch-chip" style="background:var(--pc-danger)"></div><div class="demo-swatch-meta"><b>--pc-danger</b>#ef4444</div></div>
+                    <div class="demo-swatch"><div class="demo-swatch-chip" style="background:var(--pc-warning)"></div><div class="demo-swatch-meta"><b>--pc-warning</b>#f97316</div></div>
+                    <div class="demo-swatch"><div class="demo-swatch-chip" style="background:var(--pc-info)"></div><div class="demo-swatch-meta"><b>--pc-info</b>#17a2b8</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>03</b> — role surfaces</p>
+            <h2>Each role, fully dressed.</h2>
+            <p class="demo-desc">
+                Every role carries a <code>bg-light</code>, <code>text</code> and
+                <code>border</code> token — enough to build an alert without inventing colours.
+            </p>
+            <div class="demo-stage" data-stage-label="--base-{role}-*">
+                <div class="alert-tile mb-2" style="background:var(--base-success-bg-light);color:var(--base-success-text);border:1px solid var(--base-success-border)">Saved successfully. <span class="role-note">success</span></div>
+                <div class="alert-tile mb-2" style="background:var(--base-danger-bg-light);color:var(--base-danger-text);border:1px solid var(--base-danger-border)">Something went wrong. <span class="role-note">danger</span></div>
+                <div class="alert-tile mb-2" style="background:var(--base-warning-bg-light);color:var(--base-warning-text);border:1px solid var(--base-warning-border)">Double-check this field. <span class="role-note">warning</span></div>
+                <div class="alert-tile" style="background:var(--base-info-bg-light);color:var(--base-info-text);border:1px solid var(--base-info-border)">Heads up, an FYI. <span class="role-note">info</span></div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>04</b> — text colours &amp; palette</p>
+            <h2>Text roles + nine slots.</h2>
+            <div class="demo-split is-2">
+                <div class="demo-stage" data-stage-label=".text-*">
+                    <p class="m-0 mb-2" style="font-size:1.8rem;color:var(--pc-text-color-1)">Text color 1 — headings</p>
+                    <p class="m-0 mb-2" style="font-size:1.8rem;color:var(--pc-text-color-2)">Text color 2 — secondary</p>
+                    <p class="m-0" style="font-size:1.8rem"><span class="text-primary">primary</span> ·
+                        <span class="text-success">success</span> ·
+                        <span class="text-danger">danger</span></p>
+                </div>
+                <div class="demo-stage" data-stage-label="--pc-color-1..9">
+                    <p class="demo-desc m-0" style="color:var(--pc-text-color-2);font-size:1.4rem">
+                        <code>--pc-color-1</code>…<code>--pc-color-9</code> are transparent by
+                        default — themeable slots a consumer fills for charts, tags and avatars.
+                        Each ships a matching <code>--pc-color-N-text</code>.
+                    </p>
+                    <div class="d-flex gap-2 flex-wrap mt-3">
+                        <span class="demo-tile" style="padding:0.5rem 1rem;background:#e0f2fe;color:#0369a1;border-color:#bae6fd">slot 1</span>
+                        <span class="demo-tile" style="padding:0.5rem 1rem;background:#fce7f3;color:#9d174d;border-color:#fbcfe8">slot 2</span>
+                        <span class="demo-tile" style="padding:0.5rem 1rem;background:#dcfce7;color:#166534;border-color:#bbf7d0">slot 3</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="demo-shell demo-footer">
+        <span>@keenmate/pure-css</span><span class="demo-dot">/</span>
+        <a href="https://github.com/KeenMate/pure-css">GitHub</a><span class="demo-dot">/</span>
+        <a href="https://www.npmjs.com/package/@keenmate/pure-css">npm</a><span class="demo-dot">/</span>
+        <span>MIT © KeenMate</span>
+    </footer>
+</body>
+</html>

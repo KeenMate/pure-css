@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- --base-border-color is overridden at :root (as a real theme does). Because
+     --pc-border-color is declared only at :root as var(--base-border-color, …),
+     the bridge re-cascades only from :root — not from a descendant scope. -->
+<html lang="en" style="--base-border-color: rgb(0, 128, 0);">
+<head>
+    <meta charset="UTF-8">
+    <title>Test — theming</title>
+    <link rel="stylesheet" href="/dist/css/pure-css.css">
+    <link rel="stylesheet" href="/test/test-fixtures.css">
+</head>
+<body>
+    <h1>theming</h1>
+
+    <div class="fixture">
+        <div class="fixture-label">defaults at :root</div>
+        <span id="default-primary" class="text-primary">default accent text</span>
+    </div>
+
+    <div class="fixture">
+        <div class="fixture-label">--pc-accent override (pure-css runtime contract)</div>
+        <!-- Override the runtime --pc-* token: .text-primary reads var(--pc-accent). -->
+        <div id="scope-accent" style="--pc-accent: rgb(255, 0, 0);">
+            <span id="accent-text" class="text-primary">re-themed accent text</span>
+        </div>
+    </div>
+
+    <div class="fixture">
+        <div class="fixture-label">--base-border-color bridge (the one runtime --pc → --base link)</div>
+        <!-- :root sets --base-border-color (see <html> above). --pc-border-color
+             resolves to it, and .border reads var(--pc-border-color) — so the
+             override flows all the way to the rendered border. -->
+        <div id="border-el" class="border" style="width: 40px; height: 40px;"></div>
+    </div>
+</body>
+</html>

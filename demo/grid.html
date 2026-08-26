@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grid — pure-css</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="/dist/css/pure-css.css">
+    <link rel="stylesheet" href="/demo/assets/demo.css">
+    <script src="/demo/assets/demo.js" defer></script>
+    <style>
+        /* chrome-only: make grid columns visible in the stages */
+        .g-cell {
+            background: color-mix(in srgb, var(--pc-accent) 12%, #fff);
+            border: 1px solid color-mix(in srgb, var(--pc-accent) 35%, #fff);
+            border-radius: 6px;
+            padding: 1.2rem 0.8rem;
+            text-align: center;
+            font-family: var(--d-mono);
+            font-size: 12px;
+            color: color-mix(in srgb, var(--pc-accent) 75%, #1c2438);
+        }
+        .g-cell--solid { background: var(--pc-accent); color: #fff; border-color: transparent; }
+        .g-resize {
+            resize: horizontal; overflow: auto; min-width: 220px; max-width: 100%;
+            border: 1px dashed color-mix(in srgb, var(--pc-accent) 45%, #fff);
+            border-radius: 10px; padding: 10px;
+        }
+    </style>
+</head>
+<body class="demo">
+    <header class="demo-topbar">
+        <div class="demo-shell demo-topbar-inner">
+            <a class="demo-brand" href="/demo/index.html">pure<b>·</b>css <span class="demo-brand-tag">foundation</span></a>
+            <nav data-demo-nav></nav>
+        </div>
+    </header>
+
+    <section class="demo-hero">
+        <div class="demo-shell">
+            <p class="demo-eyebrow reveal">Layout</p>
+            <h1 class="reveal" data-reveal-delay="60">The <em>.pc</em> grid.</h1>
+            <p class="demo-lead reveal" data-reveal-delay="140">
+                A flexbox grid in 5% increments plus common fractions, with RTL-aware gutters
+                and container-query responsive variants. It replaced the legacy Pure
+                <code>.pure-g</code> grid.
+            </p>
+        </div>
+    </section>
+
+    <main class="demo-main demo-shell">
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>01</b> — fractions</p>
+            <h2>Halves, thirds, quarters.</h2>
+            <p class="demo-desc">Named fraction columns read cleanly and always add up.</p>
+            <div class="demo-stage" data-stage-label=".pc-row">
+                <div class="pc-row"><div class="pc-col-1-2"><div class="g-cell">1-2</div></div><div class="pc-col-1-2"><div class="g-cell">1-2</div></div></div>
+                <div class="pc-row mt-2"><div class="pc-col-1-3"><div class="g-cell">1-3</div></div><div class="pc-col-1-3"><div class="g-cell">1-3</div></div><div class="pc-col-1-3"><div class="g-cell">1-3</div></div></div>
+                <div class="pc-row mt-2"><div class="pc-col-1-4"><div class="g-cell">1-4</div></div><div class="pc-col-1-4"><div class="g-cell">1-4</div></div><div class="pc-col-1-2"><div class="g-cell">1-2</div></div></div>
+            </div>
+            <div class="demo-code"><pre>&lt;div class="<span class="tok-cls">pc-row</span>"&gt;
+  &lt;div class="<span class="tok-cls">pc-col-1-3</span>"&gt;…&lt;/div&gt;
+  &lt;div class="<span class="tok-cls">pc-col-1-3</span>"&gt;…&lt;/div&gt;
+  &lt;div class="<span class="tok-cls">pc-col-1-3</span>"&gt;…&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>02</b> — percentages &amp; auto</p>
+            <h2>5% increments + flexible columns.</h2>
+            <div class="demo-stage" data-stage-label="percent + .pc-col">
+                <div class="pc-row"><div class="pc-col-25"><div class="g-cell">25</div></div><div class="pc-col-75"><div class="g-cell">75</div></div></div>
+                <div class="pc-row mt-2"><div class="pc-col-20"><div class="g-cell">20</div></div><div class="pc-col-60"><div class="g-cell">60</div></div><div class="pc-col-20"><div class="g-cell">20</div></div></div>
+                <div class="pc-row mt-2"><div class="pc-col-auto"><div class="g-cell">auto</div></div><div class="pc-col"><div class="g-cell g-cell--solid">.pc-col fills the rest</div></div></div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>03</b> — gutters, alignment &amp; offsets</p>
+            <h2>Row modifiers.</h2>
+            <div class="demo-split is-2">
+                <div class="demo-stage" data-stage-label=".pc-row--between / --middle">
+                    <div class="pc-row pc-row--between pc-row--middle">
+                        <div class="pc-col-25"><div class="g-cell" style="padding-block:2rem">tall</div></div>
+                        <div class="pc-col-25"><div class="g-cell">middle</div></div>
+                        <div class="pc-col-25"><div class="g-cell">end</div></div>
+                    </div>
+                </div>
+                <div class="demo-stage" data-stage-label=".pc-offset-*">
+                    <div class="pc-row"><div class="pc-col-1-3 pc-offset-25"><div class="g-cell">1-3, offset 25</div></div></div>
+                    <div class="pc-row mt-2 pc-row--no-gutter"><div class="pc-col-1-2"><div class="g-cell">no-gutter</div></div><div class="pc-col-1-2"><div class="g-cell">no-gutter</div></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>04</b> — responsive</p>
+            <h2>Container queries, not viewport.</h2>
+            <p class="demo-desc">
+                Wrap a row in <code>.pc-cq</code> and columns respond to <em>their container's</em>
+                width via <code>.pc-col-md-*</code>. Drag the handle at the bottom-right to
+                resize the container and watch the layout reflow — no media query in sight.
+            </p>
+            <div class="demo-stage" data-stage-label="resize me →">
+                <div class="g-resize pc-cq" style="width:100%;">
+                    <div class="pc-row">
+                        <div class="pc-col-100 pc-col-md-1-2 pc-col-lg-1-4"><div class="g-cell">A</div></div>
+                        <div class="pc-col-100 pc-col-md-1-2 pc-col-lg-1-4"><div class="g-cell">B</div></div>
+                        <div class="pc-col-100 pc-col-md-1-2 pc-col-lg-1-4"><div class="g-cell">C</div></div>
+                        <div class="pc-col-100 pc-col-md-1-2 pc-col-lg-1-4"><div class="g-cell">D</div></div>
+                    </div>
+                </div>
+                <div class="demo-label-row"><span>base → 100%</span><span>md (≥768px container) → 1-2</span><span>lg (≥992px) → 1-4</span></div>
+            </div>
+            <div class="demo-code"><pre>&lt;div class="<span class="tok-cls">pc-cq</span>"&gt;
+  &lt;div class="<span class="tok-cls">pc-row</span>"&gt;
+    &lt;div class="<span class="tok-cls">pc-col-100 pc-col-md-1-2 pc-col-lg-1-4</span>"&gt;…&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+        </section>
+    </main>
+
+    <footer class="demo-shell demo-footer">
+        <span>@keenmate/pure-css</span><span class="demo-dot">/</span>
+        <a href="https://github.com/KeenMate/pure-css">GitHub</a><span class="demo-dot">/</span>
+        <a href="https://www.npmjs.com/package/@keenmate/pure-css">npm</a><span class="demo-dot">/</span>
+        <span>MIT © KeenMate</span>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Theming — pure-css</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="/dist/css/pure-css.css">
+    <link rel="stylesheet" href="/demo/assets/demo.css">
+    <script src="/demo/assets/demo.js" defer></script>
+    <style>
+        /* chrome-only styling for the playground controls */
+        .pg-field { margin-bottom: 16px; }
+        .pg-field label {
+            display: block;
+            font-family: var(--d-mono);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #5b647d;
+            margin-bottom: 6px;
+        }
+        .pg-field input[type="color"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 100%;
+            height: 42px;
+            border: 1px solid var(--pc-border-color, #e1e5e9);
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .pg-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+        .pg-preset {
+            font: inherit;
+            font-size: 13px;
+            cursor: pointer;
+            border-radius: 999px;
+            border: 1px solid var(--pc-border-color, #e1e5e9);
+            background: #fff;
+            color: #47506a;
+            padding: 6px 14px;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .pg-preset:hover { border-color: var(--pc-accent); color: var(--pc-accent); }
+        .pg-preset[aria-pressed="true"] {
+            border-color: var(--pc-accent);
+            color: #fff;
+            background: var(--pc-accent);
+        }
+        .pg-reset {
+            font: inherit; font-size: 12px; cursor: pointer;
+            background: none; border: none; color: #8a93aa; text-decoration: underline;
+            margin-top: 10px; padding: 0;
+        }
+        .preview-card {
+            background: var(--pc-main-bg);
+            color: var(--pc-text-color-1);
+            border: 1px solid var(--pc-border-color);
+            border-radius: var(--pc-border-radius-lg);
+            padding: 2.4rem;
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+    </style>
+</head>
+<body class="demo">
+    <header class="demo-topbar">
+        <div class="demo-shell demo-topbar-inner">
+            <a class="demo-brand" href="/demo/index.html">pure<b>·</b>css <span class="demo-brand-tag">foundation</span></a>
+            <nav data-demo-nav></nav>
+        </div>
+    </header>
+
+    <section class="demo-hero">
+        <div class="demo-shell">
+            <p class="demo-eyebrow reveal">The core idea</p>
+            <h1 class="reveal" data-reveal-delay="60">Theming, <em>live</em>.</h1>
+            <p class="demo-lead reveal" data-reveal-delay="140">
+                Move a slider and watch the whole preview re-theme. No recompile, no class
+                swaps — just CSS custom properties cascading through the token graph.
+            </p>
+        </div>
+    </section>
+
+    <main class="demo-main demo-shell">
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>01</b> — playground</p>
+            <h2>The control panel.</h2>
+            <p class="demo-desc">
+                These inputs write <code>--pc-*</code> / <code>--base-*</code> onto
+                <code>&lt;html&gt;</code>. Everything in the preview reads those tokens, so it
+                all changes at once. Your choice persists across reloads.
+            </p>
+
+            <div class="demo-stage" data-stage-label="live preview">
+                <div class="demo-split is-2">
+                    <div>
+                        <div class="pg-field">
+                            <label for="accent-input">Accent · --pc-accent</label>
+                            <input type="color" id="accent-input" value="#007bff"
+                                   data-theme-var="--pc-accent,--base-accent-color">
+                        </div>
+                        <div class="pg-field">
+                            <label for="surface-input">Surface · --pc-main-bg</label>
+                            <input type="color" id="surface-input" value="#f8f9fa"
+                                   data-theme-var="--pc-main-bg,--pc-page-bg,--base-main-bg">
+                        </div>
+                        <div class="pg-field">
+                            <label for="text-input">Text · --pc-text-color-1</label>
+                            <input type="color" id="text-input" value="#2c3e50"
+                                   data-theme-var="--pc-text-color-1,--base-text-color-1">
+                        </div>
+                        <div class="pg-field">
+                            <label for="border-input">Border · --base-border-color → --pc-border-color</label>
+                            <input type="color" id="border-input" value="#e1e5e9"
+                                   data-theme-var="--base-border-color">
+                        </div>
+
+                        <div class="pg-presets">
+                            <button class="pg-preset" type="button" data-theme-preset="default" aria-pressed="true">Default</button>
+                            <button class="pg-preset" type="button" data-theme-preset="midnight">Midnight</button>
+                            <button class="pg-preset" type="button" data-theme-preset="emerald">Emerald</button>
+                            <button class="pg-preset" type="button" data-theme-preset="grape">Grape</button>
+                        </div>
+                        <button class="pg-reset" type="button" data-theme-reset>reset to defaults</button>
+                    </div>
+
+                    <div class="preview-card">
+                        <h3 class="text-primary m-0" data-theme-target style="font-size:2rem;">Aurora Dashboard</h3>
+                        <p class="mt-2" style="color:var(--pc-text-color-2);">
+                            A preview surface wired entirely to the pure-css token graph.
+                            Every colour below is a <code style="color:var(--pc-accent)">--pc-*</code> variable.
+                        </p>
+                        <div class="d-flex gap-2 flex-wrap mt-3">
+                            <button class="demo-btn" type="button">Primary action</button>
+                            <button class="demo-btn demo-btn--ghost" type="button">Ghost</button>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap mt-4">
+                            <span class="demo-tile" style="padding:0.6rem 1rem;color:var(--pc-success-text)">success</span>
+                            <span class="demo-tile" style="padding:0.6rem 1rem;color:var(--pc-danger-text)">danger</span>
+                            <span class="demo-tile" style="padding:0.6rem 1rem;color:var(--pc-warning-text)">warning</span>
+                            <span class="demo-tile" style="padding:0.6rem 1rem;color:var(--pc-info-text)">info</span>
+                        </div>
+                        <p class="mt-4 m-0">
+                            A <a href="#" data-theme-target>themed link</a> inherits the accent too,
+                            because <code style="color:var(--pc-accent)">--pc-link-color: var(--pc-accent)</code>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>02</b> — two layers, honestly</p>
+            <h2>--base-* authors, --pc-* runs.</h2>
+            <p class="demo-desc">
+                pure-css compiles <code>$base-*</code> SCSS into two runtime layers. Knowing
+                which is which is the whole trick:
+            </p>
+            <div class="demo-split is-2">
+                <div class="demo-tile" style="background:var(--d-ink-2);border-color:var(--d-line);color:var(--d-fg-dim)">
+                    <strong style="color:var(--d-accent-2);font-family:var(--d-mono);font-size:13px;">--pc-* · runtime contract</strong>
+                    <p class="m-0 mt-2">The tokens pure-css's own utilities, grid and reboot
+                        actually read. Override these to re-theme the framework's output live —
+                        that's what the sliders above do.</p>
+                </div>
+                <div class="demo-tile" style="background:var(--d-ink-2);border-color:var(--d-line);color:var(--d-fg-dim)">
+                    <strong style="color:var(--d-accent-2);font-family:var(--d-mono);font-size:13px;">--base-* · authoring source</strong>
+                    <p class="m-0 mt-2">The compile-time source of truth that KeenMate web
+                        components read directly. One value bridges to runtime:
+                        <code style="color:var(--d-accent)">--pc-border-color: var(--base-border-color)</code>.</p>
+                </div>
+            </div>
+            <div class="demo-code" style="margin-top:16px;"><pre><span class="tok-com">/* re-theme every pure-css surface at once */</span>
+:root {
+  <span class="tok-var">--pc-accent</span>: #10b981;
+  <span class="tok-var">--pc-main-bg</span>: #f6fbf8;
+  <span class="tok-var">--base-border-color</span>: #cfe8dc; <span class="tok-com">/* → --pc-border-color */</span>
+}</pre></div>
+        </section>
+    </main>
+
+    <footer class="demo-shell demo-footer">
+        <span>@keenmate/pure-css</span><span class="demo-dot">/</span>
+        <a href="https://github.com/KeenMate/pure-css">GitHub</a><span class="demo-dot">/</span>
+        <a href="https://www.npmjs.com/package/@keenmate/pure-css">npm</a><span class="demo-dot">/</span>
+        <span>MIT © KeenMate</span>
+    </footer>
+</body>
+</html>

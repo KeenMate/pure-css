@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>pure-css — the KeenMate CSS foundation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="/dist/css/pure-css.css">
+    <link rel="stylesheet" href="/demo/assets/demo.css">
+    <script src="/demo/assets/demo.js" defer></script>
+</head>
+<body class="demo">
+    <header class="demo-topbar">
+        <div class="demo-shell demo-topbar-inner">
+            <a class="demo-brand" href="/demo/index.html">pure<b>·</b>css <span class="demo-brand-tag">foundation</span></a>
+            <nav data-demo-nav></nav>
+        </div>
+    </header>
+
+    <section class="demo-hero">
+        <div class="demo-shell">
+            <p class="demo-eyebrow reveal">@keenmate/pure-css · v1.0.0-rc04</p>
+            <h1 class="reveal" data-reveal-delay="60">One theming layer.<br><em>Every</em> surface.</h1>
+            <p class="demo-lead reveal" data-reveal-delay="140">
+                The KeenMate CSS foundation — a <code>--base-*</code> theming contract, a
+                container-query flexbox grid, and a full utility layer, compiled from pure
+                SCSS. No JS. No runtime. Override the variables once and the whole system
+                re-themes.
+            </p>
+            <div class="demo-hero-meta reveal" data-reveal-delay="220">
+                <span class="demo-chip">Zero runtime</span>
+                <span class="demo-chip">10px rem base</span>
+                <span class="demo-chip"><b>6</b> composable layers</span>
+                <span class="demo-chip">Container-query grid</span>
+                <span class="demo-chip">MIT</span>
+            </div>
+        </div>
+    </section>
+
+    <main class="demo-main demo-shell">
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>01</b> — install</p>
+            <h2>Drop it in.</h2>
+            <p class="demo-desc">
+                Import the full bundle, or cherry-pick a single layer through the package
+                <code>exports</code> map. <code>dist/</code> is committed, so consumers
+                vendor the built CSS with no Sass toolchain.
+            </p>
+            <div class="demo-split is-2">
+                <div class="demo-code"><pre><span class="tok-com"># from npm</span>
+npm install @keenmate/pure-css
+
+<span class="tok-com"># the full bundle</span>
+@import "@keenmate/pure-css/css";</pre></div>
+                <div class="demo-code"><pre><span class="tok-com">&lt;!-- or a single layer --&gt;</span>
+&lt;link rel="stylesheet"
+      href="…/pure-css/<span class="tok-cls">reboot</span>"&gt;
+&lt;link rel="stylesheet"
+      href="…/pure-css/<span class="tok-cls">utilities</span>"&gt;</pre></div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>02</b> — the layers</p>
+            <h2>Six artifacts, one contract.</h2>
+            <p class="demo-desc">
+                Each source entry compiles to exactly one <code>dist/css/*.css</code>. Take
+                the lot, or just the pieces you need.
+            </p>
+            <div class="demo-stage" data-stage-label="exports map">
+                <div class="pc-row pc-row--stretch">
+                    <div class="pc-col-100 pc-col-md-1-2 pc-col-lg-1-3">
+                        <a class="demo-tile" href="/demo/theming.html" style="display:block;text-decoration:none;color:inherit;">
+                            <strong class="text-primary">base</strong> · 5.7K
+                            <p class="m-0 mt-2" style="color:var(--pc-text-color-2)">The <code>--base-*</code> + <code>--pc-*</code> defaults at <code>:root</code>.</p>
+                        </a>
+                    </div>
+                    <div class="pc-col-100 pc-col-md-1-2 pc-col-lg-1-3">
+                        <a class="demo-tile" href="/demo/typography.html" style="display:block;text-decoration:none;color:inherit;">
+                            <strong class="text-primary">reboot</strong> · 1.2K
+                            <p class="m-0 mt-2" style="color:var(--pc-text-color-2)">10px base + box-sizing reset + element normalize.</p>
+                        </a>
+                    </div>
+                    <div class="pc-col-100 pc-col-md-1-2 pc-col-lg-1-3">
+                        <a class="demo-tile" href="/demo/grid.html" style="display:block;text-decoration:none;color:inherit;">
+                            <strong class="text-primary">grid</strong> · 29K
+                            <p class="m-0 mt-2" style="color:var(--pc-text-color-2)"><code>.pc-row</code> / <code>.pc-col-*</code> flexbox grid.</p>
+                        </a>
+                    </div>
+                    <div class="pc-col-100 pc-col-md-1-2 pc-col-lg-1-3">
+                        <a class="demo-tile" href="/demo/utilities.html" style="display:block;text-decoration:none;color:inherit;">
+                            <strong class="text-primary">utilities</strong> · 35K
+                            <p class="m-0 mt-2" style="color:var(--pc-text-color-2)">Spacing, flex, display, sizing, borders, text.</p>
+                        </a>
+                    </div>
+                    <div class="pc-col-100 pc-col-md-1-2 pc-col-lg-1-3">
+                        <a class="demo-tile" href="/demo/scrollbars.html" style="display:block;text-decoration:none;color:inherit;">
+                            <strong class="text-primary">scrollbars</strong> · 0.7K
+                            <p class="m-0 mt-2" style="color:var(--pc-text-color-2)">Thin scrollbars, coloured from the theme.</p>
+                        </a>
+                    </div>
+                    <div class="pc-col-100 pc-col-md-1-2 pc-col-lg-1-3">
+                        <a class="demo-tile" href="/demo/colors.html" style="display:block;text-decoration:none;color:inherit;">
+                            <strong class="text-primary">pure-css</strong> · 71K
+                            <p class="m-0 mt-2" style="color:var(--pc-text-color-2)">Everything above, one common bundle.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <p class="demo-note">
+                Everything on this site is built with pure-css itself — the tiles above are
+                a live <code>.pc-row</code> / <code>.pc-col-*</code> grid, the accent text is
+                <code>.text-primary</code>, the spacing is the utility scale.
+            </p>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>03</b> — the idea</p>
+            <h2>Change the variables, not the CSS.</h2>
+            <p class="demo-desc">
+                A theme is nothing more than a set of <code>--base-*</code> values. Because
+                pure-admin-core, every KeenMate component and this site all read the same
+                tokens, one override block re-themes them all at once. See it move on the
+                <a href="/demo/theming.html" style="color:var(--d-accent)">Theming</a> page.
+            </p>
+        </section>
+    </main>
+
+    <footer class="demo-shell demo-footer">
+        <span>@keenmate/pure-css</span><span class="demo-dot">/</span>
+        <a href="https://github.com/KeenMate/pure-css">GitHub</a><span class="demo-dot">/</span>
+        <a href="https://www.npmjs.com/package/@keenmate/pure-css">npm</a><span class="demo-dot">/</span>
+        <span>MIT © KeenMate</span>
+    </footer>
+</body>
+</html>

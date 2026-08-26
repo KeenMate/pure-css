@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Utilities — pure-css</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="/dist/css/pure-css.css">
+    <link rel="stylesheet" href="/demo/assets/demo.css">
+    <script src="/demo/assets/demo.js" defer></script>
+    <style>
+        .u-pad { background: color-mix(in srgb, var(--pc-accent) 12%, #fff); border-radius: 8px; }
+        .u-pad > span { display: block; background: var(--pc-accent); border-radius: 4px; height: 30px; }
+        .u-flexbox { background: color-mix(in srgb, var(--pc-accent) 8%, #fff); border-radius: 8px; min-height: 70px; }
+        .u-flexbox > span { background: var(--pc-accent); color: #fff; border-radius: 4px; padding: 0.4rem 1rem; font-family: var(--d-mono); font-size: 12px; }
+        .u-bar { background: var(--pc-accent); color: #fff; border-radius: 4px; padding: 0.5rem 0.8rem; font-family: var(--d-mono); font-size: 12px; box-sizing: border-box; }
+        .u-mono-lbl { font-family: var(--d-mono); font-size: 12px; color: #5b647d; }
+    </style>
+</head>
+<body class="demo">
+    <header class="demo-topbar">
+        <div class="demo-shell demo-topbar-inner">
+            <a class="demo-brand" href="/demo/index.html">pure<b>·</b>css <span class="demo-brand-tag">foundation</span></a>
+            <nav data-demo-nav></nav>
+        </div>
+    </header>
+
+    <section class="demo-hero">
+        <div class="demo-shell">
+            <p class="demo-eyebrow reveal">Utilities</p>
+            <h1 class="reveal" data-reveal-delay="60">Small classes, <em>big</em> reach.</h1>
+            <p class="demo-lead reveal" data-reveal-delay="140">
+                Spacing, flexbox, display, sizing, borders and text — all rem-based on the
+                10px root, so <code>.m-4</code> is exactly 10px.
+            </p>
+        </div>
+    </section>
+
+    <main class="demo-main demo-shell">
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>01</b> — spacing</p>
+            <h2>The spacing scale.</h2>
+            <p class="demo-desc">
+                <code>.m-*</code> / <code>.p-*</code> (plus <code>-t/-r/-b/-l/-x/-y</code>).
+                The blue bar is the content; the tint is padding.
+            </p>
+            <div class="demo-stage" data-stage-label=".p-*">
+                <div class="d-flex gap-3 flex-wrap align-items-end">
+                    <div><div class="u-pad p-1"><span></span></div><div class="u-mono-lbl text-center mt-2">p-1 · 2.5px</div></div>
+                    <div><div class="u-pad p-2"><span></span></div><div class="u-mono-lbl text-center mt-2">p-2 · 5px</div></div>
+                    <div><div class="u-pad p-4"><span></span></div><div class="u-mono-lbl text-center mt-2">p-4 · 10px</div></div>
+                    <div><div class="u-pad p-6"><span></span></div><div class="u-mono-lbl text-center mt-2">p-6 · 15px</div></div>
+                    <div><div class="u-pad p-8"><span></span></div><div class="u-mono-lbl text-center mt-2">p-8 · 20px</div></div>
+                    <div><div class="u-pad p-12"><span></span></div><div class="u-mono-lbl text-center mt-2">p-12 · 30px</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>02</b> — flex</p>
+            <h2>Flexbox in a class.</h2>
+            <div class="demo-split is-2">
+                <div class="demo-stage" data-stage-label=".justify-content-*">
+                    <div class="u-mono-lbl mb-1">justify-content-between</div>
+                    <div class="u-flexbox d-flex justify-content-between align-items-center p-2 mb-3"><span>a</span><span>b</span><span>c</span></div>
+                    <div class="u-mono-lbl mb-1">justify-content-center</div>
+                    <div class="u-flexbox d-flex justify-content-center align-items-center gap-2 p-2"><span>a</span><span>b</span></div>
+                </div>
+                <div class="demo-stage" data-stage-label=".align-items-* / gap">
+                    <div class="u-mono-lbl mb-1">align-items-end · gap-3</div>
+                    <div class="u-flexbox d-flex align-items-end gap-3 p-2" style="min-height:110px">
+                        <span style="padding-block:0.4rem">short</span>
+                        <span style="padding-block:1.6rem">tall</span>
+                        <span style="padding-block:0.9rem">mid</span>
+                    </div>
+                </div>
+            </div>
+            <div class="demo-code"><pre>&lt;div class="<span class="tok-cls">d-flex justify-content-between align-items-center gap-2</span>"&gt;…&lt;/div&gt;</pre></div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>03</b> — sizing</p>
+            <h2>Widths, fractions &amp; rems.</h2>
+            <div class="demo-stage" data-stage-label=".w-*">
+                <div class="u-bar w-100 mb-2">w-100</div>
+                <div class="u-bar w-75 mb-2">w-75</div>
+                <div class="u-bar w-1-2 mb-2">w-1-2</div>
+                <div class="u-bar w-1-3 mb-2">w-1-3</div>
+                <div class="u-bar w-25">w-25</div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>04</b> — borders, radius &amp; shadow</p>
+            <h2>Edges &amp; elevation.</h2>
+            <div class="demo-stage" data-stage-label=".border / .rounded / .shadow">
+                <div class="pc-row">
+                    <div class="pc-col-100 pc-col-md-1-3 mb-2">
+                        <div class="border rounded p-6 text-center" style="background:#fff">.border .rounded</div>
+                    </div>
+                    <div class="pc-col-100 pc-col-md-1-3 mb-2">
+                        <div class="border rounded-lg p-6 text-center" style="background:#fff">.rounded-lg</div>
+                    </div>
+                    <div class="pc-col-100 pc-col-md-1-3 mb-2">
+                        <div class="shadow-lg rounded-lg p-6 text-center" style="background:#fff">.shadow-lg</div>
+                    </div>
+                </div>
+                <p class="demo-note" style="color:var(--pc-text-color-2);border-color:var(--pc-accent)">
+                    Borders read <code>--pc-border-color</code>; radii read the
+                    <code>--pc-border-radius*</code> scale — so they re-theme too.
+                </p>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>05</b> — text</p>
+            <h2>Text helpers.</h2>
+            <div class="demo-stage" data-stage-label=".text-*">
+                <p class="text-center m-0 mb-3">.text-center</p>
+                <p class="text-truncate m-0 mb-3" style="max-width:280px;background:#f1f3f6;border-radius:6px;padding:0.4rem 0.8rem;">.text-truncate — this line is deliberately far too long to fit inside its box</p>
+                <p class="m-0"><span class="text-primary">.text-primary</span> ·
+                   <span class="text-success">.text-success</span> ·
+                   <span class="text-danger">.text-danger</span> ·
+                   <span class="text-warning">.text-warning</span> ·
+                   <span class="text-info">.text-info</span></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="demo-shell demo-footer">
+        <span>@keenmate/pure-css</span><span class="demo-dot">/</span>
+        <a href="https://github.com/KeenMate/pure-css">GitHub</a><span class="demo-dot">/</span>
+        <a href="https://www.npmjs.com/package/@keenmate/pure-css">npm</a><span class="demo-dot">/</span>
+        <span>MIT © KeenMate</span>
+    </footer>
+</body>
+</html>

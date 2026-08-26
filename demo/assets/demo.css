@@ -1,0 +1,420 @@
+/* =============================================================================
+   pure-css showcase — demo chrome
+   -----------------------------------------------------------------------------
+   This stylesheet is the *site chrome* only (nav, hero, section framing, code
+   blocks, swatches). It is NOT part of @keenmate/pure-css and is never shipped.
+
+   Aesthetic: engineering blueprint / editorial spec-sheet. Deep ink table, a
+   faint blueprint grid, a Fraunces display serif, JetBrains Mono technical
+   labels, and pure-css's own blue as the accent. The showcased pure-css lives
+   inside light ".demo-stage" cards — its natural light habitat — so the real
+   framework output is always seen unaltered.
+
+   Every demo page links the full dist/css/pure-css.css FIRST (so html is on the
+   10px rem base and the --pc-* / --base-* tokens exist), then this file, which
+   only restyles the chrome. Chrome is sized in px on purpose to stay legible
+   independent of the 10px root. Chrome tokens are namespaced --d-* so the
+   theming playground (which drives --pc-* / --base-* tokens) never disturbs the chrome.
+   ========================================================================== */
+
+:root {
+    --d-ink:        #0a1020;
+    --d-ink-2:      #0f1730;
+    --d-ink-3:      #16203f;
+    --d-line:       rgba(120, 165, 235, 0.14);
+    --d-line-strong:rgba(120, 165, 235, 0.30);
+    --d-fg:         #e9eefb;
+    --d-fg-dim:     #9aa8cc;
+    --d-fg-faint:   #64729a;
+    --d-accent:     #4d9bff;
+    --d-accent-2:   #7cf0d0;
+    --d-paper:      #ffffff;
+
+    --d-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --d-mono:    "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    --d-sans:    "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --d-shell: 1120px;
+}
+
+/* --- reset the chrome away from pure-css reboot defaults ------------------- */
+body.demo {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--d-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--d-fg);
+    background-color: var(--d-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+
+/* Blueprint grid + atmospheric glow, fixed behind everything. */
+body.demo::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image:
+        linear-gradient(var(--d-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--d-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(120% 90% at 50% -10%, #000 55%, transparent 100%);
+}
+body.demo::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background:
+        radial-gradient(70% 55% at 78% -8%, rgba(77, 155, 255, 0.20), transparent 60%),
+        radial-gradient(60% 50% at 8% 8%, rgba(124, 240, 208, 0.10), transparent 55%);
+}
+
+.demo-shell {
+    width: 100%;
+    max-width: var(--d-shell);
+    margin: 0 auto;
+    padding: 0 28px;
+    box-sizing: border-box;
+}
+
+/* --- top navigation ------------------------------------------------------- */
+.demo-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--d-ink) 78%, transparent);
+    border-bottom: 1px solid var(--d-line);
+}
+.demo-topbar-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 64px;
+}
+.demo-brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--d-mono);
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--d-fg);
+    text-decoration: none;
+    white-space: nowrap;
+}
+.demo-brand b { color: var(--d-accent); font-weight: 700; }
+.demo-brand .demo-brand-tag {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--d-fg-faint);
+    border: 1px solid var(--d-line-strong);
+    border-radius: 999px;
+    padding: 2px 7px;
+}
+
+nav[data-demo-nav] {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+    flex-wrap: wrap;
+}
+nav[data-demo-nav] a {
+    font-family: var(--d-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: var(--d-fg-dim);
+    padding: 7px 11px;
+    border-radius: 8px;
+    position: relative;
+    transition: color 0.18s ease, background 0.18s ease;
+}
+nav[data-demo-nav] a:hover { color: var(--d-fg); background: var(--d-ink-3); }
+nav[data-demo-nav] a[aria-current="page"] {
+    color: var(--d-accent);
+    background: color-mix(in srgb, var(--d-accent) 12%, transparent);
+}
+
+/* --- hero ----------------------------------------------------------------- */
+.demo-hero {
+    padding: 92px 0 56px;
+    border-bottom: 1px solid var(--d-line);
+    position: relative;
+}
+.demo-eyebrow {
+    font-family: var(--d-mono);
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--d-accent);
+    margin: 0 0 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.demo-eyebrow::before {
+    content: "";
+    width: 30px;
+    height: 1px;
+    background: var(--d-accent);
+}
+.demo-hero h1 {
+    font-family: var(--d-display);
+    font-weight: 600;
+    font-size: clamp(44px, 7vw, 92px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--d-fg);
+}
+.demo-hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--d-accent);
+}
+.demo-lead {
+    max-width: 60ch;
+    margin: 28px 0 0;
+    font-size: clamp(16px, 1.6vw, 19px);
+    color: var(--d-fg-dim);
+}
+.demo-hero-meta {
+    margin-top: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.demo-chip {
+    font-family: var(--d-mono);
+    font-size: 12px;
+    color: var(--d-fg-dim);
+    border: 1px solid var(--d-line-strong);
+    border-radius: 999px;
+    padding: 6px 13px;
+    background: color-mix(in srgb, var(--d-ink-2) 60%, transparent);
+}
+.demo-chip b { color: var(--d-accent-2); font-weight: 600; }
+
+/* --- sections ------------------------------------------------------------- */
+main.demo-main { padding: 40px 0 40px; }
+
+.demo-section {
+    padding: 44px 0;
+    border-bottom: 1px solid var(--d-line);
+}
+.demo-kicker {
+    font-family: var(--d-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--d-fg-faint);
+    margin: 0 0 14px;
+}
+.demo-kicker b { color: var(--d-accent); font-weight: 600; }
+.demo-section > h2 {
+    font-family: var(--d-display);
+    font-weight: 600;
+    font-size: clamp(28px, 3.6vw, 42px);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin: 0 0 14px;
+    color: var(--d-fg);
+}
+.demo-section > .demo-desc {
+    max-width: 64ch;
+    margin: 0 0 26px;
+    color: var(--d-fg-dim);
+}
+.demo-desc code, .demo-inline-code {
+    font-family: var(--d-mono);
+    font-size: 0.86em;
+    color: var(--d-accent-2);
+    background: var(--d-ink-2);
+    padding: 2px 6px;
+    border-radius: 5px;
+    border: 1px solid var(--d-line);
+}
+
+/* --- the light "spec card" where pure-css renders ------------------------- */
+.demo-stage {
+    background: var(--d-paper);
+    color: var(--pc-text-color-1, #2c3e50);
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.6) inset,
+        0 24px 60px -30px rgba(4, 10, 26, 0.9),
+        0 0 0 1px rgba(120, 165, 235, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+.demo-stage::before {
+    content: attr(data-stage-label);
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-family: var(--d-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #b8c2d4;
+}
+.demo-stage + .demo-code { margin-top: 14px; }
+
+/* --- code block with copy button ------------------------------------------ */
+.demo-code {
+    position: relative;
+    background: var(--d-ink-2);
+    border: 1px solid var(--d-line);
+    border-radius: 12px;
+    overflow: hidden;
+}
+.demo-code pre {
+    margin: 0;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-family: var(--d-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: #d7e0f5;
+    tab-size: 2;
+}
+.demo-code .tok-cls  { color: var(--d-accent); }
+.demo-code .tok-var  { color: var(--d-accent-2); }
+.demo-code .tok-com  { color: var(--d-fg-faint); font-style: italic; }
+.demo-copy {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: var(--d-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--d-fg-dim);
+    background: var(--d-ink-3);
+    border: 1px solid var(--d-line-strong);
+    border-radius: 7px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+}
+.demo-copy:hover { color: var(--d-accent); border-color: var(--d-accent); }
+.demo-copy.is-copied { color: var(--d-accent-2); border-color: var(--d-accent-2); }
+
+/* --- layout helpers for the chrome --------------------------------------- */
+.demo-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+@media (min-width: 860px) {
+    .demo-split.is-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .demo-split.is-code { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); align-items: start; }
+}
+
+/* --- reusable demo primitives (buttons, tiles) inside stages -------------- */
+/* pure-css ships no button component; this sample button is driven entirely by
+   pure-css tokens so it re-themes with the playground. */
+.demo-btn {
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: var(--pc-border-radius, 4px);
+    padding: 0.8rem 1.6rem;
+    background: var(--pc-accent, #007bff);
+    color: #fff;
+    transition: filter 0.15s ease, transform 0.05s ease;
+}
+.demo-btn:hover { filter: brightness(1.08); }
+.demo-btn:active { transform: translateY(1px); }
+.demo-btn--ghost {
+    background: transparent;
+    color: var(--pc-accent, #007bff);
+    border-color: var(--pc-border-color, #e1e5e9);
+}
+
+.demo-tile {
+    border: 1px solid var(--pc-border-color, #e1e5e9);
+    border-radius: var(--pc-border-radius-lg, 8px);
+    background: var(--pc-subtle-bg, #fff);
+    padding: 1.6rem;
+}
+
+/* --- swatch grids --------------------------------------------------------- */
+.demo-swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+.demo-swatch {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.demo-swatch-chip { height: 56px; }
+.demo-swatch-meta {
+    padding: 8px 10px;
+    font-family: var(--d-mono);
+    font-size: 11px;
+    background: #fff;
+    color: #47506a;
+}
+.demo-swatch-meta b { display: block; color: #1c2438; font-size: 12px; }
+
+/* --- footer --------------------------------------------------------------- */
+.demo-footer {
+    padding: 50px 0 70px;
+    color: var(--d-fg-faint);
+    font-family: var(--d-mono);
+    font-size: 12.5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    align-items: center;
+}
+.demo-footer a { color: var(--d-fg-dim); text-decoration: none; }
+.demo-footer a:hover { color: var(--d-accent); }
+.demo-footer .demo-dot { color: var(--d-line-strong); }
+
+/* --- entrance motion (staggered reveal via IntersectionObserver) --------- */
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+                transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: opacity, transform;
+}
+.reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* --- small utilities for demo copy --------------------------------------- */
+.demo-note {
+    font-size: 14px;
+    color: var(--d-fg-dim);
+    border-left: 2px solid var(--d-accent);
+    padding-left: 14px;
+    margin: 22px 0 0;
+}
+.demo-label-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: var(--d-mono);
+    font-size: 11.5px;
+    color: #5b647d;
+    margin-top: 14px;
+}
+.demo-label-row span {
+    background: #eef1f6;
+    border-radius: 6px;
+    padding: 3px 8px;
+}

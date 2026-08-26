@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Typography — pure-css</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="/dist/css/pure-css.css">
+    <link rel="stylesheet" href="/demo/assets/demo.css">
+    <script src="/demo/assets/demo.js" defer></script>
+    <style>
+        .ty-scale > div { display: flex; align-items: baseline; gap: 16px; border-bottom: 1px dashed #e5e8ee; padding: 10px 0; }
+        .ty-scale .ty-tok { font-family: var(--d-mono); font-size: 12px; color: #8a93aa; width: 210px; flex: none; }
+        .ty-sample { color: var(--pc-text-color-1); line-height: 1.1; }
+        .ff-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .ff-btn { font: inherit; font-size: 13px; cursor: pointer; border-radius: 999px; border: 1px solid var(--pc-border-color); background: #fff; color: #47506a; padding: 6px 14px; }
+        .ff-btn[aria-pressed="true"] { border-color: var(--pc-accent); color: #fff; background: var(--pc-accent); }
+    </style>
+</head>
+<body class="demo">
+    <header class="demo-topbar">
+        <div class="demo-shell demo-topbar-inner">
+            <a class="demo-brand" href="/demo/index.html">pure<b>·</b>css <span class="demo-brand-tag">foundation</span></a>
+            <nav data-demo-nav></nav>
+        </div>
+    </header>
+
+    <section class="demo-hero">
+        <div class="demo-shell">
+            <p class="demo-eyebrow reveal">Reboot &amp; type</p>
+            <h1 class="reveal" data-reveal-delay="60">A quiet <em>reset</em>.</h1>
+            <p class="demo-lead reveal" data-reveal-delay="140">
+                <code>reboot.css</code> sets the 10px rem base, box-sizing, and a restrained
+                element normalize — vertical rhythm without opinions you'll fight later.
+            </p>
+        </div>
+    </section>
+
+    <main class="demo-main demo-shell">
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>01</b> — rhythm</p>
+            <h2>Rebooted elements.</h2>
+            <p class="demo-desc">Raw HTML, only <code>base.css</code> + <code>reboot.css</code> applied inside the card.</p>
+            <div class="demo-stage" data-stage-label="reboot">
+                <div style="color:var(--pc-text-color-1)">
+                    <h3 style="margin-top:0">Heading three</h3>
+                    <p>Body copy sits at <code>1.6rem</code> (16px) with a <code>1.5</code> line-height.
+                    Links like <a href="#">this one</a> take the accent. Inline <code>&lt;code&gt;</code> stays legible.</p>
+                    <ul>
+                        <li>Unordered lists get a sensible indent…</li>
+                        <li>…and tidy item spacing.</li>
+                    </ul>
+                    <blockquote style="color:var(--pc-text-color-2)">Blockquotes get an inline-start indent and breathing room.</blockquote>
+                    <hr>
+                    <p class="m-0" style="color:var(--pc-text-color-2)">A horizontal rule marks a section break.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>02</b> — type scale</p>
+            <h2>The font-size tokens.</h2>
+            <p class="demo-desc">
+                <code>--base-font-size-*</code> are unitless multipliers on the 10px root —
+                <code>2.4</code> renders 24px. Derive your headings from them.
+            </p>
+            <div class="demo-stage" data-stage-label="--base-font-size-*">
+                <div class="ty-scale">
+                    <div><span class="ty-tok">--base-font-size-2xl · 2.4</span><span class="ty-sample" style="font-size:calc(var(--base-font-size-2xl) * 1rem)">Aa Display</span></div>
+                    <div><span class="ty-tok">--base-font-size-xl · 2.0</span><span class="ty-sample" style="font-size:calc(var(--base-font-size-xl) * 1rem)">Aa Title</span></div>
+                    <div><span class="ty-tok">--base-font-size-lg · 1.8</span><span class="ty-sample" style="font-size:calc(var(--base-font-size-lg) * 1rem)">Aa Subtitle</span></div>
+                    <div><span class="ty-tok">--base-font-size-base · 1.6</span><span class="ty-sample" style="font-size:calc(var(--base-font-size-base) * 1rem)">Aa Body</span></div>
+                    <div><span class="ty-tok">--base-font-size-sm · 1.4</span><span class="ty-sample" style="font-size:calc(var(--base-font-size-sm) * 1rem)">Aa Small</span></div>
+                    <div style="border:none"><span class="ty-tok">--base-font-size-xs · 1.2</span><span class="ty-sample" style="font-size:calc(var(--base-font-size-xs) * 1rem)">Aa Caption</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>03</b> — font-family utilities</p>
+            <h2>Swap the family.</h2>
+            <p class="demo-desc"><code>.font-family-*</code> ships with the utilities layer and cascades to descendants.</p>
+            <div class="demo-stage" data-stage-label=".font-family-*">
+                <div class="ff-buttons">
+                    <button class="ff-btn" type="button" data-ff="font-family-system" aria-pressed="true">system</button>
+                    <button class="ff-btn" type="button" data-ff="font-family-sans">sans</button>
+                    <button class="ff-btn" type="button" data-ff="font-family-serif">serif</button>
+                    <button class="ff-btn" type="button" data-ff="font-family-mono">mono</button>
+                </div>
+                <div id="ff-sample" class="font-family-system" style="color:var(--pc-text-color-1);font-size:1.9rem;">
+                    The quick brown fox jumps over the lazy dog. 0123456789
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="demo-shell demo-footer">
+        <span>@keenmate/pure-css</span><span class="demo-dot">/</span>
+        <a href="https://github.com/KeenMate/pure-css">GitHub</a><span class="demo-dot">/</span>
+        <a href="https://www.npmjs.com/package/@keenmate/pure-css">npm</a><span class="demo-dot">/</span>
+        <span>MIT © KeenMate</span>
+    </footer>
+
+    <script>
+        (function () {
+            var sample = document.getElementById("ff-sample");
+            var btns = document.querySelectorAll(".ff-btn");
+            btns.forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    sample.className = btn.getAttribute("data-ff");
+                    btns.forEach(function (b) { b.removeAttribute("aria-pressed"); });
+                    btn.setAttribute("aria-pressed", "true");
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

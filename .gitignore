@@ -4,3 +4,9 @@ node_modules/
 Thumbs.db
 .sass-cache/
 *.css.map
+
+# e2e / dev tooling
+test-results/
+playwright-report/
+playwright/.cache/
+.vite/

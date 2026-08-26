@@ -1,0 +1,28 @@
+/*
+ * Styling for the e2e test fixture pages in test/.
+ *
+ * Deliberately minimal — no marketing chrome. Just enough scaffolding for the
+ * Playwright specs to find and measure elements. These pages link the committed
+ * dist/css/*.css so the specs assert against the real published artifacts.
+ * They are dev-server-only and are NOT shipped.
+ */
+.fixture {
+    margin-bottom: 24px;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.fixture-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+/* Neutral probe box so width/spacing assertions have something to measure. */
+.probe {
+    background: #cbd5e1;
+    min-height: 20px;
+}

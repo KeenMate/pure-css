@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scrollbars — pure-css</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="/dist/css/pure-css.css">
+    <link rel="stylesheet" href="/dist/css/scrollbars.css">
+    <link rel="stylesheet" href="/demo/assets/demo.css">
+    <script src="/demo/assets/demo.js" defer></script>
+    <style>
+        .sb-panel { overflow: auto; border: 1px solid var(--pc-border-color); border-radius: 10px; background: #fff; }
+        .sb-y { height: 220px; padding: 1.2rem 1.6rem; }
+        .sb-y p { color: var(--pc-text-color-1); }
+        .sb-x { white-space: nowrap; padding: 1.2rem; }
+        .sb-x .sb-wide { display: inline-block; width: 1400px; height: 40px; background: color-mix(in srgb, var(--pc-accent) 14%, #fff); border-radius: 6px; }
+        .sb-accent { appearance:none;-webkit-appearance:none;width:52px;height:34px;border:1px solid var(--pc-border-color);border-radius:8px;background:#fff;cursor:pointer;padding:3px; vertical-align: middle; }
+    </style>
+</head>
+<body class="demo">
+    <header class="demo-topbar">
+        <div class="demo-shell demo-topbar-inner">
+            <a class="demo-brand" href="/demo/index.html">pure<b>·</b>css <span class="demo-brand-tag">foundation</span></a>
+            <nav data-demo-nav></nav>
+        </div>
+    </header>
+
+    <section class="demo-hero">
+        <div class="demo-shell">
+            <p class="demo-eyebrow reveal">Detail</p>
+            <h1 class="reveal" data-reveal-delay="60">Scrollbars that <em>match</em>.</h1>
+            <p class="demo-lead reveal" data-reveal-delay="140">
+                A 0.7K layer that opts every overflow container into a thin scrollbar, coloured
+                from the theme — track from <code>--pc-main-bg</code>, thumb from
+                <code>--pc-border-color</code>, hover from <code>--pc-accent</code>.
+            </p>
+        </div>
+    </section>
+
+    <main class="demo-main demo-shell">
+        <section class="demo-section reveal">
+            <p class="demo-kicker"><b>01</b> — scroll it</p>
+            <h2>Vertical &amp; horizontal.</h2>
+            <p class="demo-desc">
+                Hover the thumb — it picks up the accent. Change the accent here to see it live:
+                <input type="color" class="sb-accent" value="#007bff" data-theme-var="--pc-accent,--base-accent-color" aria-label="accent">
+            </p>
+            <div class="demo-split is-2">
+                <div class="demo-stage" data-stage-label="overflow-y">
+                    <div class="sb-panel sb-y">
+                        <p><strong>Release notes</strong></p>
+                        <p>v1.0.0-rc04 — pc- foundation namespace (grid + mode), honest form gaps.</p>
+                        <p>v1.0.0-rc03 — rename top-bar region tokens header → navbar.</p>
+                        <p>v1.0.0-rc02 — reboot (10px base) + themed scrollbars layers.</p>
+                        <p>v1.0.0-rc01 — native .pc-row / .pc-col grid moved into pure-css.</p>
+                        <p>The panel above overflows vertically, so the themed thin scrollbar appears on the right edge.</p>
+                        <p>Keep scrolling — every KeenMate surface uses this exact scrollbar.</p>
+                        <p>Consistent, quiet, out of the way until you need it.</p>
+                    </div>
+                </div>
+                <div class="demo-stage" data-stage-label="overflow-x">
+                    <div class="sb-panel sb-x">
+                        <span style="font-family:var(--d-mono);font-size:12px;color:var(--pc-text-color-2)">← scroll horizontally →</span>
+                        <div class="sb-wide mt-2"></div>
+                    </div>
+                    <p class="demo-note" style="color:var(--pc-text-color-2);border-color:var(--pc-accent);font-size:1.4rem">
+                        In Firefox the same layer maps to <code>scrollbar-width: thin</code> and
+                        <code>scrollbar-color</code>; in WebKit it styles the
+                        <code>::-webkit-scrollbar</code> pseudo-elements.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="demo-shell demo-footer">
+        <span>@keenmate/pure-css</span><span class="demo-dot">/</span>
+        <a href="https://github.com/KeenMate/pure-css">GitHub</a><span class="demo-dot">/</span>
+        <a href="https://www.npmjs.com/package/@keenmate/pure-css">npm</a><span class="demo-dot">/</span>
+        <span>MIT © KeenMate</span>
+    </footer>
+</body>
+</html>
