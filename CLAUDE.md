@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 `@keenmate/pure-css` is the KeenMate CSS **foundation** — the `--base-*` theming
-contract, the `.pa-row` / `.pa-col` flexbox grid, and the utility classes —
+contract, the `.pc-row` / `.pc-col` flexbox grid, and the utility classes —
 extracted from [`@keenmate/pure-admin-core`](https://github.com/KeenMate/pure-admin)
 so it can be consumed standalone. It is pure SCSS compiled to CSS; there is no
 JS, no test suite, and no runtime. `pure-admin-core` now consumes this package
@@ -45,14 +45,25 @@ The core idea: **one block of variable overrides re-themes everything.**
    **source of truth**, all declared with `!default`.
 2. Other `variables/*` modules (`_colors`, `_typography`, `_components`, …)
    **derive** framework values from `$base-*`.
-3. `_base-css-variables.scss` emits those as `--base-*` (and derived `--pa-*`)
-   CSS custom properties at `:root` via the `output-base-css-variables`,
-   `output-pa-css-variables`, and `output-pa-alert-variables-light/dark` mixins.
+3. `_base-css-variables.scss` emits those as CSS custom properties at `:root`.
+   It defines four mixins but **the foundation bundle only calls the first two**:
+   - `output-base-css-variables` — the `--base-*` web-component bridge.
+   - `output-pc-css-variables` — the **base** `--pc-*` tokens ONLY (surfaces,
+     text, accent, links, border, the semantic role identities + their utility
+     text colours, the theme palette slots, the radius scale). This is pure-css's
+     whole runtime contract.
+   - `output-pc-component-variables` + `output-pc-alert-variables-{light,dark}` —
+     the **component** `--pc-*` tokens (buttons, cards, tables, alerts, badges,
+     panels, command palette, multiselect, sentiment scale, form spacing, …).
+     These are **pure-admin's** contract: defined here (they read the shared
+     `$`-variable vocabulary, so they must be authored where it's in scope) but
+     **NOT emitted by pure-css's own bundles** — `base.scss` / `pure-css.scss`
+     don't call them. Consumers that ship the components opt in.
 4. Downstream web/svelte components read them through fallback chains
    (`--ms-accent-color: var(--base-accent-color, #3b82f6)`).
 
 A **theme** is nothing more than a set of `--base-*` values (or `$base-*`
-overrides compiled in). Because pure-admin-core, its `--pa-*` component
+overrides compiled in). Because pure-admin-core, its `--pc-*` component
 variables, and every KeenMate component all read the same variables, overriding
 `--base-*` re-themes all of them at once.
 
@@ -74,10 +85,10 @@ the package `exports` map:
 | Source | Output | Emits |
 | --- | --- | --- |
 | `pure-css.scss` | `pure-css.css` | everything (the common bundle) |
-| `base.scss` | `base.css` | only `:root` `--base-*`/`--pa-*` defaults |
+| `base.scss` | `base.css` | only `:root` `--base-*`/`--pc-*` defaults |
 | `reboot.scss` | `reboot.css` | `html { font-size: 10px }` + box-sizing reset + neutral element styling |
-| `scrollbars.scss` | `scrollbars.css` | themed thin scrollbars (colored from `--pa-*`) |
-| `grid.scss` | `grid.css` | `.pa-row` / `.pa-col-*` (via `_pa-grid.scss`) |
+| `scrollbars.scss` | `scrollbars.css` | themed thin scrollbars (colored from `--pc-*`) |
+| `grid.scss` | `grid.css` | `.pc-row` / `.pc-col-*` (via `_pa-grid.scss`) |
 | `utilities.scss` | `utilities.css` | spacing / flex / display / width-height / `.font-family-*` |
 
 Partials (`_`-prefixed) are shared building blocks: `_base-css-variables.scss`,
@@ -89,10 +100,10 @@ Partials (`_`-prefixed) are shared building blocks: `_base-css-variables.scss`,
   `reboot.scss`. The spacing scale in `utilities.scss` (`$spacers`, `1: 0.25rem`
   = 4px … `20: 5rem` = 80px) depends on this.
 - **The grid** (`_pa-grid.scss`) is flexbox columns in 5% increments plus
-  fractions (`.pa-col-1-3`, `.pa-col-2-3`), with container-query responsive
-  variants (`.pa-col-md-*`) and RTL-aware gutters. It replaced the legacy Pure
+  fractions (`.pc-col-1-3`, `.pc-col-2-3`), with container-query responsive
+  variants (`.pc-col-md-*`) and RTL-aware gutters. It replaced the legacy Pure
   `.pure-g` / `.pure-u-*` grid.
-- Border/rounded utilities consume the emitted `--pa-border-*` variables so
+- Border/rounded utilities consume the emitted `--pc-border-*` variables so
   `base.css` + `utilities.css` render correct borders standalone.
 
 ### Provenance / drift

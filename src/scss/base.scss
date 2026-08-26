@@ -1,7 +1,7 @@
 // @keenmate/pure-css — theming contract only
 // ============================================================================
 // Emits nothing but the `:root` custom-property defaults (--base-* + derived
-// --pa-* + light alert vars). Link this when you only need the variables — to
+// --pc-* + light alert vars). Link this when you only need the variables — to
 // theme embedded web/svelte components, or as the base a theme override layers
 // on top of — without pulling in the grid or utility classes.
 // ============================================================================
@@ -10,6 +10,5 @@
 
 :root {
   @include bcv.output-base-css-variables;
-  @include bcv.output-pa-css-variables;
-  @include bcv.output-pa-alert-variables-light;
+  @include bcv.output-pc-css-variables;
 }

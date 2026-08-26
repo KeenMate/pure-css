@@ -1,8 +1,36 @@
 # @keenmate/pure-css
 
-The KeenMate CSS **foundation** — the `--base-*` theming contract, the flexbox grid (`.pa-row` / `.pa-col`), and the
+The KeenMate CSS **foundation** — the `--base-*` theming contract, the flexbox grid (`.pc-row` / `.pc-col`), and the
 utility classes — extracted from [`@keenmate/pure-admin-core`](https://github.com/KeenMate/pure-admin)
 so it can be consumed on its own.
+
+## What's New in 1.0.0-rc04
+
+- **pure-css is now strictly a base — it emits only the base token contract
+  (BREAKING).** `base.css` / `pure-css.css` ship the ~46 base `--pc-*` tokens the
+  foundation actually uses or exposes as universal primitives; the ~165 component
+  tokens (buttons, cards, tables, alerts, panels, …) are pure-admin's contract,
+  emitted by the new `output-pc-component-variables` mixin. If you author themes
+  or call the emit mixins, add `@include output-pc-component-variables;` after
+  `output-pc-css-variables`. Consumers of compiled CSS are unaffected.
+- **The foundation namespace is fully de-branded from `pa` to `pc` (BREAKING).**
+  pure-css was carved out of pure-admin, so it still carried pure-admin's `pa`
+  brand in its public surface. That's gone:
+  - **Grid + mode classes:** `.pa-row` / `.pa-col*` / `.pa-offset*` / `.pa-cq` /
+    `.pa-hide*` / `.pa-show*` → `.pc-*`; `.pa-mode-light` / `.pa-mode-dark` →
+    `.pc-mode-*`.
+  - **Every emitted CSS variable:** the whole `--pa-*` runtime surface (~210
+    custom properties) → `--pc-*` (`--pa-accent` → `--pc-accent`, `--pa-card-bg`
+    → `--pc-card-bg`, `--pa-color-1..9` → `--pc-color-1..9`, …). `--base-*`
+    (web-component bridge) and `--page-loader-*` are unchanged.
+  - **The emit mixins:** `output-pa-css-variables` → `output-pc-css-variables`,
+    `output-pa-alert-variables-light/dark` → `output-pc-alert-variables-*`.
+  Consumers migrate markup, `var()` reads, inline `style="--pa-…"`, and theme
+  `:root` blocks in lockstep — a boundary-aware find/replace of the string
+  `--pa-` → `--pc-` (safe: it can't touch `--base-*`, `--page-loader-*`, or the
+  `.pa-color-{name}` variant **class**).
+- **Complete form-spacing contract as runtime `--pc-*` variables** and the
+  `$form-scale` → `$form-gap` rename (see CHANGELOG).
 
 ## What's New in 1.0.0-rc03
 
@@ -34,7 +62,7 @@ that the components, the admin framework, and everything else all agree on.
 ```
 @keenmate/pure-css              @keenmate/pure-admin-core
   ├─ --base-* variables    ◀────  imports pure-css, adds
-  ├─ .pa-row / .pa-col grid       the component library
+  ├─ .pc-row / .pc-col grid       the component library
   └─ utility classes
         ▲
         └── docs sites, portals, component hosts consume the built CSS directly
@@ -76,14 +104,14 @@ $base-page-bg: #0b1020;
 | Artifact | Contents | When to link |
 | --- | --- | --- |
 | `dist/css/pure-css.css` | everything below, in one file | the common case |
-| `dist/css/base.css` | only `:root { --base-*; --pa-*; }` | you just need the theming contract (e.g. to theme embedded web components) or a base for a theme override |
-| `dist/css/grid.css` | `.pa-row` / `.pa-col-*` (percentage + fraction columns, container-query responsive) | layout only |
+| `dist/css/base.css` | only `:root { --base-*; --pc-*; }` | you just need the theming contract (e.g. to theme embedded web components) or a base for a theme override |
+| `dist/css/grid.css` | `.pc-row` / `.pc-col-*` (percentage + fraction columns, container-query responsive) | layout only |
 | `dist/css/utilities.css` | spacing / flex / display / width-height utilities (`.m-4`, `.d-flex`, `.w-50`, …) | utilities only |
 
 ### The `--base-*` contract
 
 `--base-*` is the **single source of truth for theming**. Framework colors, component variables
-(`--pa-*`) and web/svelte components all derive from it via fallback chains
+(`--pc-*`) and web/svelte components all derive from it via fallback chains
 (`--ms-accent-color: var(--base-accent-color, #3b82f6)`). Categories: accent, text, background,
 border, input, dropdown, tooltip, contextual (success/danger/warning/info), interactive states,
 typography, border-radius. The full list is `src/scss/variables/_base.scss`.

@@ -260,6 +260,31 @@ $spacers: (
   flex-shrink: 1 !important;
 }
 
+// Flex shorthands (Tailwind-style) — for filling available space in flex layouts
+.flex-1 {
+  flex: 1 1 0% !important; // grow + shrink equally, ignore content size
+}
+
+.flex-auto {
+  flex: 1 1 auto !important; // grow + shrink, based on content size
+}
+
+.flex-initial {
+  flex: 0 1 auto !important; // shrink but don't grow (the default)
+}
+
+.flex-none {
+  flex: none !important; // don't grow or shrink
+}
+
+.flex-grow {
+  flex-grow: 1 !important;
+}
+
+.flex-shrink {
+  flex-shrink: 1 !important;
+}
+
 // Text utilities
 .text-center {
   text-align: center !important;
@@ -487,6 +512,14 @@ $spacers: (
 .maxhr-45 { max-height: 45rem !important; }
 .maxhr-50 { max-height: 50rem !important; }
 
+// Viewport / fill height utilities — pair with flex layouts for full-height panes
+.h-full { height: 100% !important; }
+.h-screen { height: 100vh !important; }
+.min-h-full { min-height: 100% !important; }
+.min-h-screen { min-height: 100vh !important; }
+.max-h-full { max-height: 100% !important; }
+.max-h-screen { max-height: 100vh !important; }
+
 // ============================================================================
 // PERCENTAGE-BASED MIN/MAX UTILITIES
 // Extends existing w-* and h-* utilities with min/max variants
@@ -618,29 +651,29 @@ $spacers: (
   position: sticky !important;
 }
 
-// Border / rounded utilities consume the framework's emitted --pa-border-* variables
+// Border / rounded utilities consume the framework's emitted --pc-border-* variables
 // (themed from --base-*). They previously referenced bare --border-color / --border-radius,
 // which the variable output never emits — so the utilities resolved to nothing (currentColor
-// border, no radius). Pointing them at --pa-* makes the foundation self-sufficient: base.css +
+// border, no radius). Pointing them at --pc-* makes the foundation self-sufficient: base.css +
 // utilities.css work standalone, no host shim required.
 .border {
-  border: 1px solid var(--pa-border-color) !important;
+  border: 1px solid var(--pc-border-color) !important;
 }
 
 .border-top {
-  border-top: 1px solid var(--pa-border-color) !important;
+  border-top: 1px solid var(--pc-border-color) !important;
 }
 
 .border-right {
-  border-right: 1px solid var(--pa-border-color) !important;
+  border-right: 1px solid var(--pc-border-color) !important;
 }
 
 .border-bottom {
-  border-bottom: 1px solid var(--pa-border-color) !important;
+  border-bottom: 1px solid var(--pc-border-color) !important;
 }
 
 .border-left {
-  border-left: 1px solid var(--pa-border-color) !important;
+  border-left: 1px solid var(--pc-border-color) !important;
 }
 
 .border-0 {
@@ -670,30 +703,30 @@ $spacers: (
 .border-none { border-style: none !important; }
 
 // Text color utilities (semantic colors)
-.text-primary { color: var(--pa-accent) !important; }
-.text-success { color: var(--pa-success-text) !important; }
-.text-danger { color: var(--pa-danger-text) !important; }
-.text-warning { color: var(--pa-warning-text) !important; }
-.text-info { color: var(--pa-info-text) !important; }
+.text-primary { color: var(--pc-accent) !important; }
+.text-success { color: var(--pc-success-text) !important; }
+.text-danger { color: var(--pc-danger-text) !important; }
+.text-warning { color: var(--pc-warning-text) !important; }
+.text-info { color: var(--pc-info-text) !important; }
 
 // Text color utilities (theme custom colors 1-9)
-.text-color-1 { color: var(--pa-color-1) !important; }
-.text-color-2 { color: var(--pa-color-2) !important; }
-.text-color-3 { color: var(--pa-color-3) !important; }
-.text-color-4 { color: var(--pa-color-4) !important; }
-.text-color-5 { color: var(--pa-color-5) !important; }
-.text-color-6 { color: var(--pa-color-6) !important; }
-.text-color-7 { color: var(--pa-color-7) !important; }
-.text-color-8 { color: var(--pa-color-8) !important; }
-.text-color-9 { color: var(--pa-color-9) !important; }
+.text-color-1 { color: var(--pc-color-1) !important; }
+.text-color-2 { color: var(--pc-color-2) !important; }
+.text-color-3 { color: var(--pc-color-3) !important; }
+.text-color-4 { color: var(--pc-color-4) !important; }
+.text-color-5 { color: var(--pc-color-5) !important; }
+.text-color-6 { color: var(--pc-color-6) !important; }
+.text-color-7 { color: var(--pc-color-7) !important; }
+.text-color-8 { color: var(--pc-color-8) !important; }
+.text-color-9 { color: var(--pc-color-9) !important; }
 
 // Rounded utilities
 .rounded {
-  border-radius: var(--pa-border-radius) !important;
+  border-radius: var(--pc-border-radius) !important;
 }
 
 .rounded-lg {
-  border-radius: var(--pa-border-radius-lg) !important;
+  border-radius: var(--pc-border-radius-lg) !important;
 }
 
 .rounded-circle {
@@ -705,23 +738,23 @@ $spacers: (
 }
 
 .rounded-top {
-  border-top-left-radius: var(--pa-border-radius) !important;
-  border-top-right-radius: var(--pa-border-radius) !important;
+  border-top-left-radius: var(--pc-border-radius) !important;
+  border-top-right-radius: var(--pc-border-radius) !important;
 }
 
 .rounded-bottom {
-  border-bottom-left-radius: var(--pa-border-radius) !important;
-  border-bottom-right-radius: var(--pa-border-radius) !important;
+  border-bottom-left-radius: var(--pc-border-radius) !important;
+  border-bottom-right-radius: var(--pc-border-radius) !important;
 }
 
 .rounded-left {
-  border-top-left-radius: var(--pa-border-radius) !important;
-  border-bottom-left-radius: var(--pa-border-radius) !important;
+  border-top-left-radius: var(--pc-border-radius) !important;
+  border-bottom-left-radius: var(--pc-border-radius) !important;
 }
 
 .rounded-right {
-  border-top-right-radius: var(--pa-border-radius) !important;
-  border-bottom-right-radius: var(--pa-border-radius) !important;
+  border-top-right-radius: var(--pc-border-radius) !important;
+  border-bottom-right-radius: var(--pc-border-radius) !important;
 }
 
 // Shadow utilities

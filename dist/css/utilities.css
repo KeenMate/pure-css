@@ -1357,6 +1357,30 @@
   flex-shrink: 1 !important;
 }
 
+.flex-1 {
+  flex: 1 1 0% !important;
+}
+
+.flex-auto {
+  flex: 1 1 auto !important;
+}
+
+.flex-initial {
+  flex: 0 1 auto !important;
+}
+
+.flex-none {
+  flex: none !important;
+}
+
+.flex-grow {
+  flex-grow: 1 !important;
+}
+
+.flex-shrink {
+  flex-shrink: 1 !important;
+}
+
 .text-center {
   text-align: center !important;
 }
@@ -2052,6 +2076,30 @@
   max-height: 50rem !important;
 }
 
+.h-full {
+  height: 100% !important;
+}
+
+.h-screen {
+  height: 100vh !important;
+}
+
+.min-h-full {
+  min-height: 100% !important;
+}
+
+.min-h-screen {
+  min-height: 100vh !important;
+}
+
+.max-h-full {
+  max-height: 100% !important;
+}
+
+.max-h-screen {
+  max-height: 100vh !important;
+}
+
 .minw-5 {
   min-width: 5% !important;
 }
@@ -2461,23 +2509,23 @@
 }
 
 .border {
-  border: 1px solid var(--pa-border-color) !important;
+  border: 1px solid var(--pc-border-color) !important;
 }
 
 .border-top {
-  border-top: 1px solid var(--pa-border-color) !important;
+  border-top: 1px solid var(--pc-border-color) !important;
 }
 
 .border-right {
-  border-right: 1px solid var(--pa-border-color) !important;
+  border-right: 1px solid var(--pc-border-color) !important;
 }
 
 .border-bottom {
-  border-bottom: 1px solid var(--pa-border-color) !important;
+  border-bottom: 1px solid var(--pc-border-color) !important;
 }
 
 .border-left {
-  border-left: 1px solid var(--pa-border-color) !important;
+  border-left: 1px solid var(--pc-border-color) !important;
 }
 
 .border-0 {
@@ -2517,67 +2565,67 @@
 }
 
 .text-primary {
-  color: var(--pa-accent) !important;
+  color: var(--pc-accent) !important;
 }
 
 .text-success {
-  color: var(--pa-success-text) !important;
+  color: var(--pc-success-text) !important;
 }
 
 .text-danger {
-  color: var(--pa-danger-text) !important;
+  color: var(--pc-danger-text) !important;
 }
 
 .text-warning {
-  color: var(--pa-warning-text) !important;
+  color: var(--pc-warning-text) !important;
 }
 
 .text-info {
-  color: var(--pa-info-text) !important;
+  color: var(--pc-info-text) !important;
 }
 
 .text-color-1 {
-  color: var(--pa-color-1) !important;
+  color: var(--pc-color-1) !important;
 }
 
 .text-color-2 {
-  color: var(--pa-color-2) !important;
+  color: var(--pc-color-2) !important;
 }
 
 .text-color-3 {
-  color: var(--pa-color-3) !important;
+  color: var(--pc-color-3) !important;
 }
 
 .text-color-4 {
-  color: var(--pa-color-4) !important;
+  color: var(--pc-color-4) !important;
 }
 
 .text-color-5 {
-  color: var(--pa-color-5) !important;
+  color: var(--pc-color-5) !important;
 }
 
 .text-color-6 {
-  color: var(--pa-color-6) !important;
+  color: var(--pc-color-6) !important;
 }
 
 .text-color-7 {
-  color: var(--pa-color-7) !important;
+  color: var(--pc-color-7) !important;
 }
 
 .text-color-8 {
-  color: var(--pa-color-8) !important;
+  color: var(--pc-color-8) !important;
 }
 
 .text-color-9 {
-  color: var(--pa-color-9) !important;
+  color: var(--pc-color-9) !important;
 }
 
 .rounded {
-  border-radius: var(--pa-border-radius) !important;
+  border-radius: var(--pc-border-radius) !important;
 }
 
 .rounded-lg {
-  border-radius: var(--pa-border-radius-lg) !important;
+  border-radius: var(--pc-border-radius-lg) !important;
 }
 
 .rounded-circle {
@@ -2589,23 +2637,23 @@
 }
 
 .rounded-top {
-  border-top-left-radius: var(--pa-border-radius) !important;
-  border-top-right-radius: var(--pa-border-radius) !important;
+  border-top-left-radius: var(--pc-border-radius) !important;
+  border-top-right-radius: var(--pc-border-radius) !important;
 }
 
 .rounded-bottom {
-  border-bottom-left-radius: var(--pa-border-radius) !important;
-  border-bottom-right-radius: var(--pa-border-radius) !important;
+  border-bottom-left-radius: var(--pc-border-radius) !important;
+  border-bottom-right-radius: var(--pc-border-radius) !important;
 }
 
 .rounded-left {
-  border-top-left-radius: var(--pa-border-radius) !important;
-  border-bottom-left-radius: var(--pa-border-radius) !important;
+  border-top-left-radius: var(--pc-border-radius) !important;
+  border-bottom-left-radius: var(--pc-border-radius) !important;
 }
 
 .rounded-right {
-  border-top-right-radius: var(--pa-border-radius) !important;
-  border-bottom-right-radius: var(--pa-border-radius) !important;
+  border-top-right-radius: var(--pc-border-radius) !important;
+  border-bottom-right-radius: var(--pc-border-radius) !important;
 }
 
 .shadow-none {

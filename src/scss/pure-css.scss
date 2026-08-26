@@ -3,10 +3,13 @@
 // The KeenMate CSS foundation, extracted from @keenmate/pure-admin-core so it
 // can be consumed on its own (docs sites, standalone pages, non-admin portals)
 // and so pure-admin-core, themes and any web/svelte component share ONE
-// theming contract: the `--base-*` (and derived `--pa-*`) custom properties.
+// theming contract: the `--base-*` (and derived `--pc-*`) custom properties.
 //
 // This bundle emits:
-//   1. `:root` defaults for every --base-*/--pa-* variable (light values)
+//   1. `:root` defaults for the BASE --base-*/--pc-* tokens (light values) —
+//      surfaces, text, accent, links, border, semantic role identities, the
+//      theme palette slots, and the radius scale. Component tokens (buttons,
+//      cards, tables, alerts, …) are pure-admin's contract, NOT emitted here.
 //   2. the reboot (10px rem base + element reset — the sizing contract)
 //   3. themed scrollbars (global browser chrome)
 //   4. the native flexbox grid (.pc-row / .pc-col)
@@ -27,6 +30,5 @@
 // bundle and the FOUC window before a theme stylesheet resolves.
 :root {
   @include bcv.output-base-css-variables;
-  @include bcv.output-pa-css-variables;
-  @include bcv.output-pa-alert-variables-light;
+  @include bcv.output-pc-css-variables;
 }

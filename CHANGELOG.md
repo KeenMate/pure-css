@@ -7,6 +7,49 @@ All notable changes to `@keenmate/pure-css` are documented here. Format based on
 
 ### Changed (BREAKING)
 
+- **pure-css now ships only the BASE token contract — component tokens moved to
+  the consumer that owns the components.** pure-css is a *foundation*: its
+  bundles (`pure-css.css`, `base.css`) now emit only the ~46 base `--pc-*` tokens
+  its own CSS consumes or exposes as universal theming primitives (surfaces,
+  text, accent, links, border, the semantic role identities + their utility text
+  colours, the theme palette slots, the radius scale). The ~165 **component**
+  tokens (`--pc-btn-*`, `--pc-card-*`, `--pc-table-*`, `--pc-alert-*`, badges,
+  tooltips, panels, command palette, multiselect, sentiment scale, form spacing,
+  the derived contextual surfaces, admin layout chrome) are no longer emitted by
+  the foundation. They are pure-admin's contract.
+  - `output-pc-css-variables` is now base-only. The component tokens are emitted
+    by the new **`output-pc-component-variables`** mixin (+ the existing
+    `output-pc-alert-variables-{light,dark}`), which pure-css still *defines*
+    (they read the shared `$`-variable vocabulary in `variables/*`, so they must
+    be authored where that vocabulary is in scope) but does **not** call from its
+    own bundle. Consumers that ship the components — pure-admin core, every
+    theme — opt in by `@include output-pc-component-variables` alongside
+    `output-pc-css-variables`.
+  - **Theme authors / anyone calling the emit mixins must add
+    `@include output-pc-component-variables;`** (after `output-pc-css-variables`)
+    or lose every component token. Consumers of the *compiled* theme/core CSS are
+    unaffected — the emitted token set is identical, just split across two mixins.
+- **Every emitted CSS variable de-branded from `--pa-*` to `--pc-*`.** pure-css is
+  a *foundation*, but it still emitted its entire runtime custom-property surface
+  under pure-admin's `pa` brand. The full `--pa-*` set (~210 vars: `--pa-accent`,
+  `--pa-text-color-*`, `--pa-card-bg`, `--pa-border-*`, the contextual /alert sets,
+  `--pa-color-1..9` + `-text`, the new `--pc-*` form-spacing family already shipped
+  this cut, etc.) is renamed to `--pc-*`. This completes the same de-branding the
+  grid/mode classes started above — nothing pure-admin-branded remains in the
+  foundation's output.
+  - **The emit mixins move too:** `output-pa-css-variables` → `output-pc-css-variables`,
+    `output-pa-alert-variables-light` / `-dark` → `output-pc-alert-variables-*`.
+    (`output-base-css-variables` is unchanged — `--base-*` is a separate, neutral
+    web-component contract and stays.)
+  - **Untouched:** `--base-*` (web-component bridge), `--page-loader-*` (pre-FOUC
+    loader), and the `.pa-color-{name}` colour-variant **class** (a class, not a
+    `--pa-` variable).
+  - **Migration:** a boundary-aware replace of the string `--pa-` → `--pc-` across
+    markup, stylesheets, inline `style="--pa-…"`, JS `getPropertyValue`/`setProperty`
+    calls, and every theme's `:root` / dark-mode `--pa-*` override block. Safe
+    because the leading `--` + trailing `-` can't match `--base-*` or `--page-loader-*`.
+    pure-admin, its demo, all 16 themes, and the svelte/keen wrappers migrate in
+    lockstep with this release.
 - **Grid classes renamed from the consumer-branded `pa-` to the foundation's own
   `pc-` prefix.** `.pa-row` → `.pc-row`, `.pa-col*` → `.pc-col*` (all percentage /
   fraction / responsive / `--grow`/`--shrink`/`--no-padding` variants),
@@ -20,15 +63,26 @@ All notable changes to `@keenmate/pure-css` are documented here. Format based on
 - **Light/dark mode scope classes renamed `.pa-mode-*` → `.pc-mode-*`.**
   The light/dark scopes the foundation emits its variables against (and that apps
   toggle on `<body>`) are foundation-owned, so they move to the `pc-` prefix too.
-  `output-pa-css-variables` now emits at `:root, .pc-mode-light, .pc-mode-dark`.
+  `output-pc-css-variables` now emits at `:root, .pc-mode-light, .pc-mode-dark`.
   Consumers toggling the class in JS (`classList.add('pc-mode-dark')`) and themes'
   dark-mode blocks migrate in lockstep. (Safe replace: the string `pa-mode-` →
   `pc-mode-`; `pa-modal` is untouched since `mode` ≠ `moda`.)
 
 ### Added
 
+- **Sizing utilities consolidated into the foundation.** The universal sizing/flex
+  utilities that had been left in pure-admin now live here, so a standalone
+  pure-css page has the full set: viewport heights `h-full` / `h-screen` /
+  `min-h-full` / `min-h-screen` / `max-h-full` / `max-h-screen`, and the
+  Tailwind-style flex shorthands `flex-1` / `flex-auto` / `flex-initial` /
+  `flex-none` / `flex-grow` / `flex-shrink` (alongside the existing
+  `flex-grow-0/1`, `flex-shrink-0/1`). pure-css already owned the width/height %
+  + rem scales (`w-*`/`h-*`, `wr-*`/`hr-*`) and the full min/max families
+  (`minw-*`/`maxh-*`/`minwr-*`/`maxhr-*`/…); pure-admin's duplicate rem-height
+  `h-Nx`/`min-h-Nx`/`max-h-Nx` set (byte-identical to `hr-N`/`minhr-N`/`maxhr-N`)
+  is retired in favour of the foundation's `hr-`/`wr-` naming (`r` = rem).
 - **Complete form-spacing contract as runtime CSS variables, under a pure-css-owned
-  `--pc-` namespace.** `output-pa-css-variables` now emits the full anatomy of a
+  `--pc-` namespace.** `output-pc-css-variables` now emits the full anatomy of a
   form's spacing at `:root`, so every consumer (pure-admin, keen-docs,
   keen-pure-admin) shares one contract instead of re-declaring `var()` chains or
   being stuck with compile-time-only margins:
