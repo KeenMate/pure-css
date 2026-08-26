@@ -242,7 +242,12 @@ $table-responsive-label-font-weight: $font-weight-semibold !default;
 // ============================================================================
 // FORM SYSTEM
 // ============================================================================
-$form-scale: 0.8rem !default;              // 8px (was 0.5rem)
+// Gap between adjacent form bits — a label and its inline icon, footer action
+// buttons, and checkbox/radio group options. It is ONLY ever used as a `gap:`
+// value; the old name ($form-scale) misleadingly read as an input-sizing
+// multiplier. Consumers can retune it at runtime via the --pc-form-gap CSS var.
+$form-gap: 0.8rem !default;                // 8px (was 0.5rem)
+$form-scale: $form-gap !default;           // DEPRECATED alias — retire in a major
 $form-group-margin-bottom: $spacing-sm !default;
 $form-label-margin-bottom: 0.3rem !default;   // ~3px (was 0.2rem)
 $form-help-margin-top: $spacing-xs !default;

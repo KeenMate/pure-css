@@ -1,6 +1,6 @@
 :root,
-.pa-mode-light,
-.pa-mode-dark {
+.pc-mode-light,
+.pc-mode-dark {
   --pa-text-strong: color-mix(in srgb, var(--pa-text-color-1) 85%, transparent);
   --pa-text-secondary: color-mix(in srgb, var(--pa-text-color-1) 70%, transparent);
   --pa-text-tertiary: color-mix(in srgb, var(--pa-text-color-1) 55%, transparent);
@@ -289,6 +289,15 @@
   --pa-border-radius-sm: 2px;
   --pa-border-radius: 4px;
   --pa-border-radius-lg: 8px;
+  --pc-form-gap: 0.8rem;
+  --pc-choice-gap: var(--pc-form-gap);
+  --pc-choice-inner-gap: 0.8rem;
+  --pc-form-actions-gap: var(--pc-form-gap);
+  --pc-field-horizontal-gap: 1.6rem;
+  --pc-label-gap: 0.3rem;
+  --pc-help-gap: 0.4rem;
+  --pc-field-gap: 0.8rem;
+  --pc-form-actions-offset: 1.6rem;
   --pa-alert-success-text: color-mix(in srgb, var(--pa-success-bg) 60%, black);
   --pa-alert-success-bg: color-mix(in srgb, var(--pa-success-bg) 15%, transparent);
   --pa-alert-success-border: color-mix(in srgb, var(--pa-success-bg) 30%, transparent);

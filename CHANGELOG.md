@@ -3,6 +3,57 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.0-rc04]
+
+### Changed (BREAKING)
+
+- **Grid classes renamed from the consumer-branded `pa-` to the foundation's own
+  `pc-` prefix.** `.pa-row` → `.pc-row`, `.pa-col*` → `.pc-col*` (all percentage /
+  fraction / responsive / `--grow`/`--shrink`/`--no-padding` variants),
+  `.pa-offset*` → `.pc-offset*`, `.pa-cq` → `.pc-cq`, `.pa-hide*` → `.pc-hide*`,
+  `.pa-show*` → `.pc-show*`. The grid is a pure-css *foundation* primitive, so it
+  should not carry pure-admin's (`pa`) brand — this de-couples it. **No dual-emit:**
+  the old `pa-*` grid classes are gone. Consumers must migrate markup
+  (`class="pa-col-1-2"` → `class="pc-col-1-2"`) — a boundary-aware find/replace
+  (careful: `pa-col` is a substring of `pa-color-*`, which must NOT be touched).
+  pure-admin, its demo, and the svelte/keen wrappers are migrated in lockstep.
+- **Light/dark mode scope classes renamed `.pa-mode-*` → `.pc-mode-*`.**
+  The light/dark scopes the foundation emits its variables against (and that apps
+  toggle on `<body>`) are foundation-owned, so they move to the `pc-` prefix too.
+  `output-pa-css-variables` now emits at `:root, .pc-mode-light, .pc-mode-dark`.
+  Consumers toggling the class in JS (`classList.add('pc-mode-dark')`) and themes'
+  dark-mode blocks migrate in lockstep. (Safe replace: the string `pa-mode-` →
+  `pc-mode-`; `pa-modal` is untouched since `mode` ≠ `moda`.)
+
+### Added
+
+- **Complete form-spacing contract as runtime CSS variables, under a pure-css-owned
+  `--pc-` namespace.** `output-pa-css-variables` now emits the full anatomy of a
+  form's spacing at `:root`, so every consumer (pure-admin, keen-docs,
+  keen-pure-admin) shares one contract instead of re-declaring `var()` chains or
+  being stuck with compile-time-only margins:
+  - Vertical rhythm: `--pc-label-gap` (label → control), `--pc-help-gap`
+    (control → help/error), `--pc-field-gap` (field → field),
+    `--pc-form-actions-offset` (last field → actions row).
+  - Inline gaps: `--pc-form-gap` (shared + label↔inline-icon), `--pc-choice-gap`
+    (between options), `--pc-choice-inner-gap` (control↔label), `--pc-form-actions-gap`
+    (between buttons), `--pc-field-horizontal-gap` (horizontal label col↔input col).
+
+  The inline "gap" family chains to `--pc-form-gap` (one knob moves them all);
+  every var is also overridable on its own scope. These are the first
+  foundation-owned runtime vars to use `--pc-` rather than the legacy
+  consumer-branded `--pa-` prefix — new foundation tokens should follow suit.
+
+### Changed
+
+- **Renamed the misleading `$form-scale` token to `$form-gap`.** It reads like an
+  input-sizing multiplier but is only ever consumed as a `gap:` value — the small
+  gap between adjacent form bits (a label and its inline icon, footer action
+  buttons, checkbox/radio group options). `$form-scale` is kept as a `!default`
+  alias of `$form-gap`, so existing overrides keep working; it will be retired in
+  a major. (pure-admin reads the gap through `var(--pc-form-gap, …)`, so it is
+  also runtime-tunable.)
+
 ## [1.0.0-rc03] — 2026-08-21 [PUBLISHED]
 
 ### Changed

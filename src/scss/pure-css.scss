@@ -9,7 +9,7 @@
 //   1. `:root` defaults for every --base-*/--pa-* variable (light values)
 //   2. the reboot (10px rem base + element reset — the sizing contract)
 //   3. themed scrollbars (global browser chrome)
-//   4. the native flexbox grid (.pa-row / .pa-col)
+//   4. the native flexbox grid (.pc-row / .pc-col)
 //   5. the utility classes (.m-*, .d-flex, .w-*, …)
 //
 // A *theme* is just an override of the `$base-*` SCSS variables (or the

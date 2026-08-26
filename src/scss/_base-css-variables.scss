@@ -212,14 +212,14 @@
 // theme-aware contrast levels. They MUST be emitted at every selector that
 // could carry an override of --pa-text-color-1, because CSS custom property
 // substitution bakes nested var() references at the *defining element*, not
-// the using element. If we only defined these at `:root, .pa-mode-light`,
+// the using element. If we only defined these at `:root, .pc-mode-light`,
 // the light-mode text colour would be frozen into the value, and elements
-// inside `.pa-mode-dark` (which overrides --pa-text-color-1 at body) would
+// inside `.pc-mode-dark` (which overrides --pa-text-color-1 at body) would
 // inherit the light-mode-baked tier values → low contrast on dark surfaces.
 //
 // Emitting at all three selectors causes each scope to recompute the tiers
-// against its own --pa-text-color-1. The selector list `:root, .pa-mode-light,
-// .pa-mode-dark` covers html, body in light mode, and body in dark mode —
+// against its own --pa-text-color-1. The selector list `:root, .pc-mode-light,
+// .pc-mode-dark` covers html, body in light mode, and body in dark mode —
 // regardless of which class layout each theme uses for mode switching.
 //
 // This is a TOP-LEVEL rule (not inside the mixin) because themes only call
@@ -232,8 +232,8 @@
 // ============================================================================
 
 :root,
-.pa-mode-light,
-.pa-mode-dark {
+.pc-mode-light,
+.pc-mode-dark {
   --pa-text-strong:    color-mix(in srgb, var(--pa-text-color-1) 85%, transparent);
   --pa-text-secondary: color-mix(in srgb, var(--pa-text-color-1) 70%, transparent);
   --pa-text-tertiary:  color-mix(in srgb, var(--pa-text-color-1) 55%, transparent);
@@ -265,7 +265,7 @@
   // adaptive palettes via `light-dark()`. Override $theme-color-scheme
   // before importing variables for always-dark themes; for dual-mode
   // themes leave default `light` here and add `color-scheme: dark;` to
-  // the `.pa-mode-dark` block.
+  // the `.pc-mode-dark` block.
   // =========================================================================
   color-scheme: #{$theme-color-scheme};
 
@@ -299,7 +299,7 @@
 
   // Border. A pure pass-through of the base border colour — emit it as a live reference to
   // --base-border-color (not a baked literal) so it follows a RUNTIME --base-* override (a
-  // theme toggling --base-border-color at :root/.pa-mode-dark), while the build-time value
+  // theme toggling --base-border-color at :root/.pc-mode-dark), while the build-time value
   // stays the fallback. Keeps utilities/components that read --pa-border-color theme-responsive.
   --pa-border-color: var(--base-border-color, #{$border-color});
 
@@ -344,8 +344,8 @@
   // OUTSIDE this mixin — see below — because their values use
   // `var(--pa-text-color-1)` and CSS custom property substitution bakes
   // nested var() at the *defining element*, not the using element. That
-  // means tier vars defined here at `:root, .pa-mode-light` would freeze
-  // the light-mode text colour into them; under `.pa-mode-dark` (which
+  // means tier vars defined here at `:root, .pc-mode-light` would freeze
+  // the light-mode text colour into them; under `.pc-mode-dark` (which
   // overrides --pa-text-color-1 at body) the tiers would still resolve
   // against the light value. Emitting them at all three selectors
   // simultaneously fixes the substitution scope.)
@@ -645,4 +645,37 @@
   --pa-border-radius-sm: #{$border-radius-sm};
   --pa-border-radius: #{$border-radius};
   --pa-border-radius-lg: #{$border-radius-lg};
+
+  // =========================================================================
+  // FORM SPACING
+  // The one shared set of form spacing tokens — the complete anatomy of a form,
+  // emitted here so the contract lives in a single place for EVERY consumer that
+  // outputs this mixin (pure-admin, keen-docs, keen-pure-admin), no per-project
+  // re-declaration. Each is runtime-tunable and overridable on its own; the
+  // inline "gap" family also chains to --pc-form-gap so one knob moves them all.
+  //
+  //   VERTICAL RHYTHM (down the form)
+  //   --pc-label-gap            a field's label → its control
+  //   --pc-help-gap             a control → its help / error text
+  //   --pc-field-gap            field → field (one .pa-form-group = one field)
+  //   --pc-form-actions-offset  last field → the actions row
+  //
+  //   INLINE GAPS (within a row)
+  //   --pc-form-gap             shared default + label ↔ inline icon
+  //   --pc-choice-gap           between checkbox / radio options
+  //   --pc-choice-inner-gap     a control ↔ its own label (checkbox / radio)
+  //   --pc-form-actions-gap     between footer buttons
+  //   --pc-field-horizontal-gap horizontal field: label column ↔ input column
+  // =========================================================================
+  // Inline gaps
+  --pc-form-gap: #{$form-gap};
+  --pc-choice-gap: var(--pc-form-gap);
+  --pc-choice-inner-gap: #{$spacing-sm};
+  --pc-form-actions-gap: var(--pc-form-gap);
+  --pc-field-horizontal-gap: #{$spacing-base};
+  // Vertical rhythm
+  --pc-label-gap: #{$form-label-margin-bottom};
+  --pc-help-gap: #{$form-help-margin-top};
+  --pc-field-gap: #{$form-group-margin-bottom};
+  --pc-form-actions-offset: #{$spacing-base};
 }

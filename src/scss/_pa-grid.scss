@@ -6,12 +6,12 @@
 @use 'variables/index' as *;
 //
 // Naming convention:
-// - .pa-row            → flex container
-// - .pa-col            → auto-equal width column
-// - .pa-col-{n}        → percentage width in 5% increments (5, 10, 15... 100)
-// - .pa-col-{x}-{y}    → fraction width (1-2, 1-3, 2-3, 1-4, 3-4, 1-6, 5-6, etc.)
-// - .pa-col-{bp}-{n}   → responsive variants (sm, md, lg, xl)
-// - .pa-offset-{n}     → left margin offset
+// - .pc-row            → flex container
+// - .pc-col            → auto-equal width column
+// - .pc-col-{n}        → percentage width in 5% increments (5, 10, 15... 100)
+// - .pc-col-{x}-{y}    → fraction width (1-2, 1-3, 2-3, 1-4, 3-4, 1-6, 5-6, etc.)
+// - .pc-col-{bp}-{n}   → responsive variants (sm, md, lg, xl)
+// - .pc-offset-{n}     → left margin offset
 // ============================================================================
 
 @use "sass:math";
@@ -44,61 +44,61 @@ $grid-columns-fractions: (
 // ============================================================================
 // ROW (Container)
 // ============================================================================
-.pa-row {
+.pc-row {
   display: flex;
   flex-wrap: wrap;
   margin-inline: -$grid-gutter; // RTL: flips automatically
   row-gap: $grid-gutter; // Vertical gap when columns wrap (half the horizontal gutter total)
 
   // Nested rows reset margins
-  .pa-row {
+  .pc-row {
     margin-inline: 0;
   }
 }
 
 // Row modifiers
-.pa-row--no-gutter {
+.pc-row--no-gutter {
   margin-inline: 0;
 
-  > [class*="pa-col"] {
+  > [class*="pc-col"] {
     padding-inline: 0;
   }
 }
 
-.pa-row--center {
+.pc-row--center {
   justify-content: center;
 }
 
-.pa-row--end {
+.pc-row--end {
   justify-content: flex-end;
 }
 
-.pa-row--between {
+.pc-row--between {
   justify-content: space-between;
 }
 
-.pa-row--around {
+.pc-row--around {
   justify-content: space-around;
 }
 
-.pa-row--stretch {
+.pc-row--stretch {
   align-items: stretch;
 }
 
-.pa-row--top {
+.pc-row--top {
   align-items: flex-start;
 }
 
-.pa-row--middle {
+.pc-row--middle {
   align-items: center;
 }
 
-.pa-row--bottom {
+.pc-row--bottom {
   align-items: flex-end;
 }
 
-.pa-row--same-height {
-  > [class*="pa-col"] {
+.pc-row--same-height {
+  > [class*="pc-col"] {
     > .pa-card {
       height: 100%;
     }
@@ -108,14 +108,14 @@ $grid-columns-fractions: (
 // ============================================================================
 // COLUMN (Base)
 // ============================================================================
-.pa-col {
+.pc-col {
   flex: 1;
   padding-inline: $grid-gutter; // RTL: flips automatically
   min-width: 0; // Prevent content overflow
 }
 
 // Auto-width column
-.pa-col-auto {
+.pc-col-auto {
   flex: 0 0 auto;
   width: auto;
   padding-inline: $grid-gutter;
@@ -125,7 +125,7 @@ $grid-columns-fractions: (
 // PERCENTAGE COLUMNS (Base - 5% increments)
 // ============================================================================
 @each $size in $grid-columns-5 {
-  .pa-col-#{$size} {
+  .pc-col-#{$size} {
     flex: 0 0 math.percentage(math.div($size, 100));
     max-width: math.percentage(math.div($size, 100));
     padding-inline: $grid-gutter; // RTL: flips automatically
@@ -137,7 +137,7 @@ $grid-columns-fractions: (
 // FRACTION COLUMNS (Base - intuitive naming)
 // ============================================================================
 @each $name, $width in $grid-columns-fractions {
-  .pa-col-#{$name} {
+  .pc-col-#{$name} {
     flex: 0 0 $width;
     max-width: $width;
     padding-inline: $grid-gutter; // RTL: flips automatically
@@ -150,7 +150,7 @@ $grid-columns-fractions: (
 // ============================================================================
 @each $size in $grid-columns-5 {
   @if $size < 100 {
-    .pa-offset-#{$size} {
+    .pc-offset-#{$size} {
       margin-inline-start: math.percentage(math.div($size, 100)); // RTL: flips to margin-right
     }
   }
@@ -158,13 +158,13 @@ $grid-columns-fractions: (
 
 // ============================================================================
 // RESPONSIVE COLUMNS & OFFSETS (Container-query based)
-// Requires a containment context ancestor: .pa-layout__main (automatic) or .pa-cq
+// Requires a containment context ancestor: .pa-layout__main (automatic) or .pc-cq
 // ============================================================================
 @each $bp, $min-width in $grid-breakpoints {
   @container (min-width: #{$min-width}) {
     // Responsive percentage columns (5% increments)
     @each $size in $grid-columns-5 {
-      .pa-col-#{$bp}-#{$size} {
+      .pc-col-#{$bp}-#{$size} {
         flex: 0 0 math.percentage(math.div($size, 100));
         max-width: math.percentage(math.div($size, 100));
         padding-inline: $grid-gutter; // RTL: flips automatically
@@ -174,7 +174,7 @@ $grid-columns-fractions: (
 
     // Responsive fraction columns
     @each $name, $width in $grid-columns-fractions {
-      .pa-col-#{$bp}-#{$name} {
+      .pc-col-#{$bp}-#{$name} {
         flex: 0 0 $width;
         max-width: $width;
         padding-inline: $grid-gutter; // RTL: flips automatically
@@ -185,14 +185,14 @@ $grid-columns-fractions: (
     // Responsive offsets (5% increments)
     @each $size in $grid-columns-5 {
       @if $size < 100 {
-        .pa-offset-#{$bp}-#{$size} {
+        .pc-offset-#{$bp}-#{$size} {
           margin-inline-start: math.percentage(math.div($size, 100)); // RTL: flips to margin-right
         }
       }
     }
 
     // Responsive auto column
-    .pa-col-#{$bp}-auto {
+    .pc-col-#{$bp}-auto {
       flex: 0 0 auto;
       width: auto;
     }
@@ -202,48 +202,48 @@ $grid-columns-fractions: (
 // ============================================================================
 // COLUMN MODIFIERS
 // ============================================================================
-.pa-col--no-padding {
+.pc-col--no-padding {
   padding-inline: 0;
 }
 
-.pa-col--grow {
+.pc-col--grow {
   flex-grow: 1;
 }
 
-.pa-col--shrink {
+.pc-col--shrink {
   flex-shrink: 1;
 }
 
 // ============================================================================
 // VISIBILITY HELPERS (Responsive)
 // ============================================================================
-.pa-hide {
+.pc-hide {
   display: none !important;
 }
 
-.pa-show {
+.pc-show {
   display: block !important;
 }
 
 @each $bp, $min-width in $grid-breakpoints {
   // Hide at breakpoint and up
   @media (min-width: $min-width) {
-    .pa-hide-#{$bp} {
+    .pc-hide-#{$bp} {
       display: none !important;
     }
 
-    .pa-show-#{$bp} {
+    .pc-show-#{$bp} {
       display: block !important;
     }
   }
 
   // Hide below breakpoint
   @media (max-width: $min-width - 1px) {
-    .pa-hide-below-#{$bp} {
+    .pc-hide-below-#{$bp} {
       display: none !important;
     }
 
-    .pa-show-below-#{$bp} {
+    .pc-show-below-#{$bp} {
       display: block !important;
     }
   }
@@ -253,7 +253,7 @@ $grid-columns-fractions: (
 // REMOVE BOTTOM PADDING IN CARDS
 // ============================================================================
 // Remove bottom padding from grid columns inside cards to avoid conflicts
-.pa-card__body .pa-row > [class*="pa-col"] {
+.pa-card__body .pc-row > [class*="pc-col"] {
   padding-bottom: 0;
 }
 
@@ -266,7 +266,7 @@ $grid-columns-fractions: (
   // Stack percentage columns
   @each $size in $grid-columns-5 {
     @if $size < 100 {
-      .pa-col-#{$size} {
+      .pc-col-#{$size} {
         flex: 0 0 100%;
         max-width: 100%;
       }
@@ -275,7 +275,7 @@ $grid-columns-fractions: (
 
   // Stack fraction columns
   @each $name, $width in $grid-columns-fractions {
-    .pa-col-#{$name} {
+    .pc-col-#{$name} {
       flex: 0 0 100%;
       max-width: 100%;
     }
@@ -284,7 +284,7 @@ $grid-columns-fractions: (
   // Reset base offsets when stacking
   @each $size in $grid-columns-5 {
     @if $size < 100 {
-      .pa-offset-#{$size} {
+      .pc-offset-#{$size} {
         margin-inline-start: 0;
       }
     }

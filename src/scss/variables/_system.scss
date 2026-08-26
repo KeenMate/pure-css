@@ -8,7 +8,7 @@
 // override BEFORE `@import variables/index`. Values: `light`, `dark`,
 // `light dark` (let OS preference decide), or `only light` / `only dark`
 // to ignore OS preference. Per-mode overrides (e.g. `color-scheme: dark;`
-// inside a `.pa-mode-dark` block) take precedence via the cascade.
+// inside a `.pc-mode-dark` block) take precedence via the cascade.
 $theme-color-scheme: light !default;
 
 // Z-index scale (increments of 1000 for easy adjustment)
