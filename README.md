@@ -29,6 +29,14 @@ so it can be consumed on its own.
   `:root` blocks in lockstep — a boundary-aware find/replace of the string
   `--pa-` → `--pc-` (safe: it can't touch `--base-*`, `--page-loader-*`, or the
   `.pa-color-{name}` variant **class**).
+- **Sizing utilities consolidated into the foundation.** The universal
+  viewport-height utilities (`h-full` / `h-screen` / `min-h-full` /
+  `min-h-screen` / `max-h-full` / `max-h-screen`) and the Tailwind-style flex
+  shorthands (`flex-1` / `flex-auto` / `flex-initial` / `flex-none` /
+  `flex-grow` / `flex-shrink`) now ship from pure-css, so a standalone page gets
+  the complete set without borrowing anything from pure-admin. pure-admin's
+  duplicate rem-height `h-Nx` / `min-h-Nx` / `max-h-Nx` classes are retired in
+  favour of the foundation's `hr-` / `wr-` naming (`r` = rem).
 - **Complete form-spacing contract as runtime `--pc-*` variables** and the
   `$form-scale` → `$form-gap` rename (see CHANGELOG).
 
@@ -36,20 +44,6 @@ so it can be consumed on its own.
 
 - **Theming contract — top-bar region tokens renamed from `header` to `navbar` (BREAKING).** The foundation's top-region tokens named the bar as a *component block* (`header`) rather than the layout region it actually is, which read as misleading once pure-admin's navbar component dropped its legacy `pa-header__*` block naming. Every top-bar token is renamed on both sides of the cascade: the `$header-*` SCSS source variables (`$header-height` → `$navbar-height`, `$header-bg` → `$navbar-bg`, `$header-border-color`, `$header-text`, `$header-text-secondary`, `$header-profile-name-color`, and `$z-index-header` → `$z-index-navbar`) and the emitted `--pa-header-*` custom properties (`--pa-navbar-bg`, `--pa-navbar-border-color`, `--pa-navbar-text`, `--pa-navbar-text-secondary`, `--pa-navbar-profile-name-color`). Consumers reading the old names must update — `$footer-height` still mirrors the bar height (now `$navbar-height`), and the component-header tokens (`$card-header-*`, `$table-header-*`) are deliberately untouched since those *are* component blocks.
 - **Removed the dead `$header-brand-padding-left` variable.** It was superseded by the navbar's flex `gap`; no live rule consumed it — only a stale comment still referenced it — so it's gone from the source of truth.
-
-## What's New in 1.0.0-rc02
-
-- **Reboot layer — the 10px base is now built in.** pure-css ships
-  `html { font-size: 10px }` (plus a `box-sizing` reset and neutral base element
-  styling) via the new `reboot.scss`, included in the `pure-css.css` bundle and
-  available standalone as `reboot.css` / the `./reboot` export. Every pure-css
-  rem value assumes a 10px root, so previously a standalone consumer rendered
-  everything 1.6× too large until they added the base themselves — now it just
-  works out of the box.
-- **Themed scrollbars, foundation-wide.** The global thin-scrollbar styling
-  (`scrollbars.scss`, coloured from the `--pa-*` cascade) moved out of
-  pure-admin-core, so a standalone pure-css page gets the same scrollbars as a
-  full admin app. In the bundle, or cherry-pick `scrollbars.css` / `./scrollbars`.
 
 ## Why
 
