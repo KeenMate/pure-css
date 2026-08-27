@@ -7,6 +7,13 @@ All notable changes to `@keenmate/pure-css` are documented here. Format based on
 
 ### Internal
 
+- **GitHub Actions release workflow (`.github/workflows/release.yml`).** On a `v*.*.*`
+  tag push, builds the CSS (`npm ci` + `npm run build`) and publishes a GitHub Release
+  with a `pure-css-<version>.zip` (bundling `dist/`, `src/scss/`, `README.md`,
+  `CHANGELOG.md`, `LICENSE` — the same set as the package `files`, so the zip is a
+  toolchain-free drop-in for consumers who don't use npm) plus a `.sha256` checksum.
+  Auto-generated release notes; tags containing `-` (rc) publish as a pre-release.
+  Mirrors pure-admin-core's release workflow, adapted for this single-package repo.
 - **Exhaustive, data-driven utilities e2e coverage.** Rewrote `e2e/utilities.spec.ts`
   from a handful of spot-checks into a hard value assertion for 655 of the 664 shipped
   utility classes (the 9 `auto` sizing classes — `m-auto` + per-side, `w-auto`, `h-auto` —

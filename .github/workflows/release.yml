@@ -1,0 +1,46 @@
+name: Create release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build CSS and publish release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build CSS
+        run: npm run build
+
+      - name: Package zip
+        run: |
+          VER="${GITHUB_REF_NAME#v}"
+          ZIP="pure-css-${VER}.zip"
+          zip -r "${ZIP}" \
+            dist src/scss README.md CHANGELOG.md LICENSE
+          sha256sum "${ZIP}" > "${ZIP}.sha256"
+          ls -l "${ZIP}" "${ZIP}.sha256"
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            pure-css-*.zip
+            pure-css-*.zip.sha256
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
