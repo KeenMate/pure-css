@@ -3,6 +3,22 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.0-rc05] — 2026-08-27
+
+### Internal
+
+- **Exhaustive, data-driven utilities e2e coverage.** Rewrote `e2e/utilities.spec.ts`
+  from a handful of spot-checks into a hard value assertion for 655 of the 664 shipped
+  utility classes (the 9 `auto` sizing classes — `m-auto` + per-side, `w-auto`, `h-auto` —
+  are layout-resolved and covered behaviourally instead). Each family measures every one
+  of its classes' computed styles in a single in-browser pass, then diffs in Node so a
+  failure lists exactly which classes are off; the expectations independently encode the
+  10px-rem contract and the documented scales rather than reading them back from the CSS,
+  so a failure means the compiled output disagrees with the contract or the contract
+  regressed. Renamed the fixture `test/utilities.html` → `test/utilities-scale.html` with
+  definite-size `#w-parent` / `#h-parent` containers so percentage widths/heights resolve
+  to known px. Test-only — no change to shipped CSS.
+
 ## [1.0.0-rc04] — 2026-08-26 [PUBLISHED]
 
 ### Changed (BREAKING)

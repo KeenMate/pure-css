@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test — utilities scale</title>
+    <!-- Full bundle: gives the 10px rem base + every utility + the tokens the
+         border/radius/text-colour utilities read. The utilities-full spec injects
+         probe elements into the sized containers below and reads computed styles. -->
+    <link rel="stylesheet" href="/dist/css/pure-css.css">
+    <style>
+        /* definite-size containers so % width/height resolve to known px */
+        #w-parent { width: 1000px; }
+        #h-parent { height: 400px; }
+    </style>
+</head>
+<body>
+    <h1>utilities scale</h1>
+    <div id="w-parent"></div>
+    <div id="h-parent"></div>
+</body>
+</html>
