@@ -1,0 +1,120 @@
+@use 'variables/index' as *;
+/* ========================================
+   Navbar Component
+   Fixed navbar and constrained container widths
+   ======================================== */
+
+// Width the centre slot reserves when it hosts a command-palette search pill
+// (see .pc-navbar__center below). A floor, not a fixed width — the slot still
+// grows via flex:1; this just stops it collapsing to a sliver.
+$navbar-search-reserve-width: 18rem !default;
+
+// Navbar - Fixed at top, full width by default
+.pc-navbar {
+  position: fixed;
+  top: 0;
+  inset-inline: 0; // RTL: works for both LTR and RTL
+  height: $navbar-height;
+  background-color: var(--pc-navbar-bg);
+  border-bottom: $border-width-base solid var(--pc-navbar-border-color);
+  z-index: $z-index-navbar; // 2000
+  display: flex;
+  align-items: center;
+  justify-content: center; // Center for constrained mode
+}
+
+// Constrained navbar - limit navbar width to match container
+// Body class is just a marker, no width styles on body itself
+body.pc-container-sm .pc-navbar {
+  max-width: $layout-container-sm;
+  inset-inline: 0; // RTL: works for both LTR and RTL
+  margin-inline: auto; // RTL: centers in both directions
+}
+
+body.pc-container-md .pc-navbar {
+  max-width: $layout-container-md;
+  inset-inline: 0;
+  margin-inline: auto;
+}
+
+body.pc-container-lg .pc-navbar {
+  max-width: $layout-container-lg;
+  inset-inline: 0;
+  margin-inline: auto;
+}
+
+body.pc-container-xl .pc-navbar {
+  max-width: $layout-container-xl;
+  inset-inline: 0;
+  margin-inline: auto;
+}
+
+body.pc-container-2xl .pc-navbar {
+  max-width: $layout-container-2xl;
+  inset-inline: 0;
+  margin-inline: auto;
+}
+
+// Navbar inner content. Its direct children are a FIXED burger anchor
+// (.pc-navbar__burger — always visible, never in the fit engine) followed by
+// the three degradable zones (.pc-navbar__start / __center / __end). The burger
+// is a SIBLING of the zones, not inside start, so it stays put while the zones
+// collapse. Its `gap` here is the single burger→start separator (same
+// $spacing-base as .pc-navbar__start's own gap). navbar-fit.js measures these
+// direct children.
+.pc-navbar__inner {
+  width: 100%;
+  padding: 0 $spacing-base;
+  display: flex;
+  align-items: center;
+  gap: $spacing-base;
+}
+
+// Header sections - Start/Center/End layout
+.pc-navbar__start {
+  display: flex;
+  align-items: center;
+  gap: $spacing-base;
+  flex-shrink: 0;
+}
+
+.pc-navbar__center {
+  flex: 1;
+  min-width: 0; // Allow shrinking for ellipsis
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // When the centre slot holds a command-palette search pill, reserve real
+  // width for it. The search's min-width lives on a *child* (.pc-navbar-search),
+  // which flexbox ignores — so this slot (min-width:0) would collapse to a
+  // sliver, letting the pill overflow onto the start/end slots. Worse: that
+  // deficit never shrinks the NAV's own slot, so fit.js — which
+  // measures nav.clientWidth — never sees it and stops folding while items still
+  // overlap. Reserving a floor here forces the squeeze onto the shrinkable
+  // .pc-navbar__start (see the :has rule in _navbar-elements.scss) instead, so
+  // the nav narrows and the collapse loop fires honestly.
+  &:has(.pc-navbar-search) {
+    min-width: $navbar-search-reserve-width;
+
+    // Let the reserved slot's DIRECT flex child shrink, whatever it is. The
+    // shrink flexbox needs (min-width:0) has to land on the flex item itself —
+    // not on the pill by name. Consumers (svelte-pure-admin etc.) wrap the pill
+    // in their own element; a descendant selector shrank the pill but left the
+    // wrapper at min-width:auto, so it refused to collapse and overflowed onto
+    // the start/end slots. Targeting `> *` is position-agnostic: pill-as-child
+    // and pill-in-wrapper both shrink. Guarded by :has(.pc-navbar-search) so it
+    // only touches the slot when it actually hosts a search.
+    > * {
+      min-width: 0;
+    }
+  }
+}
+
+.pc-navbar__end {
+  display: flex;
+  align-items: center;
+  gap: $spacing-base;
+  flex-shrink: 0;
+  margin-inline-start: auto;
+}

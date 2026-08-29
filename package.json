@@ -13,11 +13,14 @@
     "./grid": "./dist/css/grid.css",
     "./utilities": "./dist/css/utilities.css",
     "./scss": "./src/scss/pure-css.scss",
-    "./scss/*": "./src/scss/*"
+    "./scss/*": "./src/scss/*",
+    "./js": "./src/js/pure-css.js",
+    "./js/*": "./src/js/*"
   },
   "files": [
     "dist/",
     "src/scss/",
+    "src/js/",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"

@@ -3,7 +3,74 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.0.0-rc05] — 2026-08-27
+## [1.0.0-rc05] — 2026-08-27 [PUBLISHED]
+
+### Added
+
+- **The app shell moves into the foundation — navbar, sidebar, and layout
+  container.** pure-css was variables + grid + utilities; rc05 also relocates the
+  structural app-shell layer out of pure-admin-core, so a standalone page (docs
+  site, portal) gets the same navbar/sidebar/layout chrome as a full pure-admin
+  app without pulling in the component library. Seven new partials, all `@use`d
+  into the `pure-css.css` **bundle only** (base.css / grid.css / utilities.css
+  untouched; no new standalone artifact):
+  - `_navbar.scss` + `_navbar-elements.scss` — the fixed navbar (`.pc-navbar`
+    with `__inner`/`__start`/`__center`/`__end` regions) and its elements (burger
+    menu, brand wordmark `.pc-app-header`, nav menu `.pc-navmenu`, page title
+    `.pc-page-header`, profile button, theme switcher).
+  - `_sidebar.scss` + `_sidebar-states.scss` — the sidebar nav with nested
+    submenus (`.pc-sidebar`, `.pc-layout__sidebar`, drag-to-resize
+    `.pc-sidebar-resize`) and its hidden / icon-collapse / expanded states.
+  - `_layout-container.scss` — the layout wrapper (`.pc-layout` with
+    `__inner`/`__main`/`__content`/`__footer` and the `.pc-footer__*` regions),
+    including sticky/scroll content modes. Emitting `.pc-layout__main` here also
+    gives the grid's container-query responsive columns (`.pc-col-md-*`) their
+    documented automatic containment context in the same bundle (the
+    `_pa-grid.scss` note is corrected from the pre-rc04 `.pa-layout__main` to
+    `.pc-layout__main`).
+  - `_layout-responsive.scss` — the mobile/tablet media queries for the shell.
+  - `_resize-handle.scss` — a mixin-only partial (emits nothing on its own)
+    providing the shared grab-knob look `@use`d by the sidebar resize handle and
+    splitter gutters.
+  - `_fit-flyout.scss` — the Fit engine's floating-menu sink
+    (`.pc-fit-flyout__*`): a `•••` trigger + a `<body>`-parented panel that
+    `fit.js` fills on demand when slots relocate out of the row.
+
+  pure-admin-core keeps same-named partials that now just `@forward` these, so the
+  shell is single-sourced in the foundation and the two can't drift.
+
+- **The shell's behaviour ships too — a dependency-free JS runtime (`src/js/`).**
+  The shell is no longer styling-only: the foundation now carries the vanilla-JS
+  runtime that drives it, so pure-css is no longer a CSS-only package. Shipped
+  **as source** (no build step) via a new `./js` export (and `./js/*` for
+  individual engines); `files` gains `src/js/`.
+  - `pure-css.js` installs the `window.pureCss` namespace — a tiny event bus,
+    live viewport / OS-colour-scheme / capability-first device sources, overlay
+    primitives (scroll-lock, keyboard-inset), an open-menu registry, a shared
+    `config` baseline (single-sourced from SCSS via `--pc-*` vars), and
+    `components.initAll(scope)`. Load-order-safe and stands alone when pure-admin
+    is absent; `pure-admin.js` adopts the same buses by reference on top.
+  - `fit.js` — the Fit engine (`data-pc-fit` = hide / steps / relocate). It
+    **absorbs the former `navbar-collapse.js`** (progressive nav folding via
+    `data-pc-fit-nav`, sinking items to the sidebar or a generated "More" menu),
+    so that separate file no longer exists.
+  - `navbar-dropdown.js` (tap-toggle nav dropdowns/submenus),
+    `sidebar-resize.js` (drag-to-resize the sidebar), and
+    `container-breakpoint.js` (container-query breakpoint driver).
+
+  Shell CSS is authored no-JS-safe, so styling degrades gracefully rather than
+  breaking when the runtime isn't loaded.
+
+### Fixed
+
+- **Migrated the dead `data-pa-nav-collapse` hook to `data-pc-fit-nav`.** The
+  relocated nav-collapse CSS keyed on the pre-rc04 `pa-`-branded
+  `[data-pa-nav-collapse]` attribute driven by the old `navbar-collapse.js`;
+  since that engine is now merged into `fit.js` (which reads `data-pc-fit-nav`),
+  the selectors in `_navbar-elements.scss` / `_layout-responsive.scss` were stale
+  and matched nothing. Repointed at `[data-pc-fit-nav]` and corrected the
+  companion comments (`navbar-collapse.js` → `fit.js`). Also de-branded the fit
+  hide-class `.pa-fit-hidden` → `.pc-fit-hidden`.
 
 ### Internal
 

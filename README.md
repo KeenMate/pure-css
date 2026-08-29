@@ -4,6 +4,13 @@ The KeenMate CSS **foundation** — the `--base-*` theming contract, the flexbox
 utility classes — extracted from [`@keenmate/pure-admin-core`](https://github.com/KeenMate/pure-admin)
 so it can be consumed on its own.
 
+## What's New in 1.0.0-rc05
+
+- **App shell — the navbar, sidebar, and layout container join the foundation** — pure-css has been variables + grid + utilities since the extraction; rc05 relocates the structural *app-shell* layer out of `@keenmate/pure-admin-core`, so a standalone page gets the same navbar/sidebar/layout chrome as a full admin app without pulling in the 40+ component library. Eight new partials (`_navbar.scss`, `_navbar-elements.scss`, `_sidebar.scss`, `_sidebar-states.scss`, `_layout-container.scss`, `_layout-responsive.scss`, `_resize-handle.scss`, `_fit-flyout.scss`) `@use` into the `pure-css.css` bundle — `base.css`, `grid.css` and `utilities.css` are untouched and there's no new CSS artifact. The emitted surface is `pc-`-branded like the rest of the foundation: the fixed navbar (`.pc-navbar` + `__start`/`__center`/`__end`, burger, brand `.pc-app-header`, `.pc-navmenu`, profile button, theme switcher), the nested sidebar with hidden/icon-collapse/expanded states and a drag-to-resize handle (`.pc-sidebar`, `.pc-layout__sidebar`, `.pc-sidebar-resize`), and the layout wrapper (`.pc-layout` + `__main`/`__content`/`__footer`) with mobile/tablet media queries. pure-admin-core now `@forward`s same-named partials instead of owning copies, so the shell is single-sourced here and can't drift.
+- **The shell now brings its own behaviour — pure-css is no longer CSS-only** — the shell's JavaScript ships with the foundation as a small, dependency-free runtime under `src/js/`, exposed as source (no build step) via a new `./js` export. `pure-css.js` installs `window.pureCss` — an event bus, live viewport / OS-colour-scheme / capability-first device sources, overlay primitives (scroll-lock, keyboard-inset), an open-menu registry, a shared `config` baseline single-sourced from the SCSS via `--pc-*` vars, and `components.initAll(scope)` — and the shell engines hang off it: `fit.js` (the `data-pc-fit` fit engine, which also absorbed the former `navbar-collapse.js` progressive nav-folding via `data-pc-fit-nav`, so that file no longer exists), `navbar-dropdown.js`, `sidebar-resize.js`, and `container-breakpoint.js`. The runtime is load-order-safe and stands alone when pure-admin is absent; the shell CSS is authored no-JS-safe, so styling degrades gracefully rather than breaking when the runtime isn't loaded.
+- **The grid's automatic responsive context now ships in the same bundle** — `_pa-grid.scss`'s container-query responsive columns (`.pc-col-md-*`, …) need a containment-context ancestor, documented as `.pc-layout__main`. That selector previously lived only in pure-admin-core, so the note was aspirational for a standalone pure-css page; with `_layout-container.scss` relocated into the bundle, `.pc-layout__main` is emitted here and the responsive variants get their context out of the box (the stale comment still read `.pa-layout__main` from before the rc04 de-brand — corrected to `.pc-layout__main`).
+- **Toolchain-free zip distribution via GitHub Releases** — a new `.github/workflows/release.yml` builds the CSS on every `v*.*.*` tag push and publishes a GitHub Release carrying `pure-css-<version>.zip` (the same file set as the npm package — `dist/`, `src/scss/`, `README.md`, `CHANGELOG.md`, `LICENSE`) plus a `.sha256` checksum, so consumers who don't use npm can vendor the built foundation as a drop-in. rc tags (those containing `-`) publish as GitHub pre-releases. Mirrors pure-admin-core's release workflow, adapted for this single-package repo.
+
 ## What's New in 1.0.0-rc04
 
 - **pure-css is now strictly a base — it emits only the base token contract
@@ -39,11 +46,6 @@ so it can be consumed on its own.
   favour of the foundation's `hr-` / `wr-` naming (`r` = rem).
 - **Complete form-spacing contract as runtime `--pc-*` variables** and the
   `$form-scale` → `$form-gap` rename (see CHANGELOG).
-
-## What's New in 1.0.0-rc03
-
-- **Theming contract — top-bar region tokens renamed from `header` to `navbar` (BREAKING).** The foundation's top-region tokens named the bar as a *component block* (`header`) rather than the layout region it actually is, which read as misleading once pure-admin's navbar component dropped its legacy `pa-header__*` block naming. Every top-bar token is renamed on both sides of the cascade: the `$header-*` SCSS source variables (`$header-height` → `$navbar-height`, `$header-bg` → `$navbar-bg`, `$header-border-color`, `$header-text`, `$header-text-secondary`, `$header-profile-name-color`, and `$z-index-header` → `$z-index-navbar`) and the emitted `--pa-header-*` custom properties (`--pa-navbar-bg`, `--pa-navbar-border-color`, `--pa-navbar-text`, `--pa-navbar-text-secondary`, `--pa-navbar-profile-name-color`). Consumers reading the old names must update — `$footer-height` still mirrors the bar height (now `$navbar-height`), and the component-header tokens (`$card-header-*`, `$table-header-*`) are deliberately untouched since those *are* component blocks.
-- **Removed the dead `$header-brand-padding-left` variable.** It was superseded by the navbar's flex `gap`; no live rule consumed it — only a stale comment still referenced it — so it's gone from the source of truth.
 
 ## Why
 
@@ -101,6 +103,28 @@ $base-page-bg: #0b1020;
 | `dist/css/base.css` | only `:root { --base-*; --pc-*; }` | you just need the theming contract (e.g. to theme embedded web components) or a base for a theme override |
 | `dist/css/grid.css` | `.pc-row` / `.pc-col-*` (percentage + fraction columns, container-query responsive) | layout only |
 | `dist/css/utilities.css` | spacing / flex / display / width-height utilities (`.m-4`, `.d-flex`, `.w-50`, …) | utilities only |
+
+The `pure-css.css` bundle also includes the **app shell** (navbar, sidebar,
+layout container) — `base.css` / `grid.css` / `utilities.css` do not.
+
+### The app-shell runtime (`./js`)
+
+The shell's behaviour (nav fit/collapse, dropdowns, drag-to-resize, container
+breakpoints) ships as dependency-free source JS via the `./js` export — no
+bundler required, drop it in with a `<script>` and call `initAll`:
+
+```html
+<link rel="stylesheet" href="node_modules/@keenmate/pure-css/dist/css/pure-css.css">
+<script src="node_modules/@keenmate/pure-css/src/js/pure-css.js"></script>
+<script src="node_modules/@keenmate/pure-css/src/js/fit.js"></script>
+<script src="node_modules/@keenmate/pure-css/src/js/navbar-dropdown.js"></script>
+<script src="node_modules/@keenmate/pure-css/src/js/sidebar-resize.js"></script>
+<script>window.pureCss.components.initAll(document);</script>
+```
+
+`window.pureCss` also exposes an event bus and live `viewport` / `colorScheme` /
+`device` sources. The runtime is optional — shell CSS is authored no-JS-safe, so
+the styling stands on its own and the JS only adds the interactive behaviour.
 
 ### The `--base-*` contract
 

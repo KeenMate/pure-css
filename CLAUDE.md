@@ -7,9 +7,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 `@keenmate/pure-css` is the KeenMate CSS **foundation** — the `--base-*` theming
 contract, the `.pc-row` / `.pc-col` flexbox grid, and the utility classes —
 extracted from [`@keenmate/pure-admin-core`](https://github.com/KeenMate/pure-admin)
-so it can be consumed standalone. It is pure SCSS compiled to CSS; there is no
-JS, no test suite, and no runtime. `pure-admin-core` now consumes this package
-as its single source for the foundation, so the two must not drift.
+so it can be consumed standalone. As of 1.0.0-rc05 it also carries the **app
+shell** (navbar, sidebar, layout container) and a small, dependency-free **JS
+runtime** (`window.pureCss` plus the fit / navbar-dropdown / sidebar-resize /
+container-breakpoint engines) that drives the shell's behaviour — so the
+foundation is no longer CSS-only. The SCSS still compiles to `dist/css`; the JS
+ships **as source** (`src/js/`, no build step) via the `./js` export. There is a
+Playwright e2e suite (`e2e/`) but no runtime dependency beyond `sass`.
+`pure-admin-core` now consumes this package as its single source for the
+foundation (the shell + runtime included, via `@forward` shims), so the two must
+not drift.
 
 ## Commands
 
@@ -92,7 +99,34 @@ the package `exports` map:
 | `utilities.scss` | `utilities.css` | spacing / flex / display / width-height / `.font-family-*` |
 
 Partials (`_`-prefixed) are shared building blocks: `_base-css-variables.scss`,
-`_pa-grid.scss`, `_fonts.scss`, and everything under `variables/`.
+`_pa-grid.scss`, `_fonts.scss`, the app-shell partials (`_navbar*`, `_sidebar*`,
+`_layout-*`, `_resize-handle`, `_fit-flyout`), and everything under `variables/`.
+
+### The app shell + JS runtime
+
+The **app shell** — navbar (`_navbar.scss`, `_navbar-elements.scss`), sidebar
+(`_sidebar.scss`, `_sidebar-states.scss`), layout container
+(`_layout-container.scss`, `_layout-responsive.scss`), the shared resize-handle
+mixin (`_resize-handle.scss`, mixin-only, emits nothing), and the fit-engine
+flyout sink (`_fit-flyout.scss`) — is `@use`d into the **`pure-css.css` bundle
+only**. It is *not* part of `base.css` / `grid.css` / `utilities.css`, and there
+is no standalone shell artifact.
+
+Its **behaviour** lives in `src/js/`, shipped as source (no build) via the
+`./js` export — `pure-css.js` installs the `window.pureCss` runtime (event bus,
+viewport / colour-scheme / device sources, overlay primitives, open-menu
+registry, shared `config`, `components.initAll`) and the engines hang off it:
+- `fit.js` — the Fit engine (`data-pc-fit`); it also absorbed the former
+  `navbar-collapse.js` (nav folding via `data-pc-fit-nav`), so there is **no
+  `navbar-collapse.js`** — comments/markup naming it are stale.
+- `navbar-dropdown.js` — tap-toggle nav dropdowns/submenus (`.is-open`).
+- `sidebar-resize.js` — drag-to-resize the sidebar.
+- `container-breakpoint.js` — container-query breakpoint driver.
+
+The runtime is load-order-safe (`window.pureCss = window.pureCss || {}`) and
+stands alone when pure-admin is absent; `pure-admin.js` adopts the same buses by
+reference when it loads on top. Shell CSS is authored **no-JS-safe** (static
+fallbacks), so the styling degrades rather than breaks without the runtime.
 
 ### Key contracts to preserve
 

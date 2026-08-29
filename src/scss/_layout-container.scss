@@ -1,0 +1,168 @@
+@use 'variables/index' as *;
+/* ========================================
+   Layout Container
+   Main layout wrapper, content areas, sticky/scroll modes
+   ======================================== */
+
+// Layout wrapper - applied to body for mode-specific classes
+body.pc-layout--sticky {
+  height: 100vh;
+  overflow: hidden;
+}
+
+// Layout Container - centered, starts below navbar
+.pc-layout {
+  max-width: 100%;
+  margin: $navbar-height auto 0;
+  background-color: var(--pc-main-bg);
+  overflow: visible; // Allow tooltips to escape
+  display: flex;
+  flex-direction: column;
+}
+
+// Constrained widths - controlled by body class
+body.pc-container-sm .pc-layout {
+  max-width: $layout-container-sm;
+  box-shadow: $shadow-2xl;
+  border-left: $border-width-base solid var(--pc-border-color);
+  border-right: $border-width-base solid var(--pc-border-color);
+}
+
+body.pc-container-md .pc-layout {
+  max-width: $layout-container-md;
+  box-shadow: $shadow-2xl;
+  border-left: $border-width-base solid var(--pc-border-color);
+  border-right: $border-width-base solid var(--pc-border-color);
+}
+
+body.pc-container-lg .pc-layout {
+  max-width: $layout-container-lg;
+  box-shadow: $shadow-2xl;
+  border-left: $border-width-base solid var(--pc-border-color);
+  border-right: $border-width-base solid var(--pc-border-color);
+}
+
+body.pc-container-xl .pc-layout {
+  max-width: $layout-container-xl;
+  box-shadow: $shadow-xl;
+  border-left: $border-width-base solid var(--pc-border-color);
+  border-right: $border-width-base solid var(--pc-border-color);
+}
+
+body.pc-container-2xl .pc-layout {
+  max-width: $layout-container-2xl;
+  box-shadow: $shadow-xl;
+  border-left: $border-width-base solid var(--pc-border-color);
+  border-right: $border-width-base solid var(--pc-border-color);
+}
+
+// Sticky mode - fixed height
+body.pc-layout--sticky .pc-layout {
+  height: calc(100vh - #{$navbar-height}); // Full viewport minus top margin
+}
+
+// Scroll mode - minimum height
+body:not(.pc-layout--sticky) .pc-layout {
+  min-height: calc(100vh - #{$navbar-height}); // Ensure footer reaches bottom
+}
+
+// Layout inner container - flex wrapper for sidebar + content
+.pc-layout__inner {
+  display: flex;
+  width: 100%;
+  flex: 1; // Take available space, pushing footer to bottom
+}
+
+// Sticky mode - inner container takes full height minus footer
+body.pc-layout--sticky .pc-layout__inner {
+  flex: 1;
+  overflow: hidden; // Prevent overflow, let content wrapper scroll
+}
+
+// Content wrapper - wraps main content only
+.pc-layout__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; // Always scrollable
+}
+
+// Main content area
+.pc-layout__main {
+  flex: 1;
+  padding: $spacing-base;
+  container-type: inline-size;
+}
+
+// Footer - outside inner, sibling to inner
+.pc-layout__footer {
+  min-height: $footer-height;
+  background-color: var(--pc-footer-bg);
+  border-top: $border-width-base solid var(--pc-footer-border-color);
+  display: flex;
+  align-items: center;
+  padding: $spacing-xs $spacing-base;
+  flex-shrink: 0; // Don't shrink footer
+  gap: $spacing-base;
+}
+
+// Footer sections - Start/Center/End layout (mirrors navbar structure)
+.pc-footer__start {
+  display: flex;
+  align-items: center;
+  gap: $spacing-base;
+  flex-shrink: 0;
+}
+
+.pc-footer__center {
+  flex: 1;
+  min-width: 0; // Allow shrinking for ellipsis
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-footer__end {
+  display: flex;
+  align-items: center;
+  gap: $spacing-base;
+  flex-shrink: 0;
+
+  &--vertical {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: $spacing-xs;
+  }
+}
+
+// Responsive footer - stack sections on mobile
+@media (max-width: $mobile-breakpoint) {
+  .pc-layout__footer {
+    flex-wrap: wrap;
+    min-height: auto;
+    padding: $spacing-sm $spacing-base;
+  }
+
+  .pc-footer__start,
+  .pc-footer__center,
+  .pc-footer__end {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .pc-footer__start {
+    flex: 1 1 auto;
+  }
+
+  .pc-footer__center {
+    display: none; // Hide empty center on mobile
+  }
+
+  .pc-footer__end {
+    flex: 0 1 auto;
+
+    &--vertical {
+      align-items: flex-end;
+    }
+  }
+}

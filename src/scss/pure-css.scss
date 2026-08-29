@@ -23,6 +23,19 @@
 @use 'reboot';
 @use 'scrollbars';
 @use 'pa-grid';
+
+// App shell — the navbar, sidebar, and layout container components. Relocated
+// from pure-admin-core so the foundation single-sources the shell; pure-admin
+// keeps same-named partials that just @forward these (resize-handle is a
+// mixin-only dependency @used by sidebar, so it emits nothing on its own).
+@use 'navbar';
+@use 'navbar-elements';
+@use 'sidebar';
+@use 'sidebar-states';
+@use 'layout-container';
+@use 'layout-responsive';
+@use 'fit-flyout';
+
 @use 'utilities';
 
 // CSS variable defaults at :root. Themes ship their own values by overriding
