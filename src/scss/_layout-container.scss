@@ -97,8 +97,8 @@ body.pc-layout--sticky .pc-layout__inner {
 // Footer - outside inner, sibling to inner
 .pc-layout__footer {
   min-height: $footer-height;
-  background-color: var(--pc-footer-bg);
-  border-top: $border-width-base solid var(--pc-footer-border-color);
+  background-color: var(--pc-footer-bg, var(--base-main-bg));
+  border-top: $border-width-base solid var(--pc-footer-border-color, var(--base-border-color));
   display: flex;
   align-items: center;
   padding: $spacing-xs $spacing-base;

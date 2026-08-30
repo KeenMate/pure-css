@@ -68,7 +68,7 @@
         top: 0;
         bottom: 0;
         padding: $spacing-sm $spacing-base;
-        background-color: var(--pc-sidebar-bg);
+        background-color: var(--pc-sidebar-bg, var(--base-page-bg));
         border: $border-width-base solid var(--pc-border-color);
         border-inline-start: none; // RTL: flips to border-right: none
         border-start-start-radius: 0;
@@ -96,7 +96,7 @@
       margin: 0;
       padding: 0;
       list-style: none;
-      background-color: var(--pc-sidebar-submenu-bg);
+      background-color: var(--pc-sidebar-submenu-bg, var(--base-subtle-bg));
       border: $border-width-base solid var(--pc-border-color);
       border-inline-start: none; // RTL: flips to border-right: none
       border-start-start-radius: 0;
@@ -120,12 +120,12 @@
         width: 100%;
 
         &:hover {
-          background-color: var(--pc-sidebar-submenu-hover-bg);
+          background-color: var(--pc-sidebar-submenu-hover-bg, var(--base-subtle-bg));
         }
 
         &--active {
-          background-color: var(--pc-sidebar-submenu-active-bg);
-          color: var(--pc-sidebar-submenu-active-text);
+          background-color: var(--pc-sidebar-submenu-active-bg, var(--base-subtle-bg));
+          color: var(--pc-sidebar-submenu-active-text, var(--base-text-color-1));
         }
       }
 
@@ -168,7 +168,7 @@
         margin: 0;
         padding: 0;
         list-style: none;
-        background-color: var(--pc-sidebar-submenu-bg);
+        background-color: var(--pc-sidebar-submenu-bg, var(--base-subtle-bg));
         border: $border-width-base solid var(--pc-border-color);
         border-inline-start: none; // RTL: flips to border-right: none
         border-start-start-radius: 0;

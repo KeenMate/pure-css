@@ -25,9 +25,9 @@
   color: inherit;
   cursor: pointer;
 
-  &:hover { background: var(--pc-hover-bg, rgba(0, 0, 0, 0.05)); }
-  &:focus-visible { outline: 2px solid var(--pc-accent-color); outline-offset: 1px; }
-  &[aria-expanded='true'] { background: var(--pc-hover-bg, rgba(0, 0, 0, 0.08)); }
+  &:hover { background: var(--pc-hover-bg, var(--base-hover-bg, rgba(0, 0, 0, 0.05))); }
+  &:focus-visible { outline: 2px solid var(--pc-accent, var(--base-accent-color)); outline-offset: 1px; }
+  &[aria-expanded='true'] { background: var(--pc-hover-bg, var(--base-hover-bg, rgba(0, 0, 0, 0.08))); }
 }
 
 // The three dots, drawn so the sink needs no icon-font dependency.
@@ -60,7 +60,7 @@
   min-width: 20rem;
   max-width: 32rem;
   padding: $spacing-sm;
-  background: var(--pc-card-bg);
+  background: var(--pc-card-bg, var(--base-main-bg));
   border: $border-width-base solid var(--pc-border-color);
   border-radius: var(--pc-border-radius);
   box-shadow: $shadow-lg;

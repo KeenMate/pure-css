@@ -18,7 +18,7 @@
 }
 
 .pc-layout__sidebar {
-  background-color: var(--pc-sidebar-bg);
+  background-color: var(--pc-sidebar-bg, var(--base-page-bg));
   border-inline-end: $border-width-base solid var(--pc-border-color); // RTL: flips to border-left
   flex-shrink: 0;
   position: relative;
@@ -127,7 +127,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
     font-weight: $font-weight-semibold;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--pc-sidebar-text-secondary);
+    color: var(--pc-sidebar-text-secondary, var(--base-text-color-2));
     user-select: none;
 
     // First heading shouldn't push the whole nav down
@@ -154,7 +154,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
     align-items: center;
     gap: $sidebar-item-gap;
     padding: $sidebar-padding;
-    color: var(--pc-sidebar-text-secondary);
+    color: var(--pc-sidebar-text-secondary, var(--base-text-color-2));
     text-decoration: none;
     font-weight: $font-weight-medium;
     border-inline-end: $border-width-thick solid transparent; // RTL: flips to border-left
@@ -164,7 +164,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
     }
 
     &:hover {
-      color: var(--pc-sidebar-text);
+      color: var(--pc-sidebar-text, var(--base-text-color-1));
       background-color: var(--pc-accent-light);
     }
 
@@ -197,7 +197,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
     height: #{$base-input-size-md-height}rem;
     padding: 0 $spacing-base;
     color: var(--pc-text-color-2);
-    background-color: var(--pc-input-bg);
+    background-color: var(--pc-input-bg, var(--base-input-bg));
     border: $border-width-base solid var(--pc-border-color);
     border-radius: var(--pc-border-radius);
     text-align: start; // RTL: flips to right
@@ -216,7 +216,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
 
     &:hover {
       border-color: $input-focus-border-color;
-      color: var(--pc-sidebar-text);
+      color: var(--pc-sidebar-text, var(--base-text-color-1));
     }
 
     // Collapsed sidebar: drop the frame, icon-only, matching link padding so the
@@ -267,7 +267,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
         border: none;
         outline: none;
         background: transparent;
-        color: var(--pc-sidebar-text);
+        color: var(--pc-sidebar-text, var(--base-text-color-1));
         font: inherit;
         padding: 0;
 
@@ -300,7 +300,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
     align-items: center;
     gap: $sidebar-item-gap;
     padding: $sidebar-padding;
-    color: var(--pc-sidebar-text-secondary);
+    color: var(--pc-sidebar-text-secondary, var(--base-text-color-2));
     background: none;
     border: none;
     width: 100%;
@@ -313,7 +313,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
     }
 
     &:hover {
-      color: var(--pc-sidebar-text);
+      color: var(--pc-sidebar-text, var(--base-text-color-1));
       background-color: var(--pc-accent-light);
     }
 
@@ -354,7 +354,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
     margin: 0;
     padding: 0;
     display: none;
-    background-color: var(--pc-sidebar-submenu-bg);
+    background-color: var(--pc-sidebar-submenu-bg, var(--base-subtle-bg));
 
     &--open {
       display: block;
@@ -368,12 +368,12 @@ body.pc-layout--sticky .pc-layout__sidebar {
     border-inline-end: $border-width-medium solid transparent; // RTL: flips to border-left
 
     &:hover {
-      background-color: var(--pc-sidebar-submenu-hover-bg);
+      background-color: var(--pc-sidebar-submenu-hover-bg, var(--base-subtle-bg));
     }
 
     &--active {
-      background-color: var(--pc-sidebar-submenu-active-bg);
-      color: var(--pc-sidebar-submenu-active-text);
+      background-color: var(--pc-sidebar-submenu-active-bg, var(--base-subtle-bg));
+      color: var(--pc-sidebar-submenu-active-text, var(--base-text-color-1));
       border-inline-end-color: var(--pc-accent); // RTL: flips to border-left-color
     }
   }

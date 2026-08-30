@@ -142,7 +142,7 @@
   --pc-color-7-text: #ffffff;
   --pc-color-8-text: #ffffff;
   --pc-color-9-text: #ffffff;
-  --pc-border-radius-sm: 2px;
-  --pc-border-radius: 4px;
-  --pc-border-radius-lg: 8px;
+  --pc-border-radius-sm: calc(var(--base-border-radius-sm, 0.4) * 1rem);
+  --pc-border-radius: calc(var(--base-border-radius-md, 0.6) * 1rem);
+  --pc-border-radius-lg: calc(var(--base-border-radius-lg, 0.8) * 1rem);
 }

@@ -1,6 +1,6 @@
 {
   "name": "@keenmate/pure-css",
-  "version": "1.0.0-rc05",
+  "version": "1.0.0-rc06",
   "description": "The KeenMate CSS foundation — --base-* theming contract, PureCSS grid and utility classes. Extracted from pure-admin-core so docs sites, standalone pages and every web/svelte component share one theming layer.",
   "style": "dist/css/pure-css.css",
   "exports": {

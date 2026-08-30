@@ -38,7 +38,7 @@
     bottom: 0;
     width: $mobile-sidebar-width;
     z-index: 1050;
-    background-color: var(--pc-sidebar-bg);
+    background-color: var(--pc-sidebar-bg, var(--base-page-bg));
     opacity: 1;
     overflow-y: auto;
     overscroll-behavior: contain; // drawer's own scroll doesn't chain to the page

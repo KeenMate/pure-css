@@ -3,6 +3,49 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.0-rc06] — 2026-08-30
+
+### Fixed
+
+- **The app shell now renders standalone — component `--pc-*` tokens fall back to
+  `--base-*`.** rc05 relocated the shell into the foundation, but its CSS
+  hard-referenced component tokens (`--pc-navbar-bg`, `--pc-sidebar-*`,
+  `--pc-footer-*`, `--pc-card-bg`, `--pc-input-bg`) that pure-css does **not**
+  emit — those are pure-admin's `output-pc-component-variables` contract. So a
+  consumer linking `base.css` / `pure-css.css` alone (keen-docs hit this) got an
+  unstyled navbar/sidebar. Every such reference now carries a `--base-*` fallback
+  traced from the token's own derivation: `var(--pc-navbar-bg, var(--base-main-bg))`,
+  `var(--pc-sidebar-bg, var(--base-page-bg))`, navbar/sidebar text →
+  `--base-text-color-1/2`, borders → `--base-border-color`, submenu surfaces →
+  `--base-subtle-bg`, input → `--base-input-bg`. This makes `--pc-*` an *optional*
+  override layer over a guaranteed `--base-*` floor — link only the base vars and
+  the shell just works; set `--pc-navbar-bg` to tune the bar independently of the
+  page. 40 references across the eight shell partials.
+- **Dangling token references in `_fit-flyout.scss`.** The fit-flyout trigger
+  referenced `--pc-accent-color` (defined nowhere — the token is `--pc-accent`)
+  with no fallback, so its focus outline was inert; and `--pc-hover-bg` (also
+  undefined) with only an rgba literal. Repointed to
+  `var(--pc-accent, var(--base-accent-color))` and
+  `var(--pc-hover-bg, var(--base-hover-bg, rgba(…)))`.
+
+### Changed
+
+- **Unified the `--pc-border-radius*` scale with the `--base-border-radius-*`
+  contract the components already use.** pure-css shipped two disconnected radius
+  systems: `--base-border-radius-sm/md/lg` (the unitless rem-multipliers
+  `0.4/0.6/0.8` every web/svelte component reads — e.g. web-multiselect's
+  `calc(var(--base-border-radius-md) * --ms-rem)`), and its OWN
+  `--pc-border-radius-sm/base/lg` as hardcoded `2px/4px/8px` literals disconnected
+  from the base layer. On one themed page a `<keen-web-multiselect>` and a pure-css
+  `.rounded` element rounded differently, and a runtime `--base-border-radius-*`
+  override re-rounded the components but not pure-css's own elements. The three
+  `--pc-border-radius*` tokens now derive from the base contract —
+  `calc(var(--base-border-radius-{sm,md,lg}, <default>) * 1rem)` (unsuffixed
+  `--pc-border-radius` = the `-md` mid step) — mirroring how `--pc-border-color`
+  already tracked `--base-border-color`. **Rendered radii change** to match the
+  ecosystem: `-sm` 2px → 4px, mid 4px → 6px, `-lg` 8px (unchanged). Overriding
+  `--base-border-radius-*` now re-rounds pure-css and the components together.
+
 ## [1.0.0-rc05] — 2026-08-27 [PUBLISHED]
 
 ### Added

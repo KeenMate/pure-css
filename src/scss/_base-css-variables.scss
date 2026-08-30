@@ -270,10 +270,17 @@
   --pc-color-8-text: #{$color-8-text};
   --pc-color-9-text: #{$color-9-text};
 
-  // Border-radius scale
-  --pc-border-radius-sm: #{$border-radius-sm};
-  --pc-border-radius: #{$border-radius};
-  --pc-border-radius-lg: #{$border-radius-lg};
+  // Border-radius scale — derived from the --base-border-radius-* contract (the
+  // same unitless rem-multipliers the web/svelte components read; e.g.
+  // web-multiselect: `calc(var(--base-border-radius-md) * --ms-rem)`). Multiplying
+  // by 1rem yields px at pure-css's 10px rem base (0.6 → 0.6rem → 6px) and keeps
+  // the scale live: overriding --base-border-radius-* at runtime re-rounds
+  // pure-css's own elements and the components together, instead of the old baked
+  // 2/4/8px literals that ignored the base contract. The $base-* multipliers are
+  // the fallbacks. NOTE: --pc-border-radius (unsuffixed) is the MID (-md) step.
+  --pc-border-radius-sm: calc(var(--base-border-radius-sm, #{$base-border-radius-sm}) * 1rem);
+  --pc-border-radius: calc(var(--base-border-radius-md, #{$base-border-radius-md}) * 1rem);
+  --pc-border-radius-lg: calc(var(--base-border-radius-lg, #{$base-border-radius-lg}) * 1rem);
 }
 
 // ============================================================================

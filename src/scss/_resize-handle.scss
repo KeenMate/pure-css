@@ -46,7 +46,7 @@ $resize-knob-radius-lg: 6px !default;
   // themes (radius 0) stay square via min(). High-contrast fill / border / shadow
   // so the knob stands out on both light and dark surfaces.
   border-radius: min(var(--pc-border-radius-lg), #{$resize-knob-radius});
-  background-color: var(--pc-card-bg);
+  background-color: var(--pc-card-bg, var(--base-main-bg));
   border: $border-width-medium solid var(--pc-border-color);
   color: var(--pc-text-color-2);
   font-size: $font-size-lg;
