@@ -48,27 +48,30 @@ $accent-light: $base-accent-color-light !default;
 // CARD COLORS (derived from base surfaces)
 // =============================================================================
 
+// Body surfaces → main-bg; header/tab chrome → elevated-bg (defaults to page-bg,
+// so unchanged by default; themeable independently). Reconciled so these resolve
+// to the same base tokens the web components read.
 $card-bg: $base-main-bg !default;
-$card-header-bg: $base-page-bg !default;
+$card-header-bg: $base-elevated-bg !default;
 $card-footer-bg: $base-main-bg !default;
-$card-tabs-bg: $base-page-bg !default;
+$card-tabs-bg: $base-elevated-bg !default;
 
 // =============================================================================
 // INPUT COLORS (derived from base input vars)
 // =============================================================================
 
 $input-bg: $base-input-bg !default;
-$input-border: #ced4da !default;  // Extracted from base-input-border
+$input-border: $base-input-border-color !default;  // single-sourced from base (was hardcoded #ced4da)
 $input-text: $base-input-color !default;
 
 // =============================================================================
 // TABLE COLORS (derived from base surfaces)
 // =============================================================================
 
-$table-stripe: $base-page-bg !default;
+$table-stripe: $base-elevated-bg !default;   // striped/elevated rows → elevated-bg (= page-bg default)
 $table-bg: $base-main-bg !default;
-$table-header-bg: $base-page-bg !default;
-$table-hover-bg: $base-page-bg !default;
+$table-header-bg: $base-elevated-bg !default;  // header chrome → elevated-bg (= page-bg default)
+$table-hover-bg: $base-hover-bg !default;     // RECONCILED: was page-bg; now the shared hover surface
 
 // Table row hover accent (border)
 $table-hover-accent-width: 0 !default;
@@ -177,7 +180,7 @@ $tooltip-text: $base-tooltip-text-color !default;
 
 $popover-text-light: #ffffff !default;
 $popover-text-dark: #000000 !default;
-$popover-content-bg: $base-main-bg !default;
+$popover-content-bg: $base-dropdown-bg !default;  // floating surface → dropdown-bg (= main-bg default)
 
 // =============================================================================
 // CODE LANGUAGE COLORS (standalone - not themed)

@@ -43,7 +43,12 @@ $base-subtle-bg: #e9ecef !default;        // Muted areas, dividers
 $base-inverse-bg: #2c3e50 !default;       // Inverse background (tooltips, dark elements)
 $base-overlay-bg: rgba(0, 0, 0, 0.5) !default;  // Modal/overlay background
 $base-shadow-color: rgba(0, 0, 0, 0.15) !default;  // Shadow color for elevation
-$base-elevated-bg: #f5f5f5 !default;  // Header row, striped rows, elevated surfaces
+// Elevated surface (header rows, striped rows, popovers/toolbars). Defaults to
+// the page background so the default theme's header appearance is unchanged, but
+// themes can override it independently to create a distinct raised tone.
+$base-elevated-bg: $base-page-bg !default;
+// Text on inverse/dark surfaces (web-component bridge: --base-text-inverted).
+$base-text-inverted: #ffffff !default;
 
 // Interactive state backgrounds
 $base-hover-bg: $base-subtle-bg !default;         // Hover state background
@@ -57,6 +62,8 @@ $base-disabled-bg: $base-subtle-bg !default;      // Disabled element background
 
 $base-border-color: #e1e5e9 !default;
 $base-border: 1px solid $base-border-color !default;
+// Checkbox/radio border (web-component bridge: --base-checkbox-border-color).
+$base-checkbox-border-color: $base-border-color !default;
 
 // =============================================================================
 // INPUT FIELDS
@@ -65,11 +72,20 @@ $base-border: 1px solid $base-border-color !default;
 
 $base-input-bg: $base-main-bg !default;
 $base-input-color: #495057 !default;
-$base-input-border: 1px solid #ced4da !default;
+// Input border as a colour (single source) + the 1px shorthand web components
+// read via --base-input-border. Note: pure-admin's own inputs currently border
+// off --base-border-color (#e1e5e9), not this (#ced4da) — a deliberate divergence
+// kept to preserve appearance; see _colors.scss $input-border.
+$base-input-border-color: #ced4da !default;
+$base-input-border: 1px solid $base-input-border-color !default;
 $base-input-border-hover: 1px solid #b8bfc6 !default;
 $base-input-border-focus: 1px solid $base-accent-color !default;
 $base-input-placeholder-color: $base-text-color-4 !default;
 $base-input-bg-disabled: rgba($base-input-bg, 0.5) !default;
+// Inline clear ("×") affordance inside inputs (web-component bridge:
+// --base-input-clear-color / --base-input-clear-bg-hover).
+$base-input-clear-color: $base-text-color-3 !default;
+$base-input-clear-bg-hover: $base-hover-bg !default;
 
 // Input size heights (unitless multipliers for x10px base)
 $base-input-size-xs-height: 3.1 !default;  // 31px
@@ -101,6 +117,7 @@ $base-tooltip-text-color: #ffffff !default;
 // =============================================================================
 
 $base-success-color: #22c55e !default;  // Tailwind green-500 — aligns with --pc-positive in the sentiment scale
+$base-success-bg: $base-success-color !default;  // Solid role fill (web-component bridge: --base-success-bg)
 $base-success-color-hover: color.adjust($base-success-color, $lightness: -10%) !default;
 $base-success-bg-light: rgba($base-success-color, 0.1) !default;
 $base-success-bg-subtle: rgba($base-success-color, 0.08) !default;
@@ -115,6 +132,7 @@ $base-text-on-success: #ffffff !default;
 // =============================================================================
 
 $base-danger-color: #ef4444 !default;  // Tailwind red-500 — aligns with --pc-negative in the sentiment scale
+$base-danger-bg: $base-danger-color !default;  // Solid role fill (web-component bridge: --base-danger-bg)
 $base-danger-color-hover: color.adjust($base-danger-color, $lightness: -10%) !default;
 $base-danger-bg-light: rgba($base-danger-color, 0.1) !default;
 $base-danger-bg-subtle: rgba($base-danger-color, 0.08) !default;
@@ -129,6 +147,7 @@ $base-text-on-danger: #ffffff !default;
 // =============================================================================
 
 $base-warning-color: #f97316 !default;  // Tailwind orange-500 — also serves as the off-target axis in KPI components
+$base-warning-bg: $base-warning-color !default;  // Solid role fill (web-component bridge: --base-warning-bg)
 $base-warning-color-hover: color.adjust($base-warning-color, $lightness: -10%) !default;
 $base-warning-bg-light: rgba($base-warning-color, 0.1) !default;
 $base-warning-bg-subtle: rgba($base-warning-color, 0.08) !default;
@@ -209,6 +228,11 @@ $base-line-height-relaxed: 1.75 !default;
 $base-border-radius-sm: 0.4 !default;  // 4px
 $base-border-radius-md: 0.6 !default;  // 6px
 $base-border-radius-lg: 0.8 !default;  // 8px
+
+// Rem base for web components (bridge: --base-rem). They size themselves as
+// `calc(<unitless-multiplier> * var(--base-rem, 10px))`. pure-css pins
+// `html { font-size: 10px }` (reboot), so `1rem` tracks that base adaptively.
+$base-rem: 1rem !default;
 
 // =============================================================================
 // COMPONENT-SPECIFIC DERIVED VALUES

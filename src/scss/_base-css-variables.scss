@@ -47,18 +47,25 @@
   --base-disabled-bg: #{$base-disabled-bg};
   --base-elevated-bg: #{$base-elevated-bg};
 
+  // === Text on inverse surfaces ===
+  --base-text-inverted: #{$base-text-inverted};
+
   // === Border Colors ===
   --base-border-color: #{$base-border-color};
   --base-border: #{$base-border};
+  --base-checkbox-border-color: #{$base-checkbox-border-color};
 
   // === Input Fields ===
   --base-input-bg: #{$base-input-bg};
   --base-input-color: #{$base-input-color};
   --base-input-border: #{$base-input-border};
+  --base-input-border-color: #{$base-input-border-color};
   --base-input-border-hover: #{$base-input-border-hover};
   --base-input-border-focus: #{$base-input-border-focus};
   --base-input-placeholder-color: #{$base-input-placeholder-color};
   --base-input-bg-disabled: #{$base-input-bg-disabled};
+  --base-input-clear-color: #{$base-input-clear-color};
+  --base-input-clear-bg-hover: #{$base-input-clear-bg-hover};
 
   // === Input Size Heights ===
   --base-input-size-xs-height: #{$base-input-size-xs-height};
@@ -75,9 +82,11 @@
   // === Tooltip ===
   --base-tooltip-bg: #{$base-tooltip-bg};
   --base-tooltip-text-color: #{$base-tooltip-text-color};
+  --base-tooltip-color: #{$base-tooltip-text-color};  // alias consumed by web-grid
 
   // === Contextual Colors - Success ===
   --base-success-color: #{$base-success-color};
+  --base-success-bg: #{$base-success-bg};
   --base-success-color-hover: #{$base-success-color-hover};
   --base-success-bg-light: #{$base-success-bg-light};
   --base-success-bg-subtle: #{$base-success-bg-subtle};
@@ -88,6 +97,7 @@
 
   // === Contextual Colors - Danger ===
   --base-danger-color: #{$base-danger-color};
+  --base-danger-bg: #{$base-danger-bg};
   --base-danger-color-hover: #{$base-danger-color-hover};
   --base-danger-bg-light: #{$base-danger-bg-light};
   --base-danger-bg-subtle: #{$base-danger-bg-subtle};
@@ -98,6 +108,7 @@
 
   // === Contextual Colors - Warning ===
   --base-warning-color: #{$base-warning-color};
+  --base-warning-bg: #{$base-warning-bg};
   --base-warning-color-hover: #{$base-warning-color-hover};
   --base-warning-bg-light: #{$base-warning-bg-light};
   --base-warning-bg-subtle: #{$base-warning-bg-subtle};
@@ -144,6 +155,9 @@
   --base-border-radius-sm: #{$base-border-radius-sm};
   --base-border-radius-md: #{$base-border-radius-md};
   --base-border-radius-lg: #{$base-border-radius-lg};
+
+  // === Rem base for web components ===
+  --base-rem: #{$base-rem};
 }
 
 // ============================================================================
@@ -209,17 +223,20 @@
   // to the `.pc-mode-dark` block.
   color-scheme: #{$theme-color-scheme};
 
-  // Surfaces
+  // Surfaces. NOTE: pure-admin's --pc-main-bg is the *page* surface and
+  // --pc-subtle-bg the *card* surface — a legacy naming inversion vs the
+  // --base-* model (--base-main-bg = card), so those two stay compile-time to
+  // avoid a value flip. --pc-page-bg maps cleanly and is relinked.
   --pc-main-bg: #{$main-bg};
-  --pc-page-bg: #{$page-bg};
+  --pc-page-bg: var(--base-page-bg, #{$page-bg});
   --pc-subtle-bg: #{$subtle-bg};
 
-  // Text
-  --pc-text-color-1: #{$text-color-1};
-  --pc-text-color-2: #{$text-color-2};
+  // Text — follow the shared --base-* tokens at runtime.
+  --pc-text-color-1: var(--base-text-color-1, #{$text-color-1});
+  --pc-text-color-2: var(--base-text-color-2, #{$text-color-2});
 
   // Accent — -light derives from --pc-accent at runtime so theme overrides cascade.
-  --pc-accent: #{$accent-color};
+  --pc-accent: var(--base-accent-color, #{$accent-color});
   --pc-accent-hover: #{$accent-hover};
   --pc-accent-light: color-mix(in srgb, var(--pc-accent) 5%, transparent);
 
@@ -335,35 +352,35 @@
   // LAYOUT COLORS
   // =========================================================================
 
-  // Navbar
-  --pc-navbar-bg: #{$navbar-bg};
-  --pc-navbar-border-color: #{$navbar-border-color};
-  --pc-navbar-text: #{$navbar-text};
-  --pc-navbar-text-secondary: #{$navbar-text-secondary};
-  --pc-navbar-profile-name-color: #{$navbar-profile-name-color};
+  // Navbar — surfaces/text follow the shared --base-* tokens at runtime.
+  --pc-navbar-bg: var(--base-main-bg, #{$navbar-bg});
+  --pc-navbar-border-color: var(--base-border-color, #{$navbar-border-color});
+  --pc-navbar-text: var(--base-text-color-1, #{$navbar-text});
+  --pc-navbar-text-secondary: var(--base-text-color-2, #{$navbar-text-secondary});
+  --pc-navbar-profile-name-color: var(--base-text-color-1, #{$navbar-profile-name-color});
 
-  // Sidebar
-  --pc-sidebar-bg: #{$sidebar-bg};
-  --pc-sidebar-text: #{$sidebar-text};
-  --pc-sidebar-text-secondary: #{$sidebar-text-secondary};
-  --pc-sidebar-submenu-bg: #{$sidebar-submenu-bg};
+  // Sidebar (submenu hover/active are computed shades — kept compile-time)
+  --pc-sidebar-bg: var(--base-page-bg, #{$sidebar-bg});
+  --pc-sidebar-text: var(--base-text-color-1, #{$sidebar-text});
+  --pc-sidebar-text-secondary: var(--base-text-color-2, #{$sidebar-text-secondary});
+  --pc-sidebar-submenu-bg: var(--base-subtle-bg, #{$sidebar-submenu-bg});
   --pc-sidebar-submenu-hover-bg: #{$sidebar-submenu-hover-bg};
   --pc-sidebar-submenu-active-bg: #{$sidebar-submenu-active-bg};
-  --pc-sidebar-submenu-active-text: #{$sidebar-submenu-active-text};
+  --pc-sidebar-submenu-active-text: var(--base-text-color-1, #{$sidebar-submenu-active-text});
 
   // Footer
-  --pc-footer-bg: #{$footer-bg};
-  --pc-footer-border-color: #{$footer-border-color};
+  --pc-footer-bg: var(--base-main-bg, #{$footer-bg});
+  --pc-footer-border-color: var(--base-border-color, #{$footer-border-color});
 
   // =========================================================================
   // BUTTON COLORS
   // =========================================================================
 
   // Primary (uses accent color)
-  --pc-btn-primary-bg: #{$btn-primary-bg};
-  --pc-btn-primary-bg-hover: #{$btn-primary-bg-hover};
+  --pc-btn-primary-bg: var(--base-accent-color, #{$btn-primary-bg});
+  --pc-btn-primary-bg-hover: var(--base-accent-color-hover, #{$btn-primary-bg-hover});
   --pc-btn-primary-bg-light: color-mix(in srgb, var(--pc-btn-primary-bg) 5%, transparent);
-  --pc-btn-primary-text: #{$btn-primary-text};
+  --pc-btn-primary-text: var(--base-text-color-on-accent, #{$btn-primary-text});
 
   // Secondary
   --pc-btn-secondary-bg: #{$btn-secondary-bg};
@@ -373,28 +390,28 @@
 
   // Success — bg references role colour for runtime cascade
   --pc-btn-success-bg: var(--pc-success);
-  --pc-btn-success-bg-hover: #{$btn-success-bg-hover};
-  --pc-btn-success-text: #{$btn-success-text};
+  --pc-btn-success-bg-hover: var(--base-success-color-hover, #{$btn-success-bg-hover});
+  --pc-btn-success-text: var(--base-text-on-success, #{$btn-success-text});
 
   // Danger — bg references role colour for runtime cascade
   --pc-btn-danger-bg: var(--pc-danger);
-  --pc-btn-danger-bg-hover: #{$btn-danger-bg-hover};
-  --pc-btn-danger-text: #{$btn-danger-text};
+  --pc-btn-danger-bg-hover: var(--base-danger-color-hover, #{$btn-danger-bg-hover});
+  --pc-btn-danger-text: var(--base-text-on-danger, #{$btn-danger-text});
 
   // Warning — bg references role colour for runtime cascade
   --pc-btn-warning-bg: var(--pc-warning);
-  --pc-btn-warning-bg-hover: #{$btn-warning-bg-hover};
-  --pc-btn-warning-text: #{$btn-warning-text};
+  --pc-btn-warning-bg-hover: var(--base-warning-color-hover, #{$btn-warning-bg-hover});
+  --pc-btn-warning-text: var(--base-text-on-warning, #{$btn-warning-text});
 
   // Info — bg references role colour for runtime cascade
   --pc-btn-info-bg: var(--pc-info);
-  --pc-btn-info-bg-hover: #{$btn-info-bg-hover};
-  --pc-btn-info-text: #{$btn-info-text};
+  --pc-btn-info-bg-hover: var(--base-info-color-hover, #{$btn-info-bg-hover});
+  --pc-btn-info-text: var(--base-text-on-info, #{$btn-info-text});
 
   // Light
-  --pc-btn-light-bg: #{$btn-light-bg};
-  --pc-btn-light-bg-hover: #{$btn-light-bg-hover};
-  --pc-btn-light-text: #{$btn-light-text};
+  --pc-btn-light-bg: var(--base-page-bg, #{$btn-light-bg});
+  --pc-btn-light-bg-hover: var(--base-subtle-bg, #{$btn-light-bg-hover});
+  --pc-btn-light-text: var(--base-text-color-1, #{$btn-light-text});
 
   // Dark
   --pc-btn-dark-bg: #{$btn-dark-bg};
@@ -408,81 +425,81 @@
   // --pc-{success,danger,warning,info}-text live in the base contract.)
   // =========================================================================
   --pc-success-bg: var(--pc-success);
-  --pc-success-bg-hover: #{$success-bg-hover};
+  --pc-success-bg-hover: var(--base-success-color-hover, #{$success-bg-hover});
   --pc-success-bg-light: color-mix(in srgb, var(--pc-success) 10%, transparent);
   --pc-success-bg-subtle: color-mix(in srgb, var(--pc-success) 8%, transparent);
   --pc-success-border: color-mix(in srgb, var(--pc-success) 20%, transparent);
-  --pc-success-text-light: #{$success-text-light};
+  --pc-success-text-light: var(--base-success-text-light, #{$success-text-light});
 
   --pc-danger-bg: var(--pc-danger);
-  --pc-danger-bg-hover: #{$danger-bg-hover};
+  --pc-danger-bg-hover: var(--base-danger-color-hover, #{$danger-bg-hover});
   --pc-danger-bg-light: color-mix(in srgb, var(--pc-danger) 10%, transparent);
   --pc-danger-bg-subtle: color-mix(in srgb, var(--pc-danger) 8%, transparent);
   --pc-danger-border: color-mix(in srgb, var(--pc-danger) 20%, transparent);
-  --pc-danger-text-light: #{$danger-text-light};
+  --pc-danger-text-light: var(--base-danger-text-light, #{$danger-text-light});
 
   --pc-warning-bg: var(--pc-warning);
-  --pc-warning-bg-hover: #{$warning-bg-hover};
+  --pc-warning-bg-hover: var(--base-warning-color-hover, #{$warning-bg-hover});
   --pc-warning-bg-light: color-mix(in srgb, var(--pc-warning) 10%, transparent);
   --pc-warning-bg-subtle: color-mix(in srgb, var(--pc-warning) 8%, transparent);
   --pc-warning-border: color-mix(in srgb, var(--pc-warning) 20%, transparent);
-  --pc-warning-text-light: #{$warning-text-light};
+  --pc-warning-text-light: var(--base-warning-text-light, #{$warning-text-light});
 
   --pc-info-bg: var(--pc-info);
-  --pc-info-bg-hover: #{$info-bg-hover};
+  --pc-info-bg-hover: var(--base-info-color-hover, #{$info-bg-hover});
   --pc-info-bg-light: color-mix(in srgb, var(--pc-info) 10%, transparent);
   --pc-info-bg-subtle: color-mix(in srgb, var(--pc-info) 8%, transparent);
   --pc-info-border: color-mix(in srgb, var(--pc-info) 20%, transparent);
-  --pc-info-text-light: #{$info-text-light};
+  --pc-info-text-light: var(--base-info-text-light, #{$info-text-light});
 
   // =========================================================================
   // CARD COLORS
   // =========================================================================
-  --pc-card-bg: #{$card-bg};
-  --pc-card-header-bg: #{$card-header-bg};
-  --pc-card-footer-bg: #{$card-footer-bg};
-  --pc-card-tabs-bg: #{$card-tabs-bg};
+  --pc-card-bg: var(--base-main-bg, #{$card-bg});
+  --pc-card-header-bg: var(--base-elevated-bg, #{$card-header-bg});
+  --pc-card-footer-bg: var(--base-main-bg, #{$card-footer-bg});
+  --pc-card-tabs-bg: var(--base-elevated-bg, #{$card-tabs-bg});
 
   // =========================================================================
   // INPUT/FORM COLORS
   // =========================================================================
-  --pc-input-bg: #{$input-bg};
-  --pc-input-border: #{$input-border};
-  --pc-input-text: #{$input-text};
-  --pc-input-focus-border-color: #{$input-focus-border-color};
-  --pc-select-focus-border-color: #{$select-focus-border-color};
-  --pc-textarea-focus-border-color: #{$textarea-focus-border-color};
+  --pc-input-bg: var(--base-input-bg, #{$input-bg});
+  --pc-input-border: var(--base-input-border-color, #{$input-border});
+  --pc-input-text: var(--base-input-color, #{$input-text});
+  --pc-input-focus-border-color: var(--base-accent-color, #{$input-focus-border-color});
+  --pc-select-focus-border-color: var(--base-accent-color, #{$select-focus-border-color});
+  --pc-textarea-focus-border-color: var(--base-accent-color, #{$textarea-focus-border-color});
 
-  // Checkbox
-  --pc-checkbox-border-color: #{$checkbox-border-color};
-  --pc-checkbox-border-color-hover: #{$checkbox-border-color-hover};
-  --pc-checkbox-border-color-checked: #{$checkbox-border-color-checked};
-  --pc-checkbox-bg: #{$checkbox-bg};
-  --pc-checkbox-bg-checked: #{$checkbox-bg-checked};
-  --pc-checkbox-bg-indeterminate: #{$checkbox-bg-indeterminate};
+  // Checkbox (checkmark colour + focus shadow stay compile-time)
+  --pc-checkbox-border-color: var(--base-checkbox-border-color, #{$checkbox-border-color});
+  --pc-checkbox-border-color-hover: var(--base-accent-color, #{$checkbox-border-color-hover});
+  --pc-checkbox-border-color-checked: var(--base-accent-color, #{$checkbox-border-color-checked});
+  --pc-checkbox-bg: var(--base-input-bg, #{$checkbox-bg});
+  --pc-checkbox-bg-checked: var(--base-accent-color, #{$checkbox-bg-checked});
+  --pc-checkbox-bg-indeterminate: var(--base-accent-color, #{$checkbox-bg-indeterminate});
   --pc-checkbox-checkmark-color: #{$checkbox-checkmark-color};
   --pc-checkbox-focus-shadow: #{$checkbox-focus-shadow};
 
-  // Input group
+  // Input group (prepend/append bg are the secondary grey — compile-time)
   --pc-input-group-prepend-bg: #{$input-group-prepend-bg};
-  --pc-input-group-prepend-text: #{$input-group-prepend-text};
+  --pc-input-group-prepend-text: var(--base-text-color-2, #{$input-group-prepend-text});
   --pc-input-group-append-bg: #{$input-group-append-bg};
-  --pc-input-group-append-text: #{$input-group-append-text};
+  --pc-input-group-append-text: var(--base-text-color-2, #{$input-group-append-text});
 
   // =========================================================================
   // TABLE COLORS
   // =========================================================================
-  --pc-table-bg: #{$table-bg};
-  --pc-table-header-bg: #{$table-header-bg};
-  --pc-table-stripe: #{$table-stripe};
-  --pc-table-hover-bg: #{$table-hover-bg};
-  --pc-table-hover-accent-color: #{$table-hover-accent-color};
+  --pc-table-bg: var(--base-main-bg, #{$table-bg});
+  --pc-table-header-bg: var(--base-elevated-bg, #{$table-header-bg});
+  --pc-table-stripe: var(--base-elevated-bg, #{$table-stripe});
+  --pc-table-hover-bg: var(--base-hover-bg, #{$table-hover-bg});
+  --pc-table-hover-accent-color: var(--base-accent-color, #{$table-hover-accent-color});
 
   // =========================================================================
   // MODAL COLORS
   // =========================================================================
-  --pc-modal-overlay-bg: #{$modal-overlay-bg};
-  --pc-modal-content-bg: #{$modal-content-bg};
+  --pc-modal-overlay-bg: var(--base-overlay-bg, #{$modal-overlay-bg});
+  --pc-modal-content-bg: var(--base-main-bg, #{$modal-content-bg});
 
   // =========================================================================
   // BADGE COLORS
@@ -505,9 +522,9 @@
   // =========================================================================
   // TOOLTIP & POPOVER COLORS
   // =========================================================================
-  --pc-tooltip-bg: #{$tooltip-bg};
-  --pc-tooltip-text: #{$tooltip-text};
-  --pc-popover-content-bg: #{$popover-content-bg};
+  --pc-tooltip-bg: var(--base-tooltip-bg, #{$tooltip-bg});
+  --pc-tooltip-text: var(--base-tooltip-text-color, #{$tooltip-text});
+  --pc-popover-content-bg: var(--base-dropdown-bg, #{$popover-content-bg});
   --pc-popover-text-light: #{$popover-text-light};
   --pc-popover-text-dark: #{$popover-text-dark};
 
@@ -536,22 +553,22 @@
   --pc-command-palette-item-active-bg: #{$command-palette-item-active-bg};
   --pc-command-palette-highlight-bg: #{$command-palette-highlight-bg};
   --pc-command-palette-highlight-text: #{$command-palette-highlight-text};
-  --pc-command-palette-key-bg: #{$subtle-bg};
-  --pc-command-palette-key-text: #{$text-color-1};
+  --pc-command-palette-key-bg: var(--base-subtle-bg, #{$subtle-bg});
+  --pc-command-palette-key-text: var(--base-text-color-1, #{$text-color-1});
   --pc-command-palette-key-font-size: #{$font-size-xs};
   --pc-command-palette-key-font-weight: #{$font-weight-semibold};
 
   // =========================================================================
   // MULTISELECT COLORS
   // =========================================================================
-  --pc-multiselect-dropdown-bg: #{$multiselect-dropdown-bg};
-  --pc-multiselect-dropdown-border: #{$multiselect-dropdown-border};
-  --pc-multiselect-dropdown-text: #{$multiselect-dropdown-text};
-  --pc-multiselect-hint-bg: #{$multiselect-hint-bg};
-  --pc-multiselect-hint-border: #{$multiselect-hint-border};
-  --pc-multiselect-option-hover-bg: #{$multiselect-option-hover-bg};
-  --pc-multiselect-pill-bg: #{$multiselect-pill-bg};
-  --pc-multiselect-pill-border: #{$multiselect-pill-border};
+  --pc-multiselect-dropdown-bg: var(--base-dropdown-bg, #{$multiselect-dropdown-bg});
+  --pc-multiselect-dropdown-border: var(--base-border-color, #{$multiselect-dropdown-border});
+  --pc-multiselect-dropdown-text: var(--base-text-color-1, #{$multiselect-dropdown-text});
+  --pc-multiselect-hint-bg: var(--base-page-bg, #{$multiselect-hint-bg});
+  --pc-multiselect-hint-border: var(--base-border-color, #{$multiselect-hint-border});
+  --pc-multiselect-option-hover-bg: var(--base-hover-bg, #{$multiselect-option-hover-bg});
+  --pc-multiselect-pill-bg: var(--base-accent-color-light, #{$multiselect-pill-bg});
+  --pc-multiselect-pill-border: var(--base-accent-color, #{$multiselect-pill-border});
 
   // =========================================================================
   // FORM SPACING — the complete anatomy of a form's spacing. Runtime-tunable;
