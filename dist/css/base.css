@@ -114,9 +114,9 @@
   --base-border-radius-lg: 0.8;
   --base-rem: 1rem;
   color-scheme: light;
-  --pc-main-bg: #f8f9fa;
+  --pc-main-bg: #ffffff;
   --pc-page-bg: var(--base-page-bg, #f8f9fa);
-  --pc-subtle-bg: #ffffff;
+  --pc-subtle-bg: #e9ecef;
   --pc-text-color-1: var(--base-text-color-1, #2c3e50);
   --pc-text-color-2: var(--base-text-color-2, #6c757d);
   --pc-accent: var(--base-accent-color, #007bff);

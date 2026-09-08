@@ -19,14 +19,14 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--pc-main-bg);
+  background: var(--pc-page-bg);
   border-radius: var(--pc-border-radius-sm);
 }
 
 *::-webkit-scrollbar-thumb {
   background: var(--pc-border-color);
   border-radius: var(--pc-border-radius-sm);
-  border: $border-width-base solid var(--pc-main-bg);
+  border: $border-width-base solid var(--pc-page-bg);
 
   &:hover {
     background: var(--pc-accent);
@@ -38,11 +38,11 @@
 }
 
 *::-webkit-scrollbar-corner {
-  background: var(--pc-main-bg);
+  background: var(--pc-page-bg);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--pc-border-color) var(--pc-main-bg);
+  scrollbar-color: var(--pc-border-color) var(--pc-page-bg);
 }

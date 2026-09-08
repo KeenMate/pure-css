@@ -12,9 +12,12 @@
 // LAYOUT COLORS (derived from base)
 // =============================================================================
 
-$main-bg: $base-page-bg !default;
+// Surface tokens aligned with --base-*: main = the primary/raised surface (white),
+// page = the canvas behind it (grey), subtle = a muted tone. (Previously main was
+// wired to the page grey and subtle to white — an inversion vs --base-*.)
+$main-bg: $base-main-bg !default;
 $page-bg: $base-page-bg !default;
-$subtle-bg: $base-main-bg !default;
+$subtle-bg: $base-subtle-bg !default;
 $text-color-1: $base-text-color-1 !default;
 $text-color-2: $base-text-color-2 !default;
 $border-color: $base-border-color !default;

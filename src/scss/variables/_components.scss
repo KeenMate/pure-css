@@ -296,7 +296,7 @@ $multiselect-dropdown-border: $border-color !default;
 $multiselect-dropdown-text: $text-color-1 !default;
 $multiselect-dropdown-shadow: $shadow-lg !default;
 $multiselect-dropdown-max-height: 32rem !default;  // 320px (was 20rem)
-$multiselect-hint-bg: $main-bg !default;
+$multiselect-hint-bg: $page-bg !default;  // canvas tone (was $main-bg, which is now the white surface)
 $multiselect-hint-border: $border-color !default;
 $multiselect-hint-padding: $spacing-sm !default;
 $multiselect-option-padding-v: $spacing-sm !default;
