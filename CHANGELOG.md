@@ -3,7 +3,7 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.0.0-rc07] — 2026-09-08
+## [1.0.0-rc07] — 2026-09-08 [PUBLISHED]
 
 The **shared theming knob** release. Before rc07 the same visual token (a tooltip
 background, an input border, a dropdown surface) was produced *twice and
@@ -26,13 +26,23 @@ components + the web components re-theme together, in light and dark.
 
 ### Changed
 
-- **`--pc-*` component tokens now derive from `--base-*` at runtime.** ~50 themed
-  `--pc-*` tokens (navbar/sidebar/footer, buttons, cards, inputs, checkbox, input
-  groups, tables, modal, tooltip/popover, command palette, multiselect) were
-  rewritten from baked `#{$…}` literals to the guiding-rule form
-  `var(--base-x, #{$fallback})`. The `#{$fallback}` preserves today's compiled
-  value, so **light-mode output is unchanged** — but the token now follows any
-  runtime `--base-*` override, shared with the web components.
+- **`--pc-*` component tokens now derive from `--base-*` at runtime.** ~40 themed
+  `--pc-*` tokens (buttons, cards, inputs, checkbox, input groups, tables, modal,
+  tooltip/popover, command palette, multiselect) were rewritten from baked
+  `#{$…}` literals to the guiding-rule form `var(--base-x, #{$fallback})`. The
+  `#{$fallback}` preserves today's compiled value, so **light-mode output is
+  unchanged** — but the token now follows any runtime `--base-*` override, shared
+  with the web components.
+- **The app shell surfaces stay compile-time — deliberately not `--base-*`-derived.**
+  The navbar/sidebar/footer surface + text tokens (`--pc-navbar-*`,
+  `--pc-sidebar-*`, `--pc-footer-*`) are emitted as plain `#{$…}` literals, *not*
+  `var(--base-main-bg, …)`. The shell is a distinct brand surface a theme sets on
+  its own (e.g. a yellow navbar) independent of the `--base-*` card/page palette;
+  since `--base-main-bg` is always emitted, deriving the navbar from it would let
+  the base palette win and erase the brand colour. Standalone (`base.css`-only)
+  rendering is still covered — the shell CSS itself resolves
+  `var(--pc-navbar-bg, var(--base-main-bg))`, so the `--base-*` floor applies only
+  when no `--pc-*` is emitted (the rc06 contract), not as a runtime override of it.
 - **Surface-token naming realigned with the `--base-*` model (B5).**
   `--pc-main-bg` is now the **white surface** (`--base-main-bg`), `--pc-subtle-bg`
   the **muted grey** (`--base-subtle-bg`), and `--pc-page-bg` remains the **grey
@@ -53,6 +63,15 @@ components + the web components re-theme together, in light and dark.
   the *same* base token per surface: card/table headers + striped rows →
   `--base-elevated-bg`, dropdown/popover → `--base-dropdown-bg`, table/multiselect
   hover → `--base-hover-bg`, checkbox border → `--base-checkbox-border-color`.
+- **Sidebar search box alignment + collapsed-rail gating (`_sidebar.scss`).** The
+  search input's inline padding was rebalanced to `0 $spacing-base 0 $spacing-sm`
+  so its magnifier lines up with the nav-row icons below it (margin `$spacing-sm` +
+  padding-left `$spacing-sm` = the `$spacing-base` nav inset) instead of sitting one
+  box-margin too far in. The collapsed-rail rules that shed the search frame/field
+  down to the submit icon were re-scoped from `.pc-layout__sidebar--icon-collapse`
+  to `.sidebar-hidden .pc-layout__sidebar--icon-collapse` — the mode class stays on
+  the element while the rail is expanded, so the unscoped rules were stripping the
+  search frame in the expanded state too.
 
 ## [1.0.0-rc06] — 2026-08-30
 

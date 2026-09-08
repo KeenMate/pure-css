@@ -352,25 +352,33 @@
   // LAYOUT COLORS
   // =========================================================================
 
-  // Navbar — surfaces/text follow the shared --base-* tokens at runtime.
-  --pc-navbar-bg: var(--base-main-bg, #{$navbar-bg});
-  --pc-navbar-border-color: var(--base-border-color, #{$navbar-border-color});
-  --pc-navbar-text: var(--base-text-color-1, #{$navbar-text});
-  --pc-navbar-text-secondary: var(--base-text-color-2, #{$navbar-text-secondary});
-  --pc-navbar-profile-name-color: var(--base-text-color-1, #{$navbar-profile-name-color});
+  // The app shell (navbar / sidebar / footer) is a DISTINCT brand surface: a
+  // theme sets its own $navbar-bg / $sidebar-bg / $footer-bg (e.g. Express's
+  // yellow bar), independent of the --base-* card/page palette. So emit these
+  // compile-time — NOT `var(--base-main-bg, …)`, which would let the always-set
+  // --base-main-bg win and erase the brand colour. The standalone (base.css
+  // only) fallback lives where it belongs: the shell CSS itself resolves
+  // `var(--pc-navbar-bg, var(--base-main-bg))` when no --pc-* is emitted.
 
-  // Sidebar (submenu hover/active are computed shades — kept compile-time)
-  --pc-sidebar-bg: var(--base-page-bg, #{$sidebar-bg});
-  --pc-sidebar-text: var(--base-text-color-1, #{$sidebar-text});
-  --pc-sidebar-text-secondary: var(--base-text-color-2, #{$sidebar-text-secondary});
-  --pc-sidebar-submenu-bg: var(--base-subtle-bg, #{$sidebar-submenu-bg});
+  // Navbar
+  --pc-navbar-bg: #{$navbar-bg};
+  --pc-navbar-border-color: #{$navbar-border-color};
+  --pc-navbar-text: #{$navbar-text};
+  --pc-navbar-text-secondary: #{$navbar-text-secondary};
+  --pc-navbar-profile-name-color: #{$navbar-profile-name-color};
+
+  // Sidebar
+  --pc-sidebar-bg: #{$sidebar-bg};
+  --pc-sidebar-text: #{$sidebar-text};
+  --pc-sidebar-text-secondary: #{$sidebar-text-secondary};
+  --pc-sidebar-submenu-bg: #{$sidebar-submenu-bg};
   --pc-sidebar-submenu-hover-bg: #{$sidebar-submenu-hover-bg};
   --pc-sidebar-submenu-active-bg: #{$sidebar-submenu-active-bg};
-  --pc-sidebar-submenu-active-text: var(--base-text-color-1, #{$sidebar-submenu-active-text});
+  --pc-sidebar-submenu-active-text: #{$sidebar-submenu-active-text};
 
   // Footer
-  --pc-footer-bg: var(--base-main-bg, #{$footer-bg});
-  --pc-footer-border-color: var(--base-border-color, #{$footer-border-color});
+  --pc-footer-bg: #{$footer-bg};
+  --pc-footer-border-color: #{$footer-border-color};
 
   // =========================================================================
   // BUTTON COLORS

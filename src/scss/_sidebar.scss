@@ -191,11 +191,13 @@ body.pc-layout--sticky .pc-layout__sidebar {
     // Sized on the md input height (35px) to match the navbar search boxes,
     // rather than the icon + $sidebar-padding metric of a nav row (40px). Trade-off:
     // it sits ~5px shorter than the links below it. Block padding is dropped (fixed
-    // height + align-items:center owns the vertical); inline uses $spacing-base
-    // (the inline half of the two-value $sidebar-padding — don't pass that token to
-    // a single axis).
+    // height + align-items:center owns the vertical).
+    // Inline padding: right = $spacing-base (the nav-row inset); left = $spacing-sm
+    // so that margin ($spacing-sm) + padding-left ($spacing-sm) = $spacing-base —
+    // landing the magnifier exactly where the nav-row icons below it sit, instead
+    // of one box-margin too far in.
     height: #{$base-input-size-md-height}rem;
-    padding: 0 $spacing-base;
+    padding: 0 $spacing-base 0 $spacing-sm;
     color: var(--pc-text-color-2);
     background-color: var(--pc-input-bg, var(--base-input-bg));
     border: $border-width-base solid var(--pc-border-color);
@@ -219,9 +221,13 @@ body.pc-layout--sticky .pc-layout__sidebar {
       color: var(--pc-sidebar-text, var(--base-text-color-1));
     }
 
-    // Collapsed sidebar: drop the frame, icon-only, matching link padding so the
-    // icon lands in the same column as every other sidebar icon.
-    .pc-layout__sidebar--icon-collapse & {
+    // Collapsed rail ONLY (icon-collapse mode AND actually collapsed, i.e.
+    // body.sidebar-hidden): drop the frame, icon-only, matching link padding so
+    // the icon lands in the same column as every other sidebar icon. Must be
+    // gated by .sidebar-hidden — .pc-layout__sidebar--icon-collapse is the MODE
+    // class and stays on the element while the rail is expanded, so an unscoped
+    // rule would strip the search frame in the expanded state too.
+    .sidebar-hidden .pc-layout__sidebar--icon-collapse & {
       width: auto;
       margin: 0;
       padding: $sidebar-padding;
@@ -283,9 +289,11 @@ body.pc-layout--sticky .pc-layout__sidebar {
       }
     }
 
-    // Collapsed rail: the input variant sheds its field and centres on the submit
-    // icon; clicking it submits with an empty query (the bare results page).
-    .pc-layout__sidebar--icon-collapse &--input {
+    // Collapsed rail ONLY: the input variant sheds its field and centres on the
+    // submit icon; clicking it submits with an empty query (the bare results
+    // page). Gated by .sidebar-hidden so the field reappears when the icon-collapse
+    // rail is expanded (see frame rule above for why the mode class isn't enough).
+    .sidebar-hidden .pc-layout__sidebar--icon-collapse &--input {
       justify-content: center;
 
       .pc-sidebar__search-field {
