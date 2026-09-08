@@ -3,6 +3,57 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.0-rc07] — 2026-09-08
+
+The **shared theming knob** release. Before rc07 the same visual token (a tooltip
+background, an input border, a dropdown surface) was produced *twice and
+independently* — pure-admin's `--pc-*` component tokens were baked compile-time
+literals, while the KeenMate web components read `--base-*` live — so they agreed
+only by coincidence and diverged the instant a theme retuned `--base-*` at
+runtime (every dual-mode theme does exactly this at `.pc-mode-dark`). rc07 makes
+`--base-*` the single runtime knob: override one namespace and pure-admin
+components + the web components re-theme together, in light and dark.
+
+### Added
+
+- **Gap `--base-*` tokens the web components already read but pure-css never
+  emitted** — so they stop falling through to hardcoded component defaults and
+  actually theme: `--base-text-inverted`, `--base-checkbox-border-color`,
+  `--base-input-border-color` (+ the `--base-input-border` shorthand),
+  `--base-input-clear-color` / `--base-input-clear-bg-hover`, the solid role
+  fills `--base-success-bg` / `--base-danger-bg` / `--base-warning-bg`, and
+  `--base-rem`.
+
+### Changed
+
+- **`--pc-*` component tokens now derive from `--base-*` at runtime.** ~50 themed
+  `--pc-*` tokens (navbar/sidebar/footer, buttons, cards, inputs, checkbox, input
+  groups, tables, modal, tooltip/popover, command palette, multiselect) were
+  rewritten from baked `#{$…}` literals to the guiding-rule form
+  `var(--base-x, #{$fallback})`. The `#{$fallback}` preserves today's compiled
+  value, so **light-mode output is unchanged** — but the token now follows any
+  runtime `--base-*` override, shared with the web components.
+- **Surface-token naming realigned with the `--base-*` model (B5).**
+  `--pc-main-bg` is now the **white surface** (`--base-main-bg`), `--pc-subtle-bg`
+  the **muted grey** (`--base-subtle-bg`), and `--pc-page-bg` remains the **grey
+  canvas**. Previously `--pc-main-bg` *was* the grey canvas and `--pc-subtle-bg`
+  *was* white — an inversion vs the `--base-*` vocabulary. pure-css's own shell
+  canvas usages (reboot `body`, `.pc-layout`, scrollbars) were repointed
+  `--pc-main-bg` → `--pc-page-bg` so the canvas stays grey. **Downstream code
+  reading `--pc-main-bg` / `--pc-subtle-bg` must re-check intent** — see
+  pure-admin-core rc19, which repoints its component surfaces accordingly.
+- `$base-elevated-bg` default changed from the stray `#f5f5f5` to `$base-page-bg`.
+
+### Fixed
+
+- **Broken `$`-link:** `$input-border` was a hardcoded `#ced4da` (the comment even
+  claimed it came from base) — reconnected to `$base-input-border-color`, so input
+  borders finally track the theme.
+- **Semantic surface reconciliation** so pure-admin and the web components resolve
+  the *same* base token per surface: card/table headers + striped rows →
+  `--base-elevated-bg`, dropdown/popover → `--base-dropdown-bg`, table/multiselect
+  hover → `--base-hover-bg`, checkbox border → `--base-checkbox-border-color`.
+
 ## [1.0.0-rc06] — 2026-08-30
 
 ### Fixed
