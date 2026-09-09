@@ -79,10 +79,10 @@ $btn-primary-bg: $base-accent-color !default;
 $btn-primary-bg-hover: $base-accent-color-hover !default;
 $btn-primary-text: $base-text-color-on-accent !default;
 
-// Secondary button
-$btn-secondary-bg: #6c757d !default;
-$btn-secondary-bg-hover: #545b62 !default;
-$btn-secondary-text: #ffffff !default;
+// Secondary button — now traces to the promoted $base-secondary-* role (WS7.5)
+$btn-secondary-bg: $base-secondary-color !default;
+$btn-secondary-bg-hover: $base-secondary-color-hover !default;
+$btn-secondary-text: $base-text-on-secondary !default;
 
 // Success button (derived from base success)
 $btn-success-bg: $base-success-color !default;

@@ -53,15 +53,22 @@ $base-text-inverted: #ffffff !default;
 // Interactive state backgrounds
 $base-hover-bg: $base-subtle-bg !default;         // Hover state background
 $base-active-bg: color.adjust($base-subtle-bg, $lightness: -5%) !default;  // Active/pressed state
-$base-disabled-bg: $base-subtle-bg !default;      // Disabled element background
+// Disabled element background. Given its OWN lower-contrast default (an inert,
+// near-page tone) so it no longer collides with $base-hover-bg/$base-subtle-bg —
+// distinct purpose, distinct value. (WS7.3)
+$base-disabled-bg: #f1f3f5 !default;
 
 // =============================================================================
 // BORDER COLORS
 // Border colors and shorthand
 // =============================================================================
 
+// Shared border width — the single knob the border shorthands compose from, so
+// a theme can retune stroke weight in one place (web-component bridge:
+// --base-border-width). (WS7.1)
+$base-border-width: 1px !default;
 $base-border-color: #e1e5e9 !default;
-$base-border: 1px solid $base-border-color !default;
+$base-border: $base-border-width solid $base-border-color !default;
 // Checkbox/radio border (web-component bridge: --base-checkbox-border-color).
 $base-checkbox-border-color: $base-border-color !default;
 
@@ -162,6 +169,7 @@ $base-text-on-warning: #212529 !default;  // Dark text for yellow backgrounds
 // =============================================================================
 
 $base-info-color: #17a2b8 !default;
+$base-info-bg: $base-info-color !default;  // Solid role fill — role symmetry with success/danger/warning (WS7.4)
 $base-info-color-hover: color.adjust($base-info-color, $lightness: -10%) !default;
 $base-info-bg-light: rgba($base-info-color, 0.1) !default;
 $base-info-bg-subtle: rgba($base-info-color, 0.08) !default;
@@ -169,6 +177,18 @@ $base-info-border: rgba($base-info-color, 0.2) !default;
 $base-info-text: #0c5460 !default;
 $base-info-text-light: #d1ecf1 !default;
 $base-text-on-info: #ffffff !default;
+
+// =============================================================================
+// SECONDARY ROLE
+// Neutral/secondary role, promoted into the base contract so themes can retune
+// it like any other role instead of it being a hardcoded grey in _colors.scss.
+// (WS7.5) Fill + hover + text-on-fill; the derived $btn-secondary-*/$secondary-*
+// vocabulary in _colors.scss now traces to these.
+// =============================================================================
+
+$base-secondary-color: #6c757d !default;
+$base-secondary-color-hover: #545b62 !default;
+$base-text-on-secondary: #ffffff !default;
 
 // =============================================================================
 // SENTIMENT SCALE — 5-step direction-of-change

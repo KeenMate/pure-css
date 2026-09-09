@@ -28,12 +28,31 @@
   --base-accent-color-light: #{$base-accent-color-light};
   --base-accent-color-light-hover: #{$base-accent-color-light-hover};
 
+  // === Primary role — canonical name for accent (WS7.5) ===
+  // Accent stays the SOURCE themes override (including runtime .pc-mode-dark /
+  // colour-variant overrides), so primary tracks it live in every scope. New
+  // consumers should read --base-primary-*; --base-accent-* is the legacy name.
+  --base-primary-color: var(--base-accent-color, #{$base-accent-color});
+  --base-primary-color-hover: var(--base-accent-color-hover, #{$base-accent-color-hover});
+  --base-primary-color-active: var(--base-accent-color-active, #{$base-accent-color-active});
+  --base-primary-color-light: var(--base-accent-color-light, #{$base-accent-color-light});
+  --base-primary-color-light-hover: var(--base-accent-color-light-hover, #{$base-accent-color-light-hover});
+
+  // === Secondary role (promoted into the contract, WS7.5) ===
+  --base-secondary-color: #{$base-secondary-color};
+  --base-secondary-color-hover: #{$base-secondary-color-hover};
+
   // === Text Colors ===
   --base-text-color-1: #{$base-text-color-1};
   --base-text-color-2: #{$base-text-color-2};
   --base-text-color-3: #{$base-text-color-3};
   --base-text-color-4: #{$base-text-color-4};
   --base-text-color-on-accent: #{$base-text-color-on-accent};
+  // "foreground on a role" convention = --base-text-on-<role> (WS7.7). on-primary
+  // aliases the legacy on-accent; on-secondary is new; on-{success,danger,warning,
+  // info} are emitted in their role sections below.
+  --base-text-on-primary: var(--base-text-color-on-accent, #{$base-text-color-on-accent});
+  --base-text-on-secondary: #{$base-text-on-secondary};
 
   // === Background Colors (semantic) ===
   --base-main-bg: #{$base-main-bg};
@@ -51,6 +70,11 @@
   --base-text-inverted: #{$base-text-inverted};
 
   // === Border Colors ===
+  // --base-border-width is a new additive knob for consumers composing their own
+  // borders. The shorthands stay emitted from their $var so themes that override
+  // the whole shorthand (e.g. an accent-coloured input border) keep winning —
+  // recomposing them from the -color tokens would silently drop those overrides. (WS7.1)
+  --base-border-width: #{$base-border-width};
   --base-border-color: #{$base-border-color};
   --base-border: #{$base-border};
   --base-checkbox-border-color: #{$base-checkbox-border-color};
@@ -119,6 +143,7 @@
 
   // === Contextual Colors - Info ===
   --base-info-color: #{$base-info-color};
+  --base-info-bg: #{$base-info-bg};  // solid role fill — role symmetry (WS7.4)
   --base-info-color-hover: #{$base-info-color-hover};
   --base-info-bg-light: #{$base-info-bg-light};
   --base-info-bg-subtle: #{$base-info-bg-subtle};
@@ -158,6 +183,66 @@
 
   // === Rem base for web components ===
   --base-rem: #{$base-rem};
+
+  // === Theme palette slots (1–9) + paired contrast text (WS7.6) ===
+  // Promoted into the --base-* contract so the branded/data-viz palette is
+  // themeable through the same namespace; --pc-color-N aliases these.
+  --base-color-1: #{$color-1};
+  --base-color-2: #{$color-2};
+  --base-color-3: #{$color-3};
+  --base-color-4: #{$color-4};
+  --base-color-5: #{$color-5};
+  --base-color-6: #{$color-6};
+  --base-color-7: #{$color-7};
+  --base-color-8: #{$color-8};
+  --base-color-9: #{$color-9};
+  --base-color-1-text: #{$color-1-text};
+  --base-color-2-text: #{$color-2-text};
+  --base-color-3-text: #{$color-3-text};
+  --base-color-4-text: #{$color-4-text};
+  --base-color-5-text: #{$color-5-text};
+  --base-color-6-text: #{$color-6-text};
+  --base-color-7-text: #{$color-7-text};
+  --base-color-8-text: #{$color-8-text};
+  --base-color-9-text: #{$color-9-text};
+
+  // === Spacing scale (WS7.9) ===
+  // Unitless multipliers (same convention as font-size/radius); consume as
+  // calc(var(--base-space-*) * var(--base-rem)). Mirrors $semantic-spacers.
+  --base-space-xs: 0.4;
+  --base-space-sm: 0.8;
+  --base-space-md: 1.2;
+  --base-space-base: 1.6;
+  --base-space-lg: 2.4;
+  --base-space-xl: 3.2;
+  --base-space-2xl: 4.8;
+
+  // === Elevation / shadow scale (WS7.10) ===
+  // Offsets fixed; colour referenced from --base-shadow-color so shadows theme
+  // with the surface. New scale (no prior consumer), so the unified shadow-colour
+  // is intentional.
+  --base-shadow-sm: 0 1px 3px var(--base-shadow-color);
+  --base-shadow-md: 0 2px 8px var(--base-shadow-color);
+  --base-shadow-lg: 0 4px 12px var(--base-shadow-color);
+
+  // === Motion — durations + easings (WS7.11) ===
+  --base-duration-fast: 0.1s;
+  --base-duration-normal: 0.15s;
+  --base-duration-medium: 0.25s;
+  --base-duration-slow: 0.3s;
+  --base-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --base-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --base-ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  // === Z-index scale — generic stacking tiers (WS7.12) ===
+  // The shared contract the shell + overlays coordinate against. App-specific
+  // panel tiers live in pure-admin-core, not here.
+  --base-z-dropdown: #{$z-index-dropdown};
+  --base-z-modal-backdrop: #{$z-index-modal-backdrop};
+  --base-z-modal: #{$z-index-modal};
+  --base-z-popover: #{$z-index-popover};
+  --base-z-toast: #{$z-index-toast};
+  --base-z-tooltip: #{$z-index-tooltip};
 }
 
 // ============================================================================
@@ -268,24 +353,26 @@
 
   // Theme palette slots (1–9) + paired contrast text. Consumed by the
   // .text-color-* utilities; themes override $color-N for branded palettes.
-  --pc-color-1: #{$color-1};
-  --pc-color-2: #{$color-2};
-  --pc-color-3: #{$color-3};
-  --pc-color-4: #{$color-4};
-  --pc-color-5: #{$color-5};
-  --pc-color-6: #{$color-6};
-  --pc-color-7: #{$color-7};
-  --pc-color-8: #{$color-8};
-  --pc-color-9: #{$color-9};
-  --pc-color-1-text: #{$color-1-text};
-  --pc-color-2-text: #{$color-2-text};
-  --pc-color-3-text: #{$color-3-text};
-  --pc-color-4-text: #{$color-4-text};
-  --pc-color-5-text: #{$color-5-text};
-  --pc-color-6-text: #{$color-6-text};
-  --pc-color-7-text: #{$color-7-text};
-  --pc-color-8-text: #{$color-8-text};
-  --pc-color-9-text: #{$color-9-text};
+  // Alias the promoted --base-color-* palette (WS7.6) so overriding a slot in
+  // either namespace cascades; the $literal is the build-time fallback.
+  --pc-color-1: var(--base-color-1, #{$color-1});
+  --pc-color-2: var(--base-color-2, #{$color-2});
+  --pc-color-3: var(--base-color-3, #{$color-3});
+  --pc-color-4: var(--base-color-4, #{$color-4});
+  --pc-color-5: var(--base-color-5, #{$color-5});
+  --pc-color-6: var(--base-color-6, #{$color-6});
+  --pc-color-7: var(--base-color-7, #{$color-7});
+  --pc-color-8: var(--base-color-8, #{$color-8});
+  --pc-color-9: var(--base-color-9, #{$color-9});
+  --pc-color-1-text: var(--base-color-1-text, #{$color-1-text});
+  --pc-color-2-text: var(--base-color-2-text, #{$color-2-text});
+  --pc-color-3-text: var(--base-color-3-text, #{$color-3-text});
+  --pc-color-4-text: var(--base-color-4-text, #{$color-4-text});
+  --pc-color-5-text: var(--base-color-5-text, #{$color-5-text});
+  --pc-color-6-text: var(--base-color-6-text, #{$color-6-text});
+  --pc-color-7-text: var(--base-color-7-text, #{$color-7-text});
+  --pc-color-8-text: var(--base-color-8-text, #{$color-8-text});
+  --pc-color-9-text: var(--base-color-9-text, #{$color-9-text});
 
   // Border-radius scale — derived from the --base-border-radius-* contract (the
   // same unitless rem-multipliers the web/svelte components read; e.g.
