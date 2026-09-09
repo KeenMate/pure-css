@@ -234,13 +234,8 @@ $base-border-radius-lg: 0.8 !default;  // 8px
 // `html { font-size: 10px }` (reboot), so `1rem` tracks that base adaptively.
 $base-rem: 1rem !default;
 
-// =============================================================================
-// COMPONENT-SPECIFIC DERIVED VALUES
-// Variables that components need, derived from base
-// =============================================================================
-
-// Command palette input height (must be after $base-input-size-* variables)
-$command-palette-input-height: #{$base-input-size-lg-height}rem !default;
+// $command-palette-input-height moved to pure-admin-core (variables/
+// _components.scss) — a niche component dimension, not a foundation primitive.
 
 // =============================================================================
 // ALERT COLOR DERIVATION PARAMETERS

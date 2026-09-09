@@ -67,19 +67,8 @@ $input-bg: $base-input-bg !default;
 $input-border: $base-input-border-color !default;  // single-sourced from base (was hardcoded #ced4da)
 $input-text: $base-input-color !default;
 
-// =============================================================================
-// TABLE COLORS (derived from base surfaces)
-// =============================================================================
-
-$table-stripe: $base-elevated-bg !default;   // striped/elevated rows → elevated-bg (= page-bg default)
-$table-bg: $base-main-bg !default;
-$table-header-bg: $base-elevated-bg !default;  // header chrome → elevated-bg (= page-bg default)
-$table-hover-bg: $base-hover-bg !default;     // RECONCILED: was page-bg; now the shared hover surface
-
-// Table row hover accent (border)
-$table-hover-accent-width: 0 !default;
-$table-hover-accent-color: $base-accent-color !default;
-$table-hover-accent-position: left !default;
+// TABLE COLORS moved to pure-admin-core (variables/_components.scss): pure-css
+// renders no table CSS and tables aren't a universal primitive.
 
 // =============================================================================
 // BUTTON COLORS (derived from base contextual colors)
@@ -185,29 +174,9 @@ $popover-text-light: #ffffff !default;
 $popover-text-dark: #000000 !default;
 $popover-content-bg: $base-dropdown-bg !default;  // floating surface → dropdown-bg (= main-bg default)
 
-// =============================================================================
-// CODE LANGUAGE COLORS (standalone - not themed)
-// =============================================================================
-
-$code-language-json: #f59e0b !default;
-$code-language-javascript: #f0db4f !default;
-$code-language-html: #e34c26 !default;
-$code-language-css: #264de4 !default;
-$code-language-bash: #4eaa25 !default;
-$code-language-sql: #00758f !default;
-$code-language-python: #3776ab !default;
-$code-syntax-keyword: #0077aa !default;
-$code-syntax-string: #669900 !default;
-$code-syntax-number: #ff6600 !default;
-$code-syntax-function: #9933cc !default;
-$code-syntax-property: #dd4a68 !default;
-
-// =============================================================================
-// COMPARISON TABLE COLORS
-// =============================================================================
-
-$comparison-accent-pink: #ec4899 !default;
-$comparison-accent-orange: #f97316 !default;
+// CODE-LANGUAGE / CODE-SYNTAX and COMPARISON-TABLE colours moved to
+// pure-admin-core (variables/_components.scss): niche component palettes
+// (syntax highlighting, the comparison widget), not foundation primitives.
 
 // =============================================================================
 // CUSTOM THEME COLOR SLOTS (1-9)
