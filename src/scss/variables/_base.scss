@@ -37,9 +37,16 @@ $base-text-color-on-accent: #ffffff !default;  // Text on accent backgrounds
 // Semantic background colors for different purposes
 // =============================================================================
 
-$base-main-bg: #ffffff !default;          // Primary background (cards, modals, content)
-$base-page-bg: #f8f9fa !default;          // Page background, subtle sections
-$base-subtle-bg: #e9ecef !default;        // Muted areas, dividers
+// SURFACE ELEVATION LADDER (static container backgrounds — one axis).
+// Keep this axis separate from the interaction-STATE tokens below (hover/
+// active/disabled) and from --base-border-color (dividers).
+$base-main-bg: #ffffff !default;          // Content surface (cards, modals, body) — the reference rung
+$base-page-bg: #f8f9fa !default;          // Canvas/backdrop the content sits on
+// Recessed / inset surface — the "sunken" rung BELOW main: code blocks, wells,
+// inset panels, pills, tiles. NOT a hover state (see $base-hover-bg) and NOT a
+// divider (see $base-border-color); one crisp job. Raised chrome (headers,
+// striped rows) uses $base-elevated-bg instead.
+$base-subtle-bg: #e9ecef !default;
 $base-inverse-bg: #2c3e50 !default;       // Inverse background (tooltips, dark elements)
 $base-overlay-bg: rgba(0, 0, 0, 0.5) !default;  // Modal/overlay background
 $base-shadow-color: rgba(0, 0, 0, 0.15) !default;  // Shadow color for elevation
@@ -50,7 +57,11 @@ $base-elevated-bg: $base-page-bg !default;
 // Text on inverse/dark surfaces (web-component bridge: --base-text-inverted).
 $base-text-inverted: #ffffff !default;
 
-// Interactive state backgrounds
+// Interaction-STATE backgrounds (a separate axis from the elevation ladder).
+// These default to (derive from) $base-subtle-bg so unthemed hovers stay
+// sensible, but they are their OWN tokens: override them to decouple hover/
+// active from the recessed-surface tone. Components read --pc-hover-bg /
+// --pc-active-bg for :hover/:active fills — never --pc-subtle-bg.
 $base-hover-bg: $base-subtle-bg !default;         // Hover state background
 $base-active-bg: color.adjust($base-subtle-bg, $lightness: -5%) !default;  // Active/pressed state
 // Disabled element background. Given its OWN lower-contrast default (an inert,

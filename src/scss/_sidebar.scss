@@ -379,11 +379,11 @@ body.pc-layout--sticky .pc-layout__sidebar {
     border-inline-end: $border-width-medium solid transparent; // RTL: flips to border-left
 
     &:hover {
-      background-color: var(--pc-sidebar-submenu-hover-bg, var(--base-subtle-bg));
+      background-color: var(--pc-sidebar-submenu-hover-bg, var(--base-hover-bg));
     }
 
     &--active {
-      background-color: var(--pc-sidebar-submenu-active-bg, var(--base-subtle-bg));
+      background-color: var(--pc-sidebar-submenu-active-bg, var(--base-active-bg));
       color: var(--pc-sidebar-submenu-active-text, var(--base-text-color-1));
       border-inline-end-color: var(--pc-accent); // RTL: flips to border-left-color
     }

@@ -2553,10 +2553,10 @@ body.loaded .pc-sidebar__label {
   border-inline-end: 2px solid transparent;
 }
 .pc-sidebar__submenu > .pc-sidebar__item > .pc-sidebar__link:hover {
-  background-color: var(--pc-sidebar-submenu-hover-bg, var(--base-subtle-bg));
+  background-color: var(--pc-sidebar-submenu-hover-bg, var(--base-hover-bg));
 }
 .pc-sidebar__submenu > .pc-sidebar__item > .pc-sidebar__link--active {
-  background-color: var(--pc-sidebar-submenu-active-bg, var(--base-subtle-bg));
+  background-color: var(--pc-sidebar-submenu-active-bg, var(--base-active-bg));
   color: var(--pc-sidebar-submenu-active-text, var(--base-text-color-1));
   border-inline-end-color: var(--pc-accent);
 }
@@ -2690,13 +2690,13 @@ body.loaded .pc-sidebar__chevron {
 .sidebar-hidden .pc-layout__sidebar--icon-collapse .pc-sidebar__item:hover > .pc-sidebar__submenu .pc-sidebar__toggle:hover,
 .sidebar-hidden .pc-layout__sidebar--icon-collapse .pc-sidebar__submenu:hover .pc-sidebar__link:hover,
 .sidebar-hidden .pc-layout__sidebar--icon-collapse .pc-sidebar__submenu:hover .pc-sidebar__toggle:hover {
-  background-color: var(--pc-sidebar-submenu-hover-bg, var(--base-subtle-bg));
+  background-color: var(--pc-sidebar-submenu-hover-bg, var(--base-hover-bg));
 }
 .sidebar-hidden .pc-layout__sidebar--icon-collapse .pc-sidebar__item:hover > .pc-sidebar__submenu .pc-sidebar__link--active,
 .sidebar-hidden .pc-layout__sidebar--icon-collapse .pc-sidebar__item:hover > .pc-sidebar__submenu .pc-sidebar__toggle--active,
 .sidebar-hidden .pc-layout__sidebar--icon-collapse .pc-sidebar__submenu:hover .pc-sidebar__link--active,
 .sidebar-hidden .pc-layout__sidebar--icon-collapse .pc-sidebar__submenu:hover .pc-sidebar__toggle--active {
-  background-color: var(--pc-sidebar-submenu-active-bg, var(--base-subtle-bg));
+  background-color: var(--pc-sidebar-submenu-active-bg, var(--base-active-bg));
   color: var(--pc-sidebar-submenu-active-text, var(--base-text-color-1));
 }
 .sidebar-hidden .pc-layout__sidebar--icon-collapse .pc-sidebar__item:hover > .pc-sidebar__submenu .pc-sidebar__icon,
@@ -6102,6 +6102,8 @@ body.pc-layout--sticky .pc-layout__inner {
   --pc-main-bg: #ffffff;
   --pc-page-bg: var(--base-page-bg, #f8f9fa);
   --pc-subtle-bg: #e9ecef;
+  --pc-hover-bg: var(--base-hover-bg, #e9ecef);
+  --pc-active-bg: var(--base-active-bg, rgb(85.5830753354%, 87.5490196078%, 89.5149638803%));
   --pc-text-color-1: var(--base-text-color-1, #2c3e50);
   --pc-text-color-2: var(--base-text-color-2, #6c757d);
   --pc-accent: var(--base-accent-color, #007bff);

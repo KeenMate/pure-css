@@ -316,6 +316,14 @@
   --pc-page-bg: var(--base-page-bg, #{$page-bg});
   --pc-subtle-bg: #{$subtle-bg};
 
+  // Interaction-STATE surfaces — a distinct axis from the elevation ladder
+  // above (page/main/subtle). Track --base-hover/active-bg live so they follow
+  // a theme's per-mode overrides; equal to --pc-subtle-bg by default but
+  // overridable independently. Components must use these for :hover/:active
+  // fills — never a surface token like --pc-subtle-bg. (subtle de-conflation)
+  --pc-hover-bg: var(--base-hover-bg, #{$base-hover-bg});
+  --pc-active-bg: var(--base-active-bg, #{$base-active-bg});
+
   // Text — follow the shared --base-* tokens at runtime.
   --pc-text-color-1: var(--base-text-color-1, #{$text-color-1});
   --pc-text-color-2: var(--base-text-color-2, #{$text-color-2});

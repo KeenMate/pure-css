@@ -169,6 +169,8 @@
   --pc-main-bg: #ffffff;
   --pc-page-bg: var(--base-page-bg, #f8f9fa);
   --pc-subtle-bg: #e9ecef;
+  --pc-hover-bg: var(--base-hover-bg, #e9ecef);
+  --pc-active-bg: var(--base-active-bg, rgb(85.5830753354%, 87.5490196078%, 89.5149638803%));
   --pc-text-color-1: var(--base-text-color-1, #2c3e50);
   --pc-text-color-2: var(--base-text-color-2, #6c757d);
   --pc-accent: var(--base-accent-color, #007bff);
