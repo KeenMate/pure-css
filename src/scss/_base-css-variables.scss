@@ -412,15 +412,9 @@
   --pc-command-palette-key-bg: var(--base-subtle-bg, #{$subtle-bg});
   --pc-command-palette-key-text: var(--base-text-color-1, #{$text-color-1});
 
-  // Multiselect
-  --pc-multiselect-dropdown-bg: var(--base-dropdown-bg, #{$multiselect-dropdown-bg});
-  --pc-multiselect-dropdown-border: var(--base-border-color, #{$multiselect-dropdown-border});
-  --pc-multiselect-dropdown-text: var(--base-text-color-1, #{$multiselect-dropdown-text});
-  --pc-multiselect-hint-bg: var(--base-page-bg, #{$multiselect-hint-bg});
-  --pc-multiselect-hint-border: var(--base-border-color, #{$multiselect-hint-border});
-  --pc-multiselect-option-hover-bg: var(--base-hover-bg, #{$multiselect-option-hover-bg});
-  --pc-multiselect-pill-bg: var(--base-accent-color-light, #{$multiselect-pill-bg});
-  --pc-multiselect-pill-border: var(--base-accent-color, #{$multiselect-pill-border});
+  // NOTE: the --pc-multiselect-* tokens were removed — web-multiselect themes
+  // directly off --base-* (--base-dropdown-bg, --base-accent-color-light, …) and
+  // nothing ever read the --pc- mirror. See _colors.scss for the stray $-vars.
 }
 
 @mixin output-pc-component-variables {
@@ -547,16 +541,12 @@
   --pc-input-group-append-bg: #{$input-group-append-bg};
 
   // =========================================================================
-  // BADGE COLORS
+  // COMPOSITE BADGE COLORS
   // =========================================================================
-  --pc-badge-success-bg: #{$badge-success-bg};
-  --pc-badge-success-text: #{$badge-success-text};
-  --pc-badge-warning-bg: #{$badge-warning-bg};
-  --pc-badge-warning-text: #{$badge-warning-text};
-  --pc-badge-info-bg: #{$badge-info-bg};
-  --pc-badge-info-text: #{$badge-info-text};
-  --pc-badge-danger-bg: #{$badge-danger-bg};
-  --pc-badge-danger-text: #{$badge-danger-text};
+  // NOTE: the simple --pc-badge-{success,warning,info,danger}-bg/-text tokens
+  // were removed — pure-admin's badge CSS styles from --pc-btn-* / --pc-color-* /
+  // the role tokens, and no web component reads --pc-badge-*. They were dead.
+  // (The $badge-* $-vars still live in variables/_colors.scss, now unreferenced.)
 
   // Composite badge
   --pc-composite-badge-icon-bg: #{$composite-badge-icon-bg};
