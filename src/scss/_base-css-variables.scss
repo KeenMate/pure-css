@@ -184,6 +184,15 @@
   // === Rem base for web components ===
   --base-rem: #{$base-rem};
 
+  // === Icons — shared mask-friendly SVG glyphs (theme swap point) ===
+  // Consumed via `mask: var(--base-icon-*); background: currentColor`. chevron =
+  // directional stroked angle (expanders/nav); caret-down = static solid triangle
+  // (dropdown affordance); close = the ✕ (close/clear/remove). Override any of the
+  // three to re-skin every consumer's affordance at once.
+  --base-icon-chevron: #{$base-icon-chevron};
+  --base-icon-caret-down: #{$base-icon-caret-down};
+  --base-icon-close: #{$base-icon-close};
+
   // === Theme palette slots (1–9) + paired contrast text (WS7.6) ===
   // Promoted into the --base-* contract so the branded/data-viz palette is
   // themeable through the same namespace; --pc-color-N aliases these.

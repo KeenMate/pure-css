@@ -256,10 +256,19 @@
     position: relative;
   }
 
+  // SVG mask chevron (was a "›" text glyph). Shares --base-icon-chevron with the
+  // sidebar + components; --pc-icon-chevron overrides, #{$base-icon-chevron} is
+  // the standalone fallback. `font-size: 0` hides any legacy "›" in old markup.
   &__more-chevron {
     display: inline-block;
     margin-inline-start: $spacing-xs;
-    font-size: $font-size-xs;
+    inline-size: 1.4rem;
+    block-size: 1.4rem;
+    flex-shrink: 0;
+    font-size: 0;
+    background-color: currentColor;
+    -webkit-mask: var(--pc-icon-chevron, var(--base-icon-chevron, #{$base-icon-chevron})) center / 1.1rem no-repeat;
+            mask: var(--pc-icon-chevron, var(--base-icon-chevron, #{$base-icon-chevron})) center / 1.1rem no-repeat;
     transition: transform $transition-fast $easing-snappy;
   }
 

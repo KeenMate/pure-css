@@ -269,6 +269,26 @@ $base-rem: 1rem !default;
 // _components.scss) — a niche component dimension, not a foundation primitive.
 
 // =============================================================================
+// ICONS
+// Mask-friendly SVG glyphs for the shared UI affordances, so every consumer
+// (pure-css shell, pure-admin components, the web/svelte components) can render
+// the SAME toggle/close marks and a theme can swap the icon set in ONE place.
+// Rendered via `mask` + `background: currentColor`, so the glyph inherits text
+// colour and needs no fill/stroke theming. Values are percent-encoded data-URIs
+// (no raw `#`, so Sass never mistakes it for interpolation). Defaults are Lucide.
+//   - chevron:    thin STROKED angle bracket, DIRECTIONAL/rotatable — expanders,
+//                 nav, tree nodes ("more this way"). Resting glyph points RIGHT
+//                 (LTR); consumers rotate it 90deg to point down when open.
+//   - caret-down: small SOLID triangle, STATIC — the dropdown/select affordance
+//                 ("a menu opens below"); doesn't rotate.
+//   - close:      the ✕ mark — close / clear / remove buttons.
+// =============================================================================
+
+$base-icon-chevron: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22m9 18 6-6-6-6%22/%3E%3C/svg%3E") !default;
+$base-icon-caret-down: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22%23000%22 d=%22M12 15 6 9h12z%22/%3E%3C/svg%3E") !default;
+$base-icon-close: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M18 6 6 18%22/%3E%3Cpath d=%22m6 6 12 12%22/%3E%3C/svg%3E") !default;
+
+// =============================================================================
 // ALERT COLOR DERIVATION PARAMETERS
 // Used by color-mix() mixins to derive alert colors from semantic base colors
 // Themes can override these to customize alert appearance
