@@ -217,7 +217,10 @@ body.pc-layout--sticky .pc-layout__sidebar {
     }
 
     &:hover {
-      border-color: $input-focus-border-color;
+      // $accent-color (foundation) — was $input-focus-border-color, an exact
+      // alias; inlined so the shell no longer depends on the component layer
+      // (variables/_components.scss now lives in pure-admin-core).
+      border-color: $accent-color;
       color: var(--pc-sidebar-text, var(--base-text-color-1));
     }
 

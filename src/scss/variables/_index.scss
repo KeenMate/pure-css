@@ -20,4 +20,8 @@
 @import 'colors';
 @import 'layout';
 @import 'system';
-@import 'components';
+// NOTE: pure-admin's COMPONENT vocabulary (badge/card/table/modal/tabs/stats/
+// timeline/dataviz/command-palette/… — formerly variables/_components.scss) now
+// lives in pure-admin-core, next to the component CSS that consumes it. pure-css
+// ships only the foundation. The $base-* source of truth stays here, so core's
+// component vars still derive from it (no drift).
