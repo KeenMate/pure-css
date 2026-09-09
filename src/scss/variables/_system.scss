@@ -11,14 +11,17 @@
 // inside a `.pc-mode-dark` block) take precedence via the cascade.
 $theme-color-scheme: light !default;
 
-// Z-index scale (increments of 1000 for easy adjustment)
+// Z-index scale (increments of 1000 for easy adjustment).
+// The generic stacking tiers stay here as a shared foundation contract so the
+// shell (navbar/sidebar) and pure-admin overlays coordinate against one scale.
+// App-specific panel tiers ($z-index-detail-panel-card / -profile-panel /
+// -command-palette / -settings-panel) moved to pure-admin-core
+// (variables/_components.scss) — pure-css renders none of those surfaces.
 $z-index-base: 0 !default;
 $z-index-content: 1000 !default;
 $z-index-sidebar: 2000 !default;
 $z-index-sidebar-fixed: 3000 !default;
-$z-index-detail-panel-card: 3500 !default;  // Card overlay detail panel (below navbar)
 $z-index-navbar: 4000 !default;
-$z-index-profile-panel: 5000 !default;
 $z-index-modal-backdrop: 6000 !default;
 $z-index-modal: 7000 !default;
 $z-index-toast: 8000 !default;
@@ -28,8 +31,6 @@ $z-index-tooltip: 9000 !default;
 $z-index-dropdown: 7500 !default;
 $z-index-popover: 7600 !default;
 $z-index-loader: 10 !default;
-$z-index-command-palette: 10500 !default;
-$z-index-settings-panel: 10000 !default;
 
 // Transitions & Animation
 $transition-speed: 1 !default;
@@ -51,13 +52,11 @@ $opacity-border: 0.2 !default;
 $opacity-shadow: 0.12 !default;
 $opacity-shadow-md: 0.15 !default;
 
-// Component-specific opacities
-$alert-secondary-bg-opacity: 0.05 !default;
-$alert-light-bg-opacity: 0.03 !default;
-$card-tab-hover-opacity: 0.05 !default;
-$bg-pattern-opacity: 0.03 !default;
-$popover-code-bg-opacity: 0.1 !default;
-$modal-warning-hover-bg-opacity: $opacity-light !default;
+// Component-specific opacities moved to pure-admin-core (variables/
+// _components.scss): $alert-secondary-bg-opacity, $alert-light-bg-opacity,
+// $card-tab-hover-opacity, $bg-pattern-opacity, $popover-code-bg-opacity,
+// $modal-warning-hover-bg-opacity — niche one-offs for pure-admin components,
+// not a generic scale. The generic $opacity-* set above stays foundation.
 
 // Shadow system
 $shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1) !default;
@@ -67,23 +66,20 @@ $shadow-xl: 0 0 60px rgba(0, 0, 0, 0.12) !default;
 $shadow-2xl: 0 0 80px rgba(0, 0, 0, 0.15) !default;
 $shadow-sidebar: -2px 2px 10px rgba(0, 0, 0, 0.1) !default;
 $shadow-sidebar-open: -5px 0 20px rgba(0, 0, 0, 0.1) !default;
-$shadow-profile-panel: -4px 0 20px rgba(0, 0, 0, 0.15) !default;
+// $shadow-profile-panel moved to pure-admin-core (variables/_components.scss) —
+// a pure-admin panel shadow, not a foundation surface.
 
 // Focus outline
 $focus-outline-width: 2px !default;
 $focus-outline-offset: 2px !default;
 $focus-ring-width: 3px !default;
 
-// Background pattern (for body background)
-$bg-pattern-circle-1-x: 20% !default;
-$bg-pattern-circle-1-y: 80% !default;
-$bg-pattern-circle-2-x: 80% !default;
-$bg-pattern-circle-2-y: 20% !default;
-$bg-pattern-gradient-start: 0% !default;
-$bg-pattern-gradient-stop: 50% !default;
+// Background-pattern geometry ($bg-pattern-circle-* / $bg-pattern-gradient-*)
+// moved to pure-admin-core (variables/_components.scss): decorative geometry for
+// a specific pure-admin backdrop, not a foundation primitive.
 
 // Animation
 $animation-spin-duration: 1s !default;
-$ripple-color: rgba(255, 255, 255, 0.3) !default;
-$ripple-transition-duration: 0.6s !default;
-$ripple-size: 300px !default;
+// Ripple effect ($ripple-color / -transition-duration / -size) moved to
+// pure-admin-core (variables/_components.scss) — a pure-admin interaction
+// effect, not a foundation primitive.
