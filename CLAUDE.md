@@ -21,7 +21,7 @@ not drift.
 ## Commands
 
 ```bash
-make build      # or: npm run build — compile src/scss -> dist/css (all 6 artifacts)
+make build      # or: npm run build — compile src/scss -> dist/css (all 7 artifacts)
 make watch      # rebuild the bundle on change (npm run watch)
 make sizes      # build, then print artifact byte sizes
 make verify     # clean + build + npm pack (what would be published)
@@ -105,6 +105,7 @@ the package `exports` map:
 | `pure-css.scss` | `pure-css.css` | everything (the common bundle) |
 | `base.scss` | `base.css` | only `:root` `--base-*`/`--pc-*` defaults |
 | `reboot.scss` | `reboot.css` | `html { font-size: 10px }` + box-sizing reset + neutral element styling |
+| `component-reset.scss` | `component-reset.css` | the **Shadow-DOM** counterpart to reboot: a `:host` reset (box-sizing + inherited typography pinned to `--base-*`) a web component adopts into its shadow root so the host page can't bleed in. Sets no `rem` base; pair with `base`. |
 | `scrollbars.scss` | `scrollbars.css` | themed thin scrollbars (colored from `--pc-*`) |
 | `grid.scss` | `grid.css` | `.pc-row` / `.pc-col-*` (via `_pa-grid.scss`) |
 | `utilities.scss` | `utilities.css` | spacing / flex / display / width-height / `.font-family-*` |

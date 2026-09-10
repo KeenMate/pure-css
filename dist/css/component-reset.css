@@ -1,0 +1,27 @@
+:host {
+  box-sizing: border-box;
+  color: var(--base-text-color-1);
+  font-family: var(--base-font-family);
+  font-size: medium;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-align: start;
+  text-indent: 0;
+  text-transform: none;
+  text-shadow: none;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  writing-mode: horizontal-tb;
+  accent-color: auto;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}

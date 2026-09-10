@@ -1,0 +1,65 @@
+// @keenmate/pure-css — component reset (the Shadow-DOM counterpart to "reboot")
+// ============================================================================
+// reboot.scss normalises a whole DOCUMENT: it anchors on `html` (the 10px rem
+// base), `body` (font / colour / line-height) and bare element selectors. NONE
+// of that reaches inside a Shadow-DOM web component — there is no `html`/`body`
+// in a shadow root, and the shadow boundary blocks selector-based styling.
+//
+// What the boundary does NOT block is inheritance: `font-family`, `line-height`,
+// `letter-spacing`, `color`, `text-transform`, … inherit from the host page
+// straight through into the component's shadow tree. This layer is the piece a
+// component adopts INTO its own shadow root (import with `?inline`, wrap in a
+// constructable stylesheet / Lit `css`) to:
+//   1. normalise box-sizing, and
+//   2. pin the inherited typography on `:host`, so an arbitrary host page can't
+//      bleed its font / spacing / colour into the component.
+//
+// It deliberately does NOT restyle p / ul / table / … — a component owns its own
+// content styling; this only neutralises what crosses the boundary. Pair it with
+// `base` (the --base-* token layer) which the tokens below resolve against.
+//
+// It sets NO `rem` base on purpose: `rem` is always root-relative (resolved
+// against the document `<html>`, never the shadow host), so a component that must
+// be independent of the host's root font-size should scale off its own token
+// (e.g. --cm-rem in campaign-modal-lit), not `rem`.
+// ============================================================================
+
+@use 'variables/index' as *;
+
+:host {
+  box-sizing: border-box;
+
+  // Inherited properties that would otherwise cross the shadow boundary from the host
+  // page. Each is pinned to its initial/neutral value (or the foundation token), so the
+  // component starts from a known baseline no matter what the host set on <body>.
+  color: var(--base-text-color-1);
+  font-family: var(--base-font-family);
+  font-size: medium; // host-independent 16px baseline; components set their own scale
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: $line-height-base;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-align: start;
+  text-indent: 0;
+  text-transform: none;
+  text-shadow: none;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  writing-mode: horizontal-tb; // a host's vertical writing-mode would wreck the layout
+  accent-color: auto; // don't let the host tint the component's checkboxes / radios
+
+  // Deliberately LEFT inheriting from the host (resetting them would do harm):
+  //   direction     — respect the host's locale / RTL
+  //   color-scheme  — components' light-dark() tokens key off it (dark-mode support)
+  // And NOT pinned here because a component owns them as content styling, not chrome:
+  //   list-style, tab-size, quotes, cursor, hyphens, caret-color, font-stretch
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
