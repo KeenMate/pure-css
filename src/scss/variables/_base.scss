@@ -277,8 +277,9 @@ $base-rem: 1rem !default;
 // colour and needs no fill/stroke theming. Values are percent-encoded data-URIs
 // (no raw `#`, so Sass never mistakes it for interpolation). Defaults are Lucide.
 //   - chevron:    thin STROKED angle bracket, DIRECTIONAL/rotatable — expanders,
-//                 nav, tree nodes ("more this way"). Resting glyph points RIGHT
-//                 (LTR); consumers rotate it 90deg to point down when open.
+//                 nav, submenus ("more this way"). Resting glyph points RIGHT
+//                 (LTR); consumers rotate it 90deg to point down when open. This
+//                 is the ROTATE-one-glyph disclosure model (cf. expand/collapse).
 //   - caret-down: small SOLID triangle, STATIC — the dropdown/select affordance
 //                 ("a menu opens below"); doesn't rotate.
 //   - close:      the ✕ mark — close / clear / remove buttons.

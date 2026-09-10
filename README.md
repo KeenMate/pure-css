@@ -103,7 +103,27 @@ the styling stands on its own and the JS only adds the interactive behaviour.
 (`--pc-*`) and web/svelte components all derive from it via fallback chains
 (`--ms-accent-color: var(--base-accent-color, #3b82f6)`). Categories: accent, text, background,
 border, input, dropdown, tooltip, contextual (success/danger/warning/info), interactive states,
-typography, border-radius. The full list is `src/scss/variables/_base.scss`.
+typography, border-radius, spacing/shadow/motion/z-index scales, and icons. The full list is
+`src/scss/variables/_base.scss`.
+
+#### Icons
+
+`--base-icon-*` are mask-friendly SVG glyphs (Lucide defaults) for the shared UI affordances, so the
+pure-css shell, pure-admin components, and the web/svelte components render the **same** marks and a
+theme re-skins them in one place. Each is consumed via `mask: var(--base-icon-x); background:
+currentColor`, so the glyph inherits text colour — override a token with any mask-friendly `url()` to
+swap the icon set.
+
+| Token | Glyph | Use |
+| --- | --- | --- |
+| `--base-icon-chevron` | stroked angle `›` | expanders / nav — **rotate-one-glyph** disclosure (points right, rotate 90° when open) |
+| `--base-icon-caret-down` | solid triangle `▾` | the static dropdown / `<select>` affordance (doesn't rotate) |
+| `--base-icon-close` | `✕` | close / clear / remove buttons |
+| `--base-icon-expand` / `--base-icon-collapse` | `+` / `−` | **swap-two-glyphs** disclosure (tree nodes, accordions): show `+` when collapsed, `−` when open — also add/remove glyphs |
+
+The two disclosure models are deliberately separate: **chevron rotates one glyph** (sidebar, multiselect),
+while **expand/collapse swaps two glyphs** (trees, accordions). A component picks whichever fits — it
+never rotates a `+` into a `−`.
 
 ## Theming
 
