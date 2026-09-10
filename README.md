@@ -118,13 +118,19 @@ swap the icon set.
 | --- | --- | --- |
 | `--base-icon-chevron` | stroked angle `›` | expanders / nav — **rotate-one-glyph** disclosure (points right, rotate 90° when open) |
 | `--base-icon-caret-down` / `--base-icon-caret-up` | solid triangles `▾` / `▴` | static dropdown / `<select>` affordance (down) and sort-direction / upward-dropdown counterpart (up) — a caret never rotates |
-| `--base-icon-close` | `✕` | close / remove buttons (dialogs, chips, list items) |
-| `--base-icon-clear` | `✕` | clear-a-field — distinct purpose, same default glyph; **follows** `--base-icon-close` at runtime, override alone to diverge |
-| `--base-icon-expand` / `--base-icon-collapse` | `+` / `−` | **swap-two-glyphs** disclosure (tree nodes, accordions): show `+` when collapsed, `−` when open — also add/remove glyphs |
+| `--base-icon-close` | `✕` | dismiss a transient **surface** (dialog, panel, popover, toast) |
+| `--base-icon-clear` | `✕` | clear a **field** — distinct purpose, same glyph; **follows** `--base-icon-close`, override alone to diverge |
+| `--base-icon-remove` | `✕` | take an **item** out of a collection (chip / tag / row) — non-destructive; follows `--base-icon-close` |
+| `--base-icon-expand` / `--base-icon-collapse` | `+` / `−` | **swap-two-glyphs** disclosure (tree nodes, accordions): show `+` when collapsed, `−` when open |
+| `--base-icon-add` / `--base-icon-edit` / `--base-icon-delete` | `+` / pencil / trash | **CRUD action** verbs — create / modify / **destroy** (delete is a trash can, *not* an ✕, so it reads as destructive) |
 
-The two disclosure models are deliberately separate: **chevron rotates one glyph** (sidebar, multiselect),
-while **expand/collapse swaps two glyphs** (trees, accordions). A component picks whichever fits — it
-never rotates a `+` into a `−`.
+Two intentional distinctions:
+
+- **Disclosure models:** **chevron rotates one glyph** (sidebar, multiselect), while **expand/collapse swaps
+  two glyphs** (trees, accordions) — a component never rotates a `+` into a `−`.
+- **✕ vs trash:** `close` / `clear` / `remove` are three *dismiss* purposes that share the ✕ glyph (and
+  cascade off `--base-icon-close`), while `delete` is a separate *destructive* action drawn as a trash can.
+  `add` shares the `+` shape with `expand` but is an independent knob (create ≠ disclosure).
 
 ## Theming
 

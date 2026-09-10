@@ -285,16 +285,24 @@ $base-rem: 1rem !default;
 //                 (down = "a menu opens below") and its sort-direction / upward-
 //                 dropdown counterpart (up). A component SWAPS up/down; a caret
 //                 never rotates (that's the chevron's job).
-//   - close:      the ✕ mark — close / remove buttons (dialogs, chips, list items).
-//   - clear:      the clear-a-FIELD ✕ — distinct PURPOSE from close but the SAME
-//                 default glyph (aliases --base-icon-close at runtime); override
-//                 --base-icon-clear alone to diverge field-clear from close/remove.
+//   - close:      the ✕ — dismiss a transient SURFACE (dialog, panel, popover,
+//                 toast). NOT the same as remove / delete below.
+//   - clear:      clear-a-FIELD ✕ — distinct purpose, same glyph; follows
+//                 --base-icon-close at runtime (override alone to diverge).
+//   - remove:     take an ITEM out of a collection (chip / tag / selected row) —
+//                 non-destructive, reversible. ✕ glyph, follows close (own knob).
 //   - expand/collapse: the +/− pair for the SWAP-two-glyphs disclosure model
-//                 (tree nodes, accordions) — distinct from `chevron`, which is
-//                 the ROTATE-one-glyph model. A component shows `expand` (+) when
-//                 collapsed and `collapse` (−) when open, swapping on state (no
-//                 rotation). Defaults are Lucide plus / minus; +/− shapes double
-//                 as add / remove button glyphs.
+//                 (tree nodes, accordions) — distinct from `chevron`, the
+//                 ROTATE-one-glyph model. Shows `expand` (+) collapsed, `collapse`
+//                 (−) open, swapping on state (no rotation). Lucide plus / minus.
+//
+// Action icons — CRUD verbs with distinct glyphs so they read as actions, NOT as
+// dismiss/disclosure affordances:
+//   - add:        + — create / insert (row, tag, item). Same + shape as `expand`
+//                 but an INDEPENDENT knob (create ≠ disclosure).
+//   - edit:       pencil — modify.
+//   - delete:     trash can — DESTROY permanently (destructive). Deliberately a
+//                 bin, not an ✕, so it never reads like close / remove.
 // =============================================================================
 
 $base-icon-chevron: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22m9 18 6-6-6-6%22/%3E%3C/svg%3E") !default;
@@ -304,6 +312,10 @@ $base-icon-close: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000
 // expand = "+" (shown when collapsed, invites expand); collapse = "−" (shown when open).
 $base-icon-expand: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M5 12h14%22/%3E%3Cpath d=%22M12 5v14%22/%3E%3C/svg%3E") !default;
 $base-icon-collapse: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M5 12h14%22/%3E%3C/svg%3E") !default;
+// Action icons (CRUD). `add` shares the + shape with `expand` but is its own knob.
+$base-icon-add: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M5 12h14%22/%3E%3Cpath d=%22M12 5v14%22/%3E%3C/svg%3E") !default;
+$base-icon-edit: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z%22/%3E%3C/svg%3E") !default;
+$base-icon-delete: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M3 6h18%22/%3E%3Cpath d=%22M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2%22/%3E%3Cpath d=%22M10 11v6%22/%3E%3Cpath d=%22M14 11v6%22/%3E%3C/svg%3E") !default;
 
 // =============================================================================
 // ALERT COLOR DERIVATION PARAMETERS

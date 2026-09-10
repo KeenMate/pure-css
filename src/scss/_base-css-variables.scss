@@ -197,10 +197,22 @@
   // FOLLOWS --base-icon-close at runtime, so overriding close moves clear too —
   // override --base-icon-clear alone to diverge field-clear from close/remove.
   --base-icon-clear: var(--base-icon-close, #{$base-icon-close});
+  // remove (take an ITEM out of a collection: chip/tag/row) = non-destructive,
+  // own purpose, same ✕ default; follows close at runtime like clear. NOT delete
+  // (which is the destructive trash glyph in the action group below).
+  --base-icon-remove: var(--base-icon-close, #{$base-icon-close});
   // expand/collapse = the +/− swap-glyph disclosure pair (trees, accordions),
-  // distinct from the rotating chevron. Also usable as add/remove button glyphs.
+  // distinct from the rotating chevron.
   --base-icon-expand: #{$base-icon-expand};
   --base-icon-collapse: #{$base-icon-collapse};
+
+  // === Action icons — CRUD verbs (distinct glyphs; read as actions) ===
+  // add = + (create/insert; independent knob from expand), edit = pencil,
+  // delete = trash (DESTRUCTIVE — a bin, deliberately not an ✕, so it never
+  // reads like close/remove).
+  --base-icon-add: #{$base-icon-add};
+  --base-icon-edit: #{$base-icon-edit};
+  --base-icon-delete: #{$base-icon-delete};
 
   // === Theme palette slots (1–9) + paired contrast text (WS7.6) ===
   // Promoted into the --base-* contract so the branded/data-viz palette is
