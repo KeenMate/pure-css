@@ -60,7 +60,7 @@
   min-width: 20rem;
   max-width: 32rem;
   padding: $spacing-sm;
-  background: var(--pc-card-bg, var(--base-main-bg));
+  background: var(--base-main-bg);
   border: $border-width-base solid var(--pc-border-color);
   border-radius: var(--pc-border-radius);
   box-shadow: $shadow-lg;

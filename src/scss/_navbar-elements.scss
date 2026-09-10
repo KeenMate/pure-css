@@ -142,7 +142,7 @@
     top: 100%;
     inset-inline-start: 0; // RTL: flips to right: 0
     min-width: 19.2rem;
-    background-color: var(--pc-card-bg, var(--base-main-bg));
+    background-color: var(--base-main-bg);
     border: $border-width-base solid var(--pc-border-color);
     border-radius: var(--pc-border-radius);
     box-shadow: $shadow-lg;
@@ -257,7 +257,7 @@
   }
 
   // SVG mask chevron (was a "›" text glyph). Shares --base-icon-chevron with the
-  // sidebar + components; --pc-icon-chevron overrides, #{$base-icon-chevron} is
+  // sidebar + components; --pa-icon-chevron (core) overrides, #{$base-icon-chevron} is
   // the standalone fallback. `font-size: 0` hides any legacy "›" in old markup.
   &__more-chevron {
     display: inline-block;
@@ -267,8 +267,8 @@
     flex-shrink: 0;
     font-size: 0;
     background-color: currentColor;
-    -webkit-mask: var(--pc-icon-chevron, var(--base-icon-chevron, #{$base-icon-chevron})) center / 1.1rem no-repeat;
-            mask: var(--pc-icon-chevron, var(--base-icon-chevron, #{$base-icon-chevron})) center / 1.1rem no-repeat;
+    -webkit-mask: var(--base-icon-chevron, #{$base-icon-chevron}) center / 1.1rem no-repeat;
+            mask: var(--base-icon-chevron, #{$base-icon-chevron}) center / 1.1rem no-repeat;
     transition: transform $transition-fast $easing-snappy;
   }
 

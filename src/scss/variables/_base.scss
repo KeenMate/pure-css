@@ -139,7 +139,7 @@ $base-tooltip-text-color: #ffffff !default;
 // Success/positive semantic colors
 // =============================================================================
 
-$base-success-color: #10b981 !default;  // Corporate emerald-500 — also --pc-positive in the sentiment scale
+$base-success-color: #10b981 !default;  // Corporate emerald-500 — also --pa-positive in the sentiment scale
 $base-success-bg: $base-success-color !default;  // Solid role fill (web-component bridge: --base-success-bg)
 $base-success-color-hover: #059669 !default;  // Corporate emerald-600
 $base-success-bg-light: rgba($base-success-color, 0.1) !default;
@@ -154,7 +154,7 @@ $base-text-on-success: #ffffff !default;
 // Danger/error semantic colors
 // =============================================================================
 
-$base-danger-color: #ef4444 !default;  // Tailwind red-500 — aligns with --pc-negative in the sentiment scale
+$base-danger-color: #ef4444 !default;  // Tailwind red-500 — aligns with --pa-negative in the sentiment scale
 $base-danger-bg: $base-danger-color !default;  // Solid role fill (web-component bridge: --base-danger-bg)
 $base-danger-color-hover: #dc2626 !default;  // Corporate red-600
 $base-danger-bg-light: rgba($base-danger-color, 0.1) !default;
@@ -209,7 +209,7 @@ $base-text-on-secondary: #ffffff !default;
 // =============================================================================
 // SENTIMENT SCALE — 5-step direction-of-change
 // Used by KPI / data-display components to indicate movement direction.
-// `--pc-positive` and `--pc-negative` alias the role colours above; the
+// `--pa-positive` and `--pa-negative` alias the role colours above; the
 // outlier shades (`very-positive` / `very-negative`) are explicit darker
 // stops since they're not derivable cleanly via color.adjust.
 // =============================================================================

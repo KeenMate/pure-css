@@ -3,6 +3,28 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.0-rc09] — 2026-09-10 [PUBLISHED]
+
+The **shell/namespace decoupling** release. Part of the ecosystem-wide
+`--pc-*` → `--pa-*` component-token rename (custom-property prefix now matches
+class prefix: `--pc-*`/`.pc-*` = pure-css foundation + shell, `--pa-*`/`.pa-*` =
+pure-admin components). pure-css owns none of the renamed tokens; this release
+only removes the shell's few incidental references to pure-admin component
+tokens so the foundation never points into pure-admin's namespace.
+
+### Changed
+
+- **The app shell no longer references pure-admin component tokens.** Three shell
+  surfaces read a `--pc-*` *component* token as the first tier of a fallback
+  chain — the fit-flyout, navbar dropdown and resize-handle used
+  `var(--pc-card-bg, var(--base-main-bg))`; the sidebar search used
+  `var(--pc-input-bg, var(--base-input-bg))`; and the sidebar/navbar chevrons
+  used `var(--pc-icon-chevron, var(--base-icon-chevron, …))`. Those component
+  tokens are being renamed to `--pa-*` (pure-admin's namespace), which the
+  foundation must not depend on, so each reference now reads its `--base-*`
+  foundation value directly. **Rendered output is unchanged** — every dropped
+  tier resolved to the same `--base-*` fallback already.
+
 ## [1.0.0-rc08] — 2026-09-10 [PUBLISHED]
 
 The **foundation-only + coherent-contract** release. rc08 finishes what rc07

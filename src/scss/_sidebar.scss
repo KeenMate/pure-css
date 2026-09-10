@@ -199,7 +199,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
     height: #{$base-input-size-md-height}rem;
     padding: 0 $spacing-base 0 $spacing-sm;
     color: var(--pc-text-color-2);
-    background-color: var(--pc-input-bg, var(--base-input-bg));
+    background-color: var(--base-input-bg);
     border: $border-width-base solid var(--pc-border-color);
     border-radius: var(--pc-border-radius);
     text-align: start; // RTL: flips to right
@@ -409,7 +409,7 @@ body.pc-layout--sticky .pc-layout__sidebar {
   // Chevron icon for toggle buttons. Rendered as an SVG mask painted in
   // currentColor (was a bare "›" text glyph, which rendered inconsistently
   // across platforms/fonts). Reads the shared --base-icon-chevron so it aligns
-  // with pure-admin + the web components; --pc-icon-chevron lets pure-admin
+  // with pure-admin + the web components; --pa-icon-chevron (core) lets pure-admin
   // override, and #{$base-icon-chevron} is the standalone literal fallback.
   // `font-size: 0` collapses any legacy "›" still present in older markup so it
   // never double-renders alongside the mask.
@@ -420,8 +420,8 @@ body.pc-layout--sticky .pc-layout__sidebar {
     flex-shrink: 0;
     font-size: 0;
     background-color: currentColor;
-    -webkit-mask: var(--pc-icon-chevron, var(--base-icon-chevron, #{$base-icon-chevron})) center / 1.2rem no-repeat;
-            mask: var(--pc-icon-chevron, var(--base-icon-chevron, #{$base-icon-chevron})) center / 1.2rem no-repeat;
+    -webkit-mask: var(--base-icon-chevron, #{$base-icon-chevron}) center / 1.2rem no-repeat;
+            mask: var(--base-icon-chevron, #{$base-icon-chevron}) center / 1.2rem no-repeat;
 
     body.loaded & {
       transition: transform $transition-fast $easing-snappy;
