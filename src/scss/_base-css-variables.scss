@@ -214,6 +214,9 @@
   --base-icon-edit: #{$base-icon-edit};
   --base-icon-delete: #{$base-icon-delete};
 
+  // === Utility icons ===
+  --base-icon-search: #{$base-icon-search};
+
   // === Theme palette slots (1–9) + paired contrast text (WS7.6) ===
   // Promoted into the --base-* contract so the branded/data-viz palette is
   // themeable through the same namespace; --pc-color-N aliases these.
