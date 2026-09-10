@@ -74,6 +74,17 @@ overrides compiled in). Because pure-admin-core, its `--pc-*` component
 variables, and every KeenMate component all read the same variables, overriding
 `--base-*` re-themes all of them at once.
 
+**The canonical `--base-*` contract lives in `@keenmate/base-css-variables`** (sibling
+repo `../base-css-variables`, a plain-CSS `light-dark()` file for standalone web
+components). That package is the **parent**; pure-css's `$base-*` SCSS is a *mirror* of
+it — pure-css conforms, it does not own the list. The default values track pure-admin
+**Corporate** (accent `#0ea5e9`, slate surfaces). **Going-forward rule: author a new
+`--base-*` token in base-css-variables FIRST, then mirror it into `_base.scss` + the
+emit mixin.** `scripts/check-base-parity.mjs` guards this — it fails if pure-css's
+emitted `--base-*` names drift from the contract (4 dead tokens are allow-listed).
+Run it after any `--base-*` change: `node scripts/check-base-parity.mjs` (builds read
+`dist/css/base.css`, so `npm run build` first).
+
 ### The `@import` / `!default` mechanism (important, do not "fix")
 
 `variables/_index.scss` uses `@import` (not `@forward`) **on purpose** so all
