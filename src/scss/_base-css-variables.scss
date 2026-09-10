@@ -191,7 +191,12 @@
   // three to re-skin every consumer's affordance at once.
   --base-icon-chevron: #{$base-icon-chevron};
   --base-icon-caret-down: #{$base-icon-caret-down};
+  --base-icon-caret-up: #{$base-icon-caret-up};
   --base-icon-close: #{$base-icon-close};
+  // clear (field-clear ✕) = distinct purpose from close, same default glyph: it
+  // FOLLOWS --base-icon-close at runtime, so overriding close moves clear too —
+  // override --base-icon-clear alone to diverge field-clear from close/remove.
+  --base-icon-clear: var(--base-icon-close, #{$base-icon-close});
   // expand/collapse = the +/− swap-glyph disclosure pair (trees, accordions),
   // distinct from the rotating chevron. Also usable as add/remove button glyphs.
   --base-icon-expand: #{$base-icon-expand};

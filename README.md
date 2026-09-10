@@ -117,8 +117,9 @@ swap the icon set.
 | Token | Glyph | Use |
 | --- | --- | --- |
 | `--base-icon-chevron` | stroked angle `›` | expanders / nav — **rotate-one-glyph** disclosure (points right, rotate 90° when open) |
-| `--base-icon-caret-down` | solid triangle `▾` | the static dropdown / `<select>` affordance (doesn't rotate) |
-| `--base-icon-close` | `✕` | close / clear / remove buttons |
+| `--base-icon-caret-down` / `--base-icon-caret-up` | solid triangles `▾` / `▴` | static dropdown / `<select>` affordance (down) and sort-direction / upward-dropdown counterpart (up) — a caret never rotates |
+| `--base-icon-close` | `✕` | close / remove buttons (dialogs, chips, list items) |
+| `--base-icon-clear` | `✕` | clear-a-field — distinct purpose, same default glyph; **follows** `--base-icon-close` at runtime, override alone to diverge |
 | `--base-icon-expand` / `--base-icon-collapse` | `+` / `−` | **swap-two-glyphs** disclosure (tree nodes, accordions): show `+` when collapsed, `−` when open — also add/remove glyphs |
 
 The two disclosure models are deliberately separate: **chevron rotates one glyph** (sidebar, multiselect),

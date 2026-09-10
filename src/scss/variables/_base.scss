@@ -280,9 +280,15 @@ $base-rem: 1rem !default;
 //                 nav, submenus ("more this way"). Resting glyph points RIGHT
 //                 (LTR); consumers rotate it 90deg to point down when open. This
 //                 is the ROTATE-one-glyph disclosure model (cf. expand/collapse).
-//   - caret-down: small SOLID triangle, STATIC — the dropdown/select affordance
-//                 ("a menu opens below"); doesn't rotate.
-//   - close:      the ✕ mark — close / clear / remove buttons.
+//   - caret-up /
+//     caret-down: small SOLID triangles, STATIC — the dropdown/select affordance
+//                 (down = "a menu opens below") and its sort-direction / upward-
+//                 dropdown counterpart (up). A component SWAPS up/down; a caret
+//                 never rotates (that's the chevron's job).
+//   - close:      the ✕ mark — close / remove buttons (dialogs, chips, list items).
+//   - clear:      the clear-a-FIELD ✕ — distinct PURPOSE from close but the SAME
+//                 default glyph (aliases --base-icon-close at runtime); override
+//                 --base-icon-clear alone to diverge field-clear from close/remove.
 //   - expand/collapse: the +/− pair for the SWAP-two-glyphs disclosure model
 //                 (tree nodes, accordions) — distinct from `chevron`, which is
 //                 the ROTATE-one-glyph model. A component shows `expand` (+) when
@@ -293,6 +299,7 @@ $base-rem: 1rem !default;
 
 $base-icon-chevron: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22m9 18 6-6-6-6%22/%3E%3C/svg%3E") !default;
 $base-icon-caret-down: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22%23000%22 d=%22M12 15 6 9h12z%22/%3E%3C/svg%3E") !default;
+$base-icon-caret-up: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22%23000%22 d=%22M12 9 6 15h12z%22/%3E%3C/svg%3E") !default;
 $base-icon-close: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M18 6 6 18%22/%3E%3Cpath d=%22m6 6 12 12%22/%3E%3C/svg%3E") !default;
 // expand = "+" (shown when collapsed, invites expand); collapse = "−" (shown when open).
 $base-icon-expand: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23000%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M5 12h14%22/%3E%3Cpath d=%22M12 5v14%22/%3E%3C/svg%3E") !default;
