@@ -15,21 +15,23 @@
 // Primary brand/interactive color and its variants
 // =============================================================================
 
-$base-accent-color: #007bff !default;
-$base-accent-color-hover: color.adjust($base-accent-color, $lightness: 10%) !default;
-$base-accent-color-active: color.adjust($base-accent-color, $lightness: 20%) !default;
+// Default theme = pure-admin Corporate (sky-blue). Matches the canonical
+// --base-* contract in @keenmate/base-css-variables; a theme overrides these.
+$base-accent-color: #0ea5e9 !default;
+$base-accent-color-hover: #0284c7 !default;
+$base-accent-color-active: #0369a1 !default;
 $base-accent-color-light: rgba($base-accent-color, 0.05) !default;
-$base-accent-color-light-hover: rgba($base-accent-color, 0.12) !default;
+$base-accent-color-light-hover: rgba($base-accent-color, 0.08) !default;
 
 // =============================================================================
 // TEXT COLORS
 // Hierarchical text colors for different emphasis levels
 // =============================================================================
 
-$base-text-color-1: #2c3e50 !default;  // Primary text (strongest)
-$base-text-color-2: #6c757d !default;  // Secondary text (muted)
-$base-text-color-3: #7a8a99 !default;  // Tertiary text (lighter)
-$base-text-color-4: #a3b1bf !default;  // Quaternary text (lightest)
+$base-text-color-1: #334155 !default;  // Primary text (strongest) — Corporate slate-700
+$base-text-color-2: #64748b !default;  // Secondary text (muted) — slate-500
+$base-text-color-3: #94a3b8 !default;  // Tertiary text (lighter) — slate-400
+$base-text-color-4: #cbd5e1 !default;  // Quaternary text (lightest) — slate-300
 $base-text-color-on-accent: #ffffff !default;  // Text on accent backgrounds
 
 // =============================================================================
@@ -53,6 +55,8 @@ $base-shadow-color: rgba(0, 0, 0, 0.15) !default;  // Shadow color for elevation
 // Elevated surface (header rows, striped rows, popovers/toolbars). Defaults to
 // the page background so the default theme's header appearance is unchanged, but
 // themes can override it independently to create a distinct raised tone.
+// Defaults to the page bg so it tracks a theme's canvas (dark themes stay dark);
+// Corporate overrides it to slate-100 (#f1f5f9) for a distinct header tint.
 $base-elevated-bg: $base-page-bg !default;
 // Text on inverse/dark surfaces (web-component bridge: --base-text-inverted).
 $base-text-inverted: #ffffff !default;
@@ -78,7 +82,7 @@ $base-disabled-bg: #f1f3f5 !default;
 // a theme can retune stroke weight in one place (web-component bridge:
 // --base-border-width). (WS7.1)
 $base-border-width: 1px !default;
-$base-border-color: #e1e5e9 !default;
+$base-border-color: #e2e8f0 !default;  // Corporate slate-200
 $base-border: $base-border-width solid $base-border-color !default;
 // Checkbox/radio border (web-component bridge: --base-checkbox-border-color).
 $base-checkbox-border-color: $base-border-color !default;
@@ -89,14 +93,13 @@ $base-checkbox-border-color: $base-border-color !default;
 // =============================================================================
 
 $base-input-bg: $base-main-bg !default;
-$base-input-color: #495057 !default;
+$base-input-color: #334155 !default;  // Corporate slate-700
 // Input border as a colour (single source) + the 1px shorthand web components
-// read via --base-input-border. Note: pure-admin's own inputs currently border
-// off --base-border-color (#e1e5e9), not this (#ced4da) — a deliberate divergence
-// kept to preserve appearance; see _colors.scss $input-border.
-$base-input-border-color: #ced4da !default;
+// read via --base-input-border. Now equals --base-border-color (both Corporate
+// slate-200 #e2e8f0).
+$base-input-border-color: #e2e8f0 !default;  // = border-color (Corporate slate-200)
 $base-input-border: 1px solid $base-input-border-color !default;
-$base-input-border-hover: 1px solid #b8bfc6 !default;
+$base-input-border-hover: 1px solid $base-accent-color !default;  // Corporate: accent on hover
 $base-input-border-focus: 1px solid $base-accent-color !default;
 $base-input-placeholder-color: $base-text-color-4 !default;
 $base-input-bg-disabled: rgba($base-input-bg, 0.5) !default;
@@ -106,6 +109,8 @@ $base-input-clear-color: $base-text-color-3 !default;
 $base-input-clear-bg-hover: $base-hover-bg !default;
 
 // Input size heights (unitless multipliers for x10px base)
+// Neutral heights (Corporate bumps these +0.3 itself for its wider font — that's a
+// theme ergonomic tweak, not base identity, so the foundation default stays neutral).
 $base-input-size-xs-height: 3.1 !default;  // 31px
 $base-input-size-sm-height: 3.3 !default;  // 33px
 $base-input-size-md-height: 3.5 !default;  // 35px
@@ -134,9 +139,9 @@ $base-tooltip-text-color: #ffffff !default;
 // Success/positive semantic colors
 // =============================================================================
 
-$base-success-color: #22c55e !default;  // Tailwind green-500 — aligns with --pc-positive in the sentiment scale
+$base-success-color: #10b981 !default;  // Corporate emerald-500 — also --pc-positive in the sentiment scale
 $base-success-bg: $base-success-color !default;  // Solid role fill (web-component bridge: --base-success-bg)
-$base-success-color-hover: color.adjust($base-success-color, $lightness: -10%) !default;
+$base-success-color-hover: #059669 !default;  // Corporate emerald-600
 $base-success-bg-light: rgba($base-success-color, 0.1) !default;
 $base-success-bg-subtle: rgba($base-success-color, 0.08) !default;
 $base-success-border: rgba($base-success-color, 0.2) !default;
@@ -151,7 +156,7 @@ $base-text-on-success: #ffffff !default;
 
 $base-danger-color: #ef4444 !default;  // Tailwind red-500 — aligns with --pc-negative in the sentiment scale
 $base-danger-bg: $base-danger-color !default;  // Solid role fill (web-component bridge: --base-danger-bg)
-$base-danger-color-hover: color.adjust($base-danger-color, $lightness: -10%) !default;
+$base-danger-color-hover: #dc2626 !default;  // Corporate red-600
 $base-danger-bg-light: rgba($base-danger-color, 0.1) !default;
 $base-danger-bg-subtle: rgba($base-danger-color, 0.08) !default;
 $base-danger-border: rgba($base-danger-color, 0.2) !default;
@@ -164,24 +169,24 @@ $base-text-on-danger: #ffffff !default;
 // Warning semantic colors
 // =============================================================================
 
-$base-warning-color: #f97316 !default;  // Tailwind orange-500 — also serves as the off-target axis in KPI components
+$base-warning-color: #f59e0b !default;  // Corporate amber-500 — also the off-target axis in KPI components
 $base-warning-bg: $base-warning-color !default;  // Solid role fill (web-component bridge: --base-warning-bg)
-$base-warning-color-hover: color.adjust($base-warning-color, $lightness: -10%) !default;
+$base-warning-color-hover: #d97706 !default;  // Corporate amber-600
 $base-warning-bg-light: rgba($base-warning-color, 0.1) !default;
 $base-warning-bg-subtle: rgba($base-warning-color, 0.08) !default;
 $base-warning-border: rgba($base-warning-color, 0.2) !default;
 $base-warning-text: #856404 !default;
 $base-warning-text-light: #fff3cd !default;
-$base-text-on-warning: #212529 !default;  // Dark text for yellow backgrounds
+$base-text-on-warning: #ffffff !default;  // Corporate uses white on amber
 
 // =============================================================================
 // CONTEXTUAL COLORS - INFO
 // Info semantic colors
 // =============================================================================
 
-$base-info-color: #17a2b8 !default;
+$base-info-color: #06b6d4 !default;  // Corporate cyan-500
 $base-info-bg: $base-info-color !default;  // Solid role fill — role symmetry with success/danger/warning (WS7.4)
-$base-info-color-hover: color.adjust($base-info-color, $lightness: -10%) !default;
+$base-info-color-hover: #0891b2 !default;  // Corporate cyan-600
 $base-info-bg-light: rgba($base-info-color, 0.1) !default;
 $base-info-bg-subtle: rgba($base-info-color, 0.08) !default;
 $base-info-border: rgba($base-info-color, 0.2) !default;
@@ -212,6 +217,33 @@ $base-text-on-secondary: #ffffff !default;
 $base-very-positive: #16a34a !default;  // Tailwind green-600 — outlier positive
 $base-very-negative: #dc2626 !default;  // Tailwind red-600 — outlier negative
 $base-neutral:       #9ca3af !default;  // Tailwind gray-400 — "no meaningful change"
+
+// =============================================================================
+// THEME PALETTE SLOTS (1–9) + paired contrast text
+// Arbitrary branded / data-viz slots. These are the SOURCE for $color-1..9
+// (variables/_colors.scss derives `$color-N: $base-color-N`) and the emitted
+// --base-color-N / --pc-color-N, so the palette follows the same $base-* → $X
+// chain as every other token. Default = Corporate palette.
+// =============================================================================
+
+$base-color-1: #f59e0b !default;  // Amber
+$base-color-2: #ec4899 !default;  // Pink
+$base-color-3: #10b981 !default;  // Emerald
+$base-color-4: #0ea5e9 !default;  // Sky blue
+$base-color-5: #8b5cf6 !default;  // Violet
+$base-color-6: #6366f1 !default;  // Indigo
+$base-color-7: #64748b !default;  // Slate
+$base-color-8: #0284c7 !default;  // Corporate blue
+$base-color-9: #334155 !default;  // Dark slate
+$base-color-1-text: #1a1a1a !default;  // dark on amber
+$base-color-2-text: #ffffff !default;
+$base-color-3-text: #ffffff !default;
+$base-color-4-text: #ffffff !default;
+$base-color-5-text: #ffffff !default;
+$base-color-6-text: #ffffff !default;
+$base-color-7-text: #ffffff !default;
+$base-color-8-text: #ffffff !default;
+$base-color-9-text: #ffffff !default;
 
 // =============================================================================
 // INTERACTIVE STATES
