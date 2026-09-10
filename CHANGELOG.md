@@ -3,6 +3,86 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.0-rc08] — 2026-09-10 [PUBLISHED]
+
+The **foundation-only + coherent-contract** release. rc08 finishes what rc07
+started: pure-css sheds pure-admin's component vocabulary to become a true
+foundation, the `--base-*` contract is cleaned up into a coherent, fully-named
+token API, a shared themeable icon layer lands, and the default palette is
+rebased onto pure-admin **Corporate**. The canonical `--base-*` list now lives in
+the parent package [`@keenmate/base-css-variables`](https://www.npmjs.com/package/@keenmate/base-css-variables);
+pure-css mirrors it and a drift guard keeps the two honest.
+
+### ⚠ Breaking
+
+- **The `--pc-*` component layer moved to `@keenmate/pure-admin-core`.** pure-css
+  no longer ships `variables/_components.scss` or emits the component token
+  mixins (`output-pc-component-variables`, `output-pc-component-mode-variables`,
+  `output-pc-alert-variables-{light,dark}`) — the whole buttons / cards / tables /
+  modals / tabs / alerts / badges / panels / command-palette / multiselect /
+  sentiment / form-spacing vocabulary. pure-css is now **foundation-only**: the
+  `--base-*` bridge plus the base `--pc-*` tokens (surfaces, text, accent, links,
+  border, the semantic role identities, the theme palette slots, the radius
+  scale). Anything that relied on pure-css emitting component `--pc-*` tokens must
+  now take them from **pure-admin-core ≥ 2.9.0-rc20**, which owns the mixins and
+  the `$`-vocabulary. Consumers of the compiled `dist/css/*` are unaffected; only
+  SCSS consumers that `@include`d the component mixins need the core bump.
+
+### Added
+
+- **A shared, themeable icon contract — 13 `--base-icon-*` tokens.** `chevron`,
+  `caret-down`, `caret-up`, `close`, `clear`, `remove`, `expand`, `collapse`,
+  `add`, `edit`, `delete`, `search` (Lucide defaults), emitted as percent-encoded
+  SVG data-URIs meant to be painted via `mask` + `background: currentColor`. One
+  `--base-icon-*` override re-skins the shell, pure-admin components, and the web
+  components together. The dismiss family (`close`/`clear`/`remove`) cascades off
+  `--base-icon-close`; the CRUD family (`add`/`edit`/`delete`) reads as distinct
+  verbs (delete is a trash bin, not an ✕). Two disclosure models are documented:
+  chevron **rotates one glyph**, expand/collapse **swaps two**.
+- **A coherent `--base-*` token API (WS7).** `--base-border-width`; the
+  `--base-primary-*` role set as aliases of accent; `--base-secondary-color(-hover)`
+  + `--base-text-on-secondary`; `--base-text-on-{primary,danger,success,warning,info}`
+  (the `text-on-<role>` convention); `--base-info-bg` (role symmetry); the brand
+  palette `--base-color-1..9` (+ `-text`), aliased by `--pc-color-N`; and the
+  non-colour scales `--base-space-*`, `--base-shadow-{sm,md,lg}`,
+  `--base-duration-*` + `--base-ease-*`, and `--base-z-*`.
+- **`--pc-hover-bg` / `--pc-active-bg`** base tokens, so component hover/active
+  states read a dedicated interaction-state axis instead of borrowing the
+  recessed `--base-subtle-bg` surface.
+- **`component-reset` — a Shadow-DOM reset entry** (`./component-reset`,
+  `dist/css/component-reset.css`). The counterpart to `reboot` for web components:
+  a `:host` box-sizing + inherited-typography reset pinned to `--base-*` so a host
+  page can't bleed into a component's shadow root. Sets no `rem` base; pair with
+  `base`. This brings the build to **7 artifacts**.
+
+### Changed
+
+- **Default theme rebased onto pure-admin Corporate.** `$base-*` defaults now
+  track Corporate — accent `#0ea5e9`, slate text/surfaces, role hues emerald /
+  red / amber / cyan — and the palette is sourced from `$base-color-1..9`. This
+  changes pure-css's **un-themed default look**; themed apps are unaffected since
+  every theme sets its own `--base-*`. (Verified: of the reconciled defaults, only
+  `--base-input-border-color` — the one un-owned token — shifts themed output.)
+- **`--base-disabled-bg`** given its own distinct value (`#f1f3f5`) instead of
+  colliding with the hover/subtle surface.
+- **The shell chevrons are now SVG masks, not a `›` text glyph.** The sidebar
+  collapse chevron and the navbar "more" chevron render `--base-icon-chevron` via
+  a mask box (rotated on open); the `fit.js` injectors emit empty spans painted by
+  CSS.
+
+### Removed
+
+- Dead `--pc-multiselect-*` and the simple `--pc-badge-*` tokens (web-multiselect
+  themes off its own `--ms-*` namespace; badges read `--pc-btn-*` / `--pc-color-*`).
+
+### Internal
+
+- **`@keenmate/base-css-variables` is the canonical `--base-*` parent.** pure-css
+  mirrors its token list into `$base-*` SCSS; `scripts/check-base-parity.mjs`
+  fails the build if the emitted `--base-*` names drift from the contract (4 dead
+  tokens allow-listed). Going-forward rule: author a new `--base-*` token in
+  base-css-variables first, then mirror it here.
+
 ## [1.0.0-rc07] — 2026-09-08 [PUBLISHED]
 
 The **shared theming knob** release. Before rc07 the same visual token (a tooltip
