@@ -3,6 +3,34 @@
 All notable changes to `@keenmate/pure-css` are documented here. Format based on
 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.0] — 2026-09-12 [PUBLISHED]
+
+The **first stable release** — the 1.0.0-rc series culminates here. Two additive
+changes since rc09: the shared `--base-*` icon contract gains a `filter` glyph and
+a `check` / `indeterminate` selection pair, and the mode/variant class-placement
+rule is now documented.
+
+### Added
+
+- **Three `--base-icon-*` tokens: `filter`, `check`, `indeterminate`.** All
+  mask-friendly Lucide glyphs, authored in the canonical
+  `@keenmate/base-css-variables` contract first and mirrored into
+  `variables/_base.scss` + `output-base-css-variables` (parity drift-guard stays green).
+  - `filter` (funnel) — "refine / narrow a list", deliberately distinct from
+    `search` (find-by-text).
+  - `check` (✓) + `indeterminate` (−) — the checkbox / tree-node selection pair
+    shared by web-multiselect, web-treeview and plain checkboxes: `check` =
+    selected, `indeterminate` = a tri-state parent whose children are a mix.
+    `indeterminate` shares the minus shape with `collapse` but is its own
+    independently-overridable knob (selection ≠ disclosure, mirroring add vs expand).
+- **"Mode & variant class placement" documentation.** A new README section, plus a
+  matching `NOTE` in `_base-css-variables.scss`, explaining that `.pc-mode-*` /
+  `.pa-color-*` classes must sit on `<html>` (`:root`), not `<body>`: derived
+  component tokens emitted once at `:root` (e.g. `--pa-btn-info-bg: var(--pc-info)`)
+  freeze at the default-mode value if the mode class lands on a descendant, so role
+  buttons/surfaces fail to recolour on switch. Includes the one-frame
+  `transition: none` trick to avoid a colour flash.
+
 ## [1.0.0-rc09] — 2026-09-10 [PUBLISHED]
 
 The **shell/namespace decoupling** release. Part of the ecosystem-wide

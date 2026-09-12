@@ -215,7 +215,17 @@
   --base-icon-delete: #{$base-icon-delete};
 
   // === Utility icons ===
+  // search = magnifying glass (find by text); filter = funnel (refine/narrow a
+  // list — distinct affordance from search, its own knob).
   --base-icon-search: #{$base-icon-search};
+  --base-icon-filter: #{$base-icon-filter};
+
+  // === Selection icons — checkbox / tree-node state pair ===
+  // check = ✓ (selected), indeterminate = − (tri-state parent, partially selected).
+  // Shared by web-multiselect / web-treeview / checkboxes. indeterminate shares the
+  // minus shape with collapse but is its OWN knob (selection ≠ disclosure).
+  --base-icon-check: #{$base-icon-check};
+  --base-icon-indeterminate: #{$base-icon-indeterminate};
 
   // === Theme palette slots (1–9) + paired contrast text (WS7.6) ===
   // Promoted into the --base-* contract so the branded/data-viz palette is
@@ -294,6 +304,13 @@
 // against its own --pc-text-color-1. The selector list `:root, .pc-mode-light,
 // .pc-mode-dark` covers html, body in light mode, and body in dark mode —
 // regardless of which class layout each theme uses for mode switching.
+//
+// NOTE: this placement-agnosticism only covers the base tokens pure-css emits
+// here. The pure-admin COMPONENT tokens (e.g. `--pa-btn-info-bg: var(--pc-info)`)
+// are emitted once at `:root` by core and are NOT re-emitted per mode, so they
+// only re-resolve when the mode/variant class sits on the :root element itself.
+// Consumers MUST therefore apply `.pc-mode-*` / `.pa-color-*` to `<html>`, not
+// `<body>` — see README "Mode & variant class placement".
 //
 // This is a TOP-LEVEL rule (not inside the mixin) because themes only call
 // the mixin from their light-mode block; they don't call it again in the

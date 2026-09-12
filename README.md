@@ -1,38 +1,47 @@
 # @keenmate/pure-css
 
-The KeenMate CSS **foundation** — the `--base-*` theming contract, the flexbox grid (`.pc-row` / `.pc-col`), and the
-utility classes — extracted from [`@keenmate/pure-admin-core`](https://github.com/KeenMate/pure-admin)
-so it can be consumed on its own.
+KeenMate's CSS **foundation** — descended from [Yahoo's Pure CSS](https://purecss.io/) and extended into a
+more robust, themeable layer for real apps. One small, dependency-free package gives you the
+**`--base-*` theming contract** (one block of custom properties re-themes everything at once), a
+modern **flexbox grid** (`.pc-row` / `.pc-col`, container-query responsive — replacing Pure's float
+grid), a set of **utility classes**, and an optional **app shell + JS runtime** (in the
+`pure-css.css` bundle).
+
+It's the shared layer the whole KeenMate stack agrees on:
+[`@keenmate/pure-admin-core`](https://github.com/KeenMate/pure-admin) builds its component library on
+top of it, and every KeenMate web/Svelte component reads its colours from the same `--base-*`
+variables.
+
+## What's New in 1.0.0
+
+- **Icons — a `filter` glyph and a `check` / `indeterminate` selection pair join the shared `--base-*` contract** — three more mask-friendly Lucide glyphs so every consumer paints the same affordances from one theme knob. `--base-icon-filter` (a funnel) is the "refine / narrow a list" mark, deliberately separate from `--base-icon-search` (find-by-text) so a component can show both at once. `--base-icon-check` (✓) and `--base-icon-indeterminate` (−) are the checkbox / tree-node selection pair used by web-multiselect, web-treeview and plain checkboxes — `check` means selected, `indeterminate` means a tri-state parent whose children are a mix. `indeterminate` reuses the minus shape of `collapse` by default but is its own independently-overridable token, so selection never gets entangled with disclosure (the same discipline as `add` vs `expand`). All three are authored in the canonical `@keenmate/base-css-variables` package first and mirrored into `variables/_base.scss` + the emit mixin, keeping the parity drift-guard green; consume them via `mask: var(--base-icon-check); background: currentColor`.
+
+- **Docs — mode & variant classes belong on `<html>`, not `<body>`** — a new "Mode & variant class placement" section in the README (mirrored by a `NOTE` in `_base-css-variables.scss`) documents a subtle theming pitfall. CSS resolves a custom property's `var()` at the element that *declares* it, so derived component tokens that pure-admin-core emits once at `:root` — e.g. `--pa-btn-info-bg: var(--pc-info)` — bake in `:root`'s input value. Put a `.pc-mode-dark` / `.pa-color-*` class on a descendant like `<body>` and the override arrives too late: the derived token stays frozen at its default-mode value and role buttons or surfaces don't recolour when you switch. Applying the class to `:root` (the element that declares the tokens) makes the overrides win and everything re-resolves. The section also documents the one-frame `transition: none !important` trick to suppress a colour flash during the swap.
 
 ## What's New in 1.0.0-rc09
 
 - **Namespace hygiene — the app shell no longer reaches into pure-admin's token namespace** — the KeenMate ecosystem is aligning its custom-property prefixes with its class prefixes: `--pc-*` / `.pc-*` belong to the pure-css foundation + app shell, `--pa-*` / `.pa-*` belong to pure-admin components. As part of that rename, pure-css's shell had a handful of incidental references to *component* tokens — `var(--pc-card-bg, …)` in the fit-flyout / navbar dropdown / resize-handle, `var(--pc-input-bg, …)` in the sidebar search, and `var(--pc-icon-chevron, …)` on the sidebar/navbar chevrons. Since those tokens are moving to `--pa-*` (pure-admin's namespace) and the foundation must not depend on pure-admin, each now reads its `--base-*` foundation value directly. Rendered output is byte-for-byte unchanged — every dropped tier already resolved to the same `--base-*` fallback.
 
-## What's New in 1.0.0-rc08
-
-- **Foundation-only — the `--pc-*` component layer moved to `@keenmate/pure-admin-core` (breaking)** — pure-css no longer ships `variables/_components.scss` or the component emit mixins (`output-pc-component-variables`, `output-pc-component-mode-variables`, `output-pc-alert-variables-{light,dark}`) — the whole buttons / cards / tables / modals / alerts / badges / command-palette / multiselect vocabulary. pure-css is now a true foundation: the `--base-*` bridge plus the base `--pc-*` tokens (surfaces, text, accent, links, border, role identities, palette slots, radius). SCSS consumers that `@include`d the component mixins must take them from pure-admin-core ≥ 2.9.0-rc20; consumers of the compiled `dist/css/*` are unaffected.
-- **Icons — a shared, themeable `--base-icon-*` contract (13 tokens)** — `chevron`, `caret-down`/`-up`, `close`, `clear`, `remove`, `expand`, `collapse`, `add`, `edit`, `delete`, `search` (Lucide defaults), emitted as percent-encoded SVG data-URIs painted via `mask` + `background: currentColor`. One override re-skins the shell, pure-admin components, and the web components together; the shell's sidebar/navbar chevrons are now SVG masks instead of a `›` text glyph. Two disclosure models are documented — chevron *rotates one glyph*, expand/collapse *swaps two*.
-- **Contract — a coherent, fully-named `--base-*` token API (WS7)** — added `--base-border-width`, the `--base-primary-*` accent aliases, `--base-secondary-*`, the `--base-text-on-<role>` set, `--base-info-bg` for role symmetry, the `--base-color-1..9` (+`-text`) brand palette aliased by `--pc-color-N`, and the non-colour scales `--base-space-*`, `--base-shadow-{sm,md,lg}`, `--base-duration-*` + `--base-ease-*`, and `--base-z-*`. `--base-disabled-bg` got its own value (`#f1f3f5`) instead of colliding with the hover surface.
-- **Surfaces — hover/active split off the recessed surface** — new `--pc-hover-bg` / `--pc-active-bg` base tokens let component hover/active states read a dedicated interaction-state axis rather than borrowing the recessed `--base-subtle-bg`, which read as *raised* in several dark themes.
-- **Theme — default palette rebased onto pure-admin Corporate** — `$base-*` defaults now track Corporate (accent `#0ea5e9`, slate text/surfaces, emerald/red/amber/cyan roles), with the palette sourced from `$base-color-1..9`. This changes pure-css's *un-themed* default look; themed apps are unaffected since every theme sets its own `--base-*`.
-- **Shadow DOM — a new `component-reset` entry** — `./component-reset` (`dist/css/component-reset.css`) is the counterpart to `reboot` for web components: a `:host` box-sizing + inherited-typography reset pinned to `--base-*` so a host page can't bleed into a component's shadow root. No `rem` base — pair it with `base`. Brings the build to 7 artifacts.
-- **Internal — `@keenmate/base-css-variables` is now the canonical `--base-*` parent** — pure-css mirrors its token list into `$base-*` SCSS, and `scripts/check-base-parity.mjs` fails the build if the emitted names drift from the contract. New tokens are authored in base-css-variables first, then mirrored here.
-
 ## Why
 
-Any surface that isn't a full admin app — a docs site, a marketing page, a standalone widget host —
-wants the *foundation* (variables + grid + utilities) without pure-admin-core's 40+ components. And
-every KeenMate web component (`<web-multiselect>`, …) and Svelte component already reads its colors
-from the `--base-*` custom properties. Shipping those from one small package means one theming layer
-that the components, the admin framework, and everything else all agree on.
+pure-css is a **standalone foundation** you drop onto any surface — a docs site, a marketing page, a
+widget host, or a full application. One small, dependency-free package gives you theming, layout and
+utilities without buying into a component framework.
+
+Its heart is a single **`--base-*` theming contract**: override one block of custom properties and
+everything re-themes at once — the grid, the utilities, the optional app shell, and any component
+that reads the same variables. Light and dark are built in via `light-dark()`, there's no build step
+to consume it (just link the prebuilt CSS), and it pulls in no runtime dependencies.
 
 ```
-@keenmate/pure-css              @keenmate/pure-admin-core
-  ├─ --base-* variables    ◀────  imports pure-css, adds
-  ├─ .pc-row / .pc-col grid       the component library
-  └─ utility classes
-        ▲
-        └── docs sites, portals, component hosts consume the built CSS directly
+@keenmate/pure-css  (this package)
+  ├─ --base-* theming contract
+  ├─ .pc-row / .pc-col grid
+  ├─ utility classes
+  └─ optional app shell + JS runtime
+        ▲  consumed directly, as built CSS, by…
+        ├── docs sites · portals · marketing pages · widget & component hosts
+        └── @keenmate/pure-admin-core — adds a full component library on top (just one consumer)
 ```
 
 ## Installation
@@ -124,15 +133,19 @@ swap the icon set.
 | `--base-icon-remove` | `✕` | take an **item** out of a collection (chip / tag / row) — non-destructive; follows `--base-icon-close` |
 | `--base-icon-expand` / `--base-icon-collapse` | `+` / `−` | **swap-two-glyphs** disclosure (tree nodes, accordions): show `+` when collapsed, `−` when open |
 | `--base-icon-add` / `--base-icon-edit` / `--base-icon-delete` | `+` / pencil / trash | **CRUD action** verbs — create / modify / **destroy** (delete is a trash can, *not* an ✕, so it reads as destructive) |
-| `--base-icon-search` | magnifying glass | search inputs, filter fields, command palette |
+| `--base-icon-search` | magnifying glass | search inputs, command palette — find **by text** |
+| `--base-icon-filter` | funnel | refine / **narrow a list** by criteria (filter toggles, faceted search) — distinct from `search` |
+| `--base-icon-check` / `--base-icon-indeterminate` | `✓` / `−` | **selection** pair (checkboxes, multiselect, tree nodes): `check` = selected, `indeterminate` = a tri-state parent whose children are a mix |
 
-Two intentional distinctions:
+Three intentional distinctions:
 
 - **Disclosure models:** **chevron rotates one glyph** (sidebar, multiselect), while **expand/collapse swaps
   two glyphs** (trees, accordions) — a component never rotates a `+` into a `−`.
 - **✕ vs trash:** `close` / `clear` / `remove` are three *dismiss* purposes that share the ✕ glyph (and
   cascade off `--base-icon-close`), while `delete` is a separate *destructive* action drawn as a trash can.
   `add` shares the `+` shape with `expand` but is an independent knob (create ≠ disclosure).
+- **Selection ≠ disclosure:** `indeterminate` shares the `−` shape with `collapse` but is its own knob —
+  a partially-selected checkbox is not a collapsed node.
 
 ## Theming
 
@@ -151,6 +164,27 @@ Because pure-admin-core, the components and any consumer all read the same varia
 re-themes all of them at once. This is the same model as
 [`@keenmate/pure-admin-themes`](https://github.com/KeenMate/pure-admin-themes), so the same CLI and
 publishing infrastructure applies.
+
+### Mode & variant class placement
+
+Light/dark and colour-variant switching is done by toggling a class — `.pc-mode-light` /
+`.pc-mode-dark` and `.pa-color-*`. **Apply these to the `:root` element (`<html>`), not `<body>`.**
+
+The mode/variant blocks override input tokens (`--pc-*` / `--base-*`). Many themed tokens are
+*derived* from those inputs and emitted once at `:root` — e.g. core emits
+`--pa-btn-info-bg: var(--pc-info)`. CSS resolves a custom property's `var()` **at the element that
+declares it**, so a derived token declared on `:root` bakes in `:root`'s input value. If the mode
+class sits on a *descendant* (`<body>`), the override comes too late and the derived token stays
+frozen at the default-mode value — the classic symptom is a role button or surface that doesn't
+change colour when you switch modes. Putting the class on `:root` (the same element that declares
+the tokens) makes the overrides win and the derived tokens re-resolve.
+
+pure-css re-emits its own base text-tier tokens at `:root, .pc-mode-light, .pc-mode-dark` to tolerate
+either placement, but that does not extend to the pure-admin component layer, hence the `:root` rule.
+
+To avoid a colour "flash" on switch, disable transitions for one frame during the swap (add a
+`transition: none !important` class to `:root`, change the mode/variant class, force a reflow, then
+remove it).
 
 ## Build
 
